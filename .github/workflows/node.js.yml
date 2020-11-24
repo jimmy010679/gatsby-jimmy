@@ -1,0 +1,46 @@
+name: delopy and push to S3
+
+on:
+  push:
+    branches: [master, develop]
+
+jobs:
+  BuildAndDeploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: npm install
+        run: |
+          npm ci
+          npm run deploy
+      - name: Set Variable
+        run: |
+          echo "TIME_VERSION=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV        
+          echo "REF_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV  
+          echo "SHA_VERSION=${GITHUB_SHA}" >> $GITHUB_ENV
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: ECHO Variable
+        run: |
+          echo "${{ env.REF_VERSION }}"
+          echo "${{ env.SHA_VERSION }}"
+      - name: delopy to S3 Master
+        if: ${{ env.REF_VERSION == 'master' }}
+        run: aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+
+      - name: delopy to S3 Develop
+        if: ${{ env.REF_VERSION == 'develop' }}
+        run: aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
