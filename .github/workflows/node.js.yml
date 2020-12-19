@@ -45,4 +45,4 @@ jobs:
         if: ${{ env.REF_VERSION == 'develop' }}
         run: |
           aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
-          aws cloudfront create-invalidation --distribution-id ${{ AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"      
+          aws cloudfront create-invalidation --distribution-id ${{ AWS_CLOUDFRONT_DEVELOP }} --paths "/*"      
