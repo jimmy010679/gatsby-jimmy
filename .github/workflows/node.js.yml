@@ -43,4 +43,6 @@ jobs:
 
       - name: delopy to S3 Develop
         if: ${{ env.REF_VERSION == 'develop' }}
-        run: aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
+        run: |
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ AWS_ClOUDFRONT_DEVELOP_ID }} --paths "/*"
