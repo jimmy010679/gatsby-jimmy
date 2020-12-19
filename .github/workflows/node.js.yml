@@ -39,10 +39,12 @@ jobs:
           echo "${{ env.SHA_VERSION }}"
       - name: delopy to S3 Master
         if: ${{ env.REF_VERSION == 'master' }}
-        run: aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+        run: |
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"
 
       - name: delopy to S3 Develop
         if: ${{ env.REF_VERSION == 'develop' }}
         run: |
           aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
-          aws cloudfront create-invalidation --distribution-id "${{ AWS_CLOUDFRONT_DEVELOP }}" --paths "/*"      
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
