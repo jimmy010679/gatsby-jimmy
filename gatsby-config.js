@@ -35,6 +35,9 @@ module.exports = {
       },
     },
 
+    /* markdown  */
+    `gatsby-transformer-remark`,
+
     // sass SCSS
     `gatsby-plugin-sass`,
 
