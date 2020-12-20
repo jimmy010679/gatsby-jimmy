@@ -4,6 +4,16 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+/** 
+  自定義環境變量
+  開發 .env.development
+  正式 .env.production
+  https://www.gatsbyjs.com/docs/environment-variables
+ */
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   /* Your site config here */
   siteMetadata: {
@@ -23,6 +33,16 @@ module.exports = {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         output: `/sitemap.xml`,
+      },
+    },
+
+    /* contentful */
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `k231co3h64tm`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
 
