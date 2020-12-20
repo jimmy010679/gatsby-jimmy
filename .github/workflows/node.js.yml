@@ -19,8 +19,18 @@ jobs:
 
       - name: npm install
         run: |
-          npm ci
+          npm ci      
+      
+      - name: Create env file
+        run: |
+          touch .env.production
+          echo CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env.production
+          cat .env.production
+      
+      - name: gatsby build
+        run: |
           npm run deploy
+
       - name: Set Variable
         run: |
           echo "TIME_VERSION=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV        
@@ -36,13 +46,7 @@ jobs:
       - name: ECHO Variable
         run: |
           echo "${{ env.REF_VERSION }}"
-          echo "${{ env.SHA_VERSION }}"
-      
-      - name: Create env file
-        run: |
-          touch .env.production
-          echo CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env.production
-          cat .env.production
+          echo "${{ env.SHA_VERSION }}"      
 
       - name: delopy to S3 Master
         if: ${{ env.REF_VERSION == 'master' }}
