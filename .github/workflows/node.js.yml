@@ -41,8 +41,8 @@ jobs:
       - name: Create env file
         run: |
           touch .env.production
-          echo CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env
-          cat .env
+          echo CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env.production
+          cat .env.production
 
       - name: delopy to S3 Master
         if: ${{ env.REF_VERSION == 'master' }}
