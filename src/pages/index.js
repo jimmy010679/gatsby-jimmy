@@ -30,26 +30,20 @@ const Home = () => {
       <Container maxWidth="lg">
         <Button color="primary">Hello World</Button>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            xs=12
-          </Grid>
-          <Grid item xs={6}>
+        <Grid container spacing={0}>
+          <Grid item xs={6} lg>
             xs=6
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} lg>
             xs=6
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} lg>
             xs=3
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} lg>
             xs=3
           </Grid>
-          <Grid item xs={3}>
-            xs=3
-          </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} lg>
             xs=3
           </Grid>
         </Grid>
