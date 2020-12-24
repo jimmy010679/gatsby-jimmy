@@ -1,10 +1,11 @@
 import React from "react"
+import styles from "./layout.module.css"
 
-//import styles from "./layout.module.css"
 import {
   CssBaseline,
   createMuiTheme,
   MuiThemeProvider,
+  LinearProgress,
 } from "@material-ui/core"
 
 const theme = createMuiTheme({
@@ -23,6 +24,8 @@ const Layout = ({ children, type }) => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
+      <LinearProgress color="primary" className={styles.topProgress} />
+
       {children}
     </MuiThemeProvider>
   )
