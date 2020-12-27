@@ -3,7 +3,7 @@ import React from "react"
 import SEO from "../components/Common/SEO"
 import Layout from "../components/Layout"
 
-import { Container, Grid, Button } from "@material-ui/core"
+import { Container, Grid, Button, Paper } from "@material-ui/core"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
@@ -27,76 +27,83 @@ const Home = () => {
           ...
         </Swiper>
       </div>
-      <Container maxWidth="lg">
-        <Button color="primary">Hello World</Button>
+      <div className="blogNews">
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </div>
+      <div className="protfolio">
+        <Container maxWidth="lg">
+          <Grid container spacing={3}>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+          </Grid>
 
-        <Grid container spacing={0}>
-          <Grid item xs={6} lg>
-            xs=6
-          </Grid>
-          <Grid item xs={6} lg>
-            xs=6
-          </Grid>
-          <Grid item xs={6} lg>
-            xs=3
-          </Grid>
-          <Grid item xs={6} lg>
-            xs=3
-          </Grid>
-          <Grid item xs={6} lg>
-            xs=3
-          </Grid>
-          <Grid item lg={12}>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-          </Grid>
-        </Grid>
-      </Container>
+          <Button color="primary">Hello World</Button>
+        </Container>
+      </div>
     </Layout>
   )
 }
