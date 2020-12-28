@@ -69,5 +69,8 @@ module.exports = {
       gatsby-plugin-react-helmet, react-helmet
     */
     `gatsby-plugin-react-helmet`,
+
+    /* material-ui */
+    `gatsby-plugin-material-ui`,
   ],
 }
