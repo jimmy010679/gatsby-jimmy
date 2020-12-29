@@ -27,8 +27,9 @@ const Home = () => {
       </div>
       <div className="blogNews">
         <Container maxWidth="lg">
+          <h2>最新文章</h2>
           <Grid container spacing={3}>
-            <Grid item xs={6} lg>
+            <Grid item xs={6} lg={7}>
               <Paper elevation={2}>
                 <p>1</p>
                 <p>1</p>
@@ -37,7 +38,7 @@ const Home = () => {
                 <p>1</p>
               </Paper>
             </Grid>
-            <Grid item xs={6} lg>
+            <Grid item xs={6} lg={5}>
               <Paper elevation={2}>
                 <p>1</p>
                 <p>1</p>
@@ -46,7 +47,7 @@ const Home = () => {
                 <p>1</p>
               </Paper>
             </Grid>
-            <Grid item xs={6} lg>
+            <Grid item xs={6} lg={4}>
               <Paper elevation={2}>
                 <p>1</p>
                 <p>1</p>
@@ -55,7 +56,16 @@ const Home = () => {
                 <p>1</p>
               </Paper>
             </Grid>
-            <Grid item xs={6} lg>
+            <Grid item xs={6} lg={4}>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg={4}>
               <Paper elevation={2}>
                 <p>1</p>
                 <p>1</p>
@@ -69,7 +79,17 @@ const Home = () => {
       </div>
       <div className="protfolio">
         <Container maxWidth="lg">
+          <h2>作品集</h2>
           <Grid container spacing={3}>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
             <Grid item xs={6} lg>
               <Paper elevation={2}>
                 <p>1</p>
