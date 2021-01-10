@@ -46,6 +46,7 @@ exports.createPages = async ({ graphql, actions }) => {
         aid: article.node.aid,
         title: article.node.title,
         content: article.node.content.childMarkdownRemark.html,
+        //content: article.node.content.content,
       },
     })
     console.log("article:" + article.node.aid)

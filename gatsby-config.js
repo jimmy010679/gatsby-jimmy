@@ -56,7 +56,16 @@ module.exports = {
     },
 
     /* markdown  */
-    `gatsby-transformer-remark`,
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          {
+            resolve: "gatsby-remark-prismjs",
+          },
+        ],
+      },
+    },
 
     // sass SCSS
     `gatsby-plugin-sass`,
