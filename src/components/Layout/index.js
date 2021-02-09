@@ -1,14 +1,33 @@
 import React from "react"
+import styles from "./layout.module.css"
 
-//import styles from "./layout.module.css"
-import { CssBaseline } from "@material-ui/core"
+import {
+  CssBaseline,
+  createMuiTheme,
+  MuiThemeProvider,
+  LinearProgress,
+} from "@material-ui/core"
+
+const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
+})
 
 const Layout = ({ children, type }) => {
   return (
-    <React.Fragment>
+    <MuiThemeProvider theme={theme}>
       <CssBaseline />
+      <LinearProgress color="primary" className={styles.topProgress} />
+
       {children}
-    </React.Fragment>
+    </MuiThemeProvider>
   )
 }
 

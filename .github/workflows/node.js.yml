@@ -19,8 +19,18 @@ jobs:
 
       - name: npm install
         run: |
-          npm ci
+          npm ci      
+      
+      - name: Create env file
+        run: |
+          touch .env.production
+          echo CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env.production
+          cat .env.production
+      
+      - name: gatsby build
+        run: |
           npm run deploy
+
       - name: Set Variable
         run: |
           echo "TIME_VERSION=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV        
@@ -36,11 +46,16 @@ jobs:
       - name: ECHO Variable
         run: |
           echo "${{ env.REF_VERSION }}"
-          echo "${{ env.SHA_VERSION }}"
+          echo "${{ env.SHA_VERSION }}"      
+
       - name: delopy to S3 Master
         if: ${{ env.REF_VERSION == 'master' }}
-        run: aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+        run: |
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"
 
       - name: delopy to S3 Develop
         if: ${{ env.REF_VERSION == 'develop' }}
-        run: aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
+        run: |
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"

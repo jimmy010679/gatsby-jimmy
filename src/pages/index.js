@@ -3,7 +3,7 @@ import React from "react"
 import SEO from "../components/Common/SEO"
 import Layout from "../components/Layout"
 
-import { Container, Grid, Button } from "@material-ui/core"
+import { Container, Grid, Button, Paper } from "@material-ui/core"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
@@ -18,42 +18,110 @@ const Home = () => {
           spaceBetween={50}
           slidesPerView={3}
           onSlideChange={() => console.log("slide change")}
-          onSwiper={swiper => console.log(swiper)}
         >
           <SwiperSlide>Slide 1</SwiperSlide>
           <SwiperSlide>Slide 2</SwiperSlide>
           <SwiperSlide>Slide 3</SwiperSlide>
           <SwiperSlide>Slide 4</SwiperSlide>
-          ...
         </Swiper>
       </div>
-      <Container maxWidth="lg">
-        <Button color="primary">Hello World</Button>
+      <div className="blogNews">
+        <Container maxWidth="lg">
+          <h2>最新文章</h2>
+          <Grid container spacing={3}>
+            <Grid item xs={6} lg={7}>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg={5}>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg={4}>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </div>
+      <div className="protfolio">
+        <Container maxWidth="lg">
+          <h2>作品集</h2>
+          <Grid container spacing={3}>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+            <Grid item xs={6} lg>
+              <Paper elevation={2}>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+                <p>1</p>
+              </Paper>
+            </Grid>
+          </Grid>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            xs=12
-          </Grid>
-          <Grid item xs={6}>
-            xs=6
-          </Grid>
-          <Grid item xs={6}>
-            xs=6
-          </Grid>
-          <Grid item xs={3}>
-            xs=3
-          </Grid>
-          <Grid item xs={3}>
-            xs=3
-          </Grid>
-          <Grid item xs={3}>
-            xs=3
-          </Grid>
-          <Grid item xs={3}>
-            xs=3
-          </Grid>
-        </Grid>
-      </Container>
+          <Button color="primary">Hello World</Button>
+        </Container>
+      </div>
     </Layout>
   )
 }

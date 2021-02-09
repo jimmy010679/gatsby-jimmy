@@ -4,6 +4,16 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+/** 
+  自定義環境變量
+  開發 .env.development
+  正式 .env.production
+  https://www.gatsbyjs.com/docs/environment-variables
+ */
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   /* Your site config here */
   siteMetadata: {
@@ -26,12 +36,34 @@ module.exports = {
       },
     },
 
+    /* contentful */
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `k231co3h64tm`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
+
     /* 讀取本地file */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `content`,
         path: `${__dirname}/src/content/`,
+      },
+    },
+
+    /* markdown  */
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          {
+            resolve: "gatsby-remark-prismjs",
+          },
+        ],
       },
     },
 
@@ -46,5 +78,8 @@ module.exports = {
       gatsby-plugin-react-helmet, react-helmet
     */
     `gatsby-plugin-react-helmet`,
+
+    /* material-ui */
+    `gatsby-plugin-material-ui`,
   ],
 }
