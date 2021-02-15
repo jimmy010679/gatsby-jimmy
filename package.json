@@ -1,9 +1,9 @@
 {
   "name": "gatsby-jimmy",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "Jimmy Website for Gatsby",
   "version": "0.1.0",
-  "license": "0BSD",
+  "license": "AGPL-3.0",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
@@ -16,6 +16,9 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "axios": "^0.21.1",
     "gatsby": "^2.32.3",
     "gatsby-plugin-manifest": "^2.12.0",
     "gatsby-plugin-material-ui": "^2.1.10",
@@ -29,11 +32,11 @@
     "gatsby-source-graphql": "^2.14.0",
     "gatsby-transformer-remark": "^2.16.0",
     "node-sass": "^4.14.1",
+    "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
-    "react-syntax-highlighter": "^15.4.3",
     "swiper": "^6.4.11",
     "use-query-params": "^1.1.9"
   },

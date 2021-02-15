@@ -29,6 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
             publishDate
             content {
               childMarkdownRemark {
+                excerpt(format: PLAIN)
                 html
               }
             }
@@ -45,7 +46,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         aid: article.node.aid,
         title: article.node.title,
-        content: article.node.content.childMarkdownRemark.html,
+        content: article.node.content,
         //content: article.node.content.content,
       },
     })
