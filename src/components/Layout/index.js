@@ -1,5 +1,5 @@
 import React from "react"
-import styles from "./layout.module.css"
+import * as styles from "./index.module.css"
 
 import {
   createMuiTheme,

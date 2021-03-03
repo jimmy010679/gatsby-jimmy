@@ -4,7 +4,7 @@ import Layout from "../../components/Layout"
 
 import { Container } from "@material-ui/core"
 
-import styles from "./article.module.css"
+import * as styles from "./article.module.css"
 
 const Article = ({ pageContext, location }) => {
   const { title, content } = pageContext

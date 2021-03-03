@@ -16,7 +16,7 @@ const Home = () => {
         <Container maxWidth="lg">
           <h2>最新文章</h2>
           <Grid container spacing={3}>
-            <Grid item xs={6} lg={7}>
+            <Grid item xs={6} lg={6}>
               <Paper elevation={2}>
                 <p>1</p>
                 <p>1</p>
@@ -25,41 +25,21 @@ const Home = () => {
                 <p>1</p>
               </Paper>
             </Grid>
-            <Grid item xs={6} lg={5}>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </Grid>
-            <Grid item xs={6} lg={4}>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </Grid>
-            <Grid item xs={6} lg={4}>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </Grid>
-            <Grid item xs={6} lg={4}>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
+            <Grid item xs={6} lg={6}>
+              <Grid container spacing={0} alignItems="stretch">
+                <Grid item xs={6} lg={6}>
+                  <Paper elevation={2}>1</Paper>
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                  <Paper elevation={2}>2</Paper>
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                  <Paper elevation={2}>3</Paper>
+                </Grid>
+                <Grid item xs={6} lg={6}>
+                  <Paper elevation={2}>4</Paper>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>

@@ -15,9 +15,6 @@ require("dotenv").config({
 })
 
 module.exports = {
-  flags: {
-    DEV_SSR: false,
-  },
   /* Your site config here */
   siteMetadata: {
     title: `幻想吉米`,
