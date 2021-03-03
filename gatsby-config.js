@@ -28,11 +28,15 @@ module.exports = {
   },
 
   plugins: [
-    /* SiteMap */
+    /* markdown  */
     {
-      resolve: `gatsby-plugin-sitemap`,
+      resolve: "gatsby-transformer-remark",
       options: {
-        output: `/sitemap.xml`,
+        plugins: [
+          {
+            resolve: "gatsby-remark-prismjs",
+          },
+        ],
       },
     },
 
@@ -43,6 +47,7 @@ module.exports = {
         spaceId: `k231co3h64tm`,
         // Learn about environment variables: https://gatsby.dev/env-vars
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        // downloadLocal: true,
       },
     },
 
@@ -52,18 +57,6 @@ module.exports = {
       options: {
         name: `content`,
         path: `${__dirname}/src/content/`,
-      },
-    },
-
-    /* markdown  */
-    {
-      resolve: "gatsby-transformer-remark",
-      options: {
-        plugins: [
-          {
-            resolve: "gatsby-remark-prismjs",
-          },
-        ],
       },
     },
 
@@ -81,5 +74,13 @@ module.exports = {
 
     /* material-ui */
     `gatsby-plugin-material-ui`,
+
+    /* SiteMap */
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap.xml`,
+      },
+    },
   ],
 }

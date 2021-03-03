@@ -1,19 +1,5 @@
 const path = require(`path`)
 
-// fix develop f12 error messages
-// https://github.com/gatsbyjs/gatsby/issues/11934
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  if (stage.startsWith("develop")) {
-    actions.setWebpackConfig({
-      resolve: {
-        alias: {
-          "react-dom": "@hot-loader/react-dom",
-        },
-      },
-    })
-  }
-}
-
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const queryArticle = await graphql(`
@@ -29,6 +15,7 @@ exports.createPages = async ({ graphql, actions }) => {
             publishDate
             content {
               childMarkdownRemark {
+                excerpt(format: PLAIN)
                 html
               }
             }
@@ -45,7 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         aid: article.node.aid,
         title: article.node.title,
-        content: article.node.content.childMarkdownRemark.html,
+        content: article.node.content,
         //content: article.node.content.content,
       },
     })

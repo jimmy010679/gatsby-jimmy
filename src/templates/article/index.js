@@ -1,25 +1,28 @@
 import React from "react"
 
-//import { code } from "../../components/Common/Code"
 import Layout from "../../components/Layout"
 
 import { Container } from "@material-ui/core"
 
-const Article = ({ pageContext, location }) => {
-  const { aid, title, content } = pageContext
+import * as styles from "./article.module.css"
 
-  console.log(content)
+const Article = ({ pageContext, location }) => {
+  const { title, content } = pageContext
 
   // ------------------------------------------------------------------------------------------------
   // return
   return (
     <Layout>
-      <Container maxWidth="lg">
-        <h1>
-          {aid}
-          {title}
-        </h1>
-        <div dangerouslySetInnerHTML={{ __html: content }}></div>
+      <Container maxWidth="md">
+        <div className={styles.main}>
+          <h1>{title}</h1>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{
+              __html: content.childMarkdownRemark.html,
+            }}
+          />
+        </div>
       </Container>
     </Layout>
   )
