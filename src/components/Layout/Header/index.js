@@ -3,11 +3,12 @@ import React from "react"
 
 import Container from "@material-ui/core/Container"
 //import Grid from "@material-ui/core/Grid"
-//import * as styles from "./index.module.css"
+import * as styles from "./index.module.css"
 
-const Header = () => {
+const Header = ({ path }) => {
+  console.log(path)
   return (
-    <header>
+    <header className={`${styles.header} ${styles.home}`}>
       <Container maxWidth="lg">
         <div>123</div>
       </Container>

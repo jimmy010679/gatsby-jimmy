@@ -28,7 +28,7 @@ const theme = createMuiTheme({
 
 // -----------------------------------------------------------------------------------------------------------------------------
 
-const Layout = ({ children }) => {
+const Layout = ({ children, path }) => {
   const { templateState } = useContext(VariablesContext)
 
   console.log(templateState)
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
   return (
     <MuiThemeProvider theme={theme}>
       <LinearProgress color="primary" className={styles.topProgress} />
-      <Header />
+      <Header path={path} />
       {children}
       <Footer />
     </MuiThemeProvider>

@@ -8,10 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
 
-const Home = () => {
+const Home = ({ location }) => {
   return (
-    <Layout>
+    <Layout path={location.pathname}>
       <SEO />
+
       <div className="blogNews">
         <Container maxWidth="lg">
           <h2>最新文章</h2>

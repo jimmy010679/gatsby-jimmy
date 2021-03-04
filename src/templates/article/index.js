@@ -12,7 +12,7 @@ const Article = ({ pageContext, location }) => {
   // ------------------------------------------------------------------------------------------------
   // return
   return (
-    <Layout>
+    <Layout path={location.pathname}>
       <Container maxWidth="md">
         <div className={styles.main}>
           <h1>{title}</h1>
