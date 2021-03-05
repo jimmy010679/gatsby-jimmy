@@ -10,7 +10,11 @@ const Header = ({ path }) => {
   return (
     <header className={`${styles.header} ${styles.home}`}>
       <Container maxWidth="lg">
-        <div>123</div>
+        <div>nav</div>
+        <div>
+          <h1>Hello! I am Jimmy.</h1>
+          <h3>Front-End Engineer</h3>
+        </div>
       </Container>
     </header>
   )
