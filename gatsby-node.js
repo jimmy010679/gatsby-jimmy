@@ -1,5 +1,6 @@
 const path = require(`path`)
 
+/*
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const queryArticle = await graphql(`
@@ -33,9 +34,11 @@ exports.createPages = async ({ graphql, actions }) => {
         aid: article.node.aid,
         title: article.node.title,
         content: article.node.content,
+        cover: article.node.cover,
         //content: article.node.content.content,
       },
     })
     console.log("article:" + article.node.aid)
   }
 }
+*/

@@ -28,6 +28,11 @@ module.exports = {
   },
 
   plugins: [
+    /* image */
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+
     /* markdown  */
     {
       resolve: "gatsby-transformer-remark",
@@ -36,18 +41,13 @@ module.exports = {
           {
             resolve: "gatsby-remark-prismjs",
           },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+            },
+          },
         ],
-      },
-    },
-
-    /* contentful */
-    {
-      resolve: `gatsby-source-contentful`,
-      options: {
-        spaceId: `k231co3h64tm`,
-        // Learn about environment variables: https://gatsby.dev/env-vars
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        // downloadLocal: true,
       },
     },
 
@@ -57,6 +57,13 @@ module.exports = {
       options: {
         name: `content`,
         path: `${__dirname}/src/content/`,
+      },
+    },
+
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/images`,
       },
     },
 

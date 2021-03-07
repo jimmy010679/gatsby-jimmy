@@ -1,4 +1,7 @@
 import React from "react"
+import { graphql } from "gatsby"
+
+//import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import SEO from "../components/Common/SEO"
 import Layout from "../components/Layout"
@@ -8,7 +11,9 @@ import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
 
-const Home = ({ location }) => {
+const Home = ({ location, data }) => {
+  //const image = getImage(data.allContentfulBlog.edges[0].node.cover)
+
   return (
     <Layout path={location.pathname}>
       <SEO />
@@ -18,27 +23,14 @@ const Home = ({ location }) => {
           <h2>最新文章</h2>
           <Grid container spacing={3}>
             <Grid item xs={6} lg={6}>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
+              <div className="new">
+                <div></div>
+              </div>
             </Grid>
             <Grid item xs={6} lg={6}>
               <Grid container spacing={0} alignItems="stretch">
                 <Grid item xs={6} lg={6}>
-                  <Paper elevation={2}>1</Paper>
-                </Grid>
-                <Grid item xs={6} lg={6}>
-                  <Paper elevation={2}>2</Paper>
-                </Grid>
-                <Grid item xs={6} lg={6}>
-                  <Paper elevation={2}>3</Paper>
-                </Grid>
-                <Grid item xs={6} lg={6}>
-                  <Paper elevation={2}>4</Paper>
+                  <div></div>
                 </Grid>
               </Grid>
             </Grid>
@@ -107,3 +99,28 @@ const Home = ({ location }) => {
 }
 
 export default Home
+
+/*
+export const queryNewArticle = graphql`
+  query {
+    allContentfulBlog(limit: 5, sort: { order: ASC, fields: publishDate }) {
+      edges {
+        node {
+          category
+          aid
+          tags
+          title
+          updatedAt
+          publishDate
+          content {
+            childMarkdownRemark {
+              excerpt(format: PLAIN)
+              html
+            }
+          }
+        }
+      }
+      totalCount
+    }
+  }
+`*/
