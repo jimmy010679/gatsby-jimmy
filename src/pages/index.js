@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-//import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import SEO from "../components/Common/SEO"
 import Layout from "../components/Layout"
@@ -12,8 +12,6 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper.scss"
 
 const Home = ({ location, data }) => {
-  //const image = getImage(data.allContentfulBlog.edges[0].node.cover)
-
   return (
     <Layout path={location.pathname}>
       <SEO />
@@ -24,7 +22,21 @@ const Home = ({ location, data }) => {
           <Grid container spacing={3}>
             <Grid item xs={6} lg={6}>
               <div className="new">
-                <div></div>
+                <div>
+                  {data?.allMarkdownRemark?.nodes[0] && (
+                    <>
+                      <div>
+                        {data.allMarkdownRemark.nodes[0].frontmatter.title}
+                      </div>
+                      <GatsbyImage
+                        image={getImage(
+                          data.allMarkdownRemark.nodes[0].frontmatter.cover
+                        )}
+                        alt="aaa"
+                      />
+                    </>
+                  )}
+                </div>
               </div>
             </Grid>
             <Grid item xs={6} lg={6}>
@@ -100,27 +112,30 @@ const Home = ({ location, data }) => {
 
 export default Home
 
-/*
 export const queryNewArticle = graphql`
   query {
-    allContentfulBlog(limit: 5, sort: { order: ASC, fields: publishDate }) {
-      edges {
-        node {
-          category
-          aid
-          tags
-          title
-          updatedAt
-          publishDate
-          content {
-            childMarkdownRemark {
-              excerpt(format: PLAIN)
-              html
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+      limit: 5
+      sort: { order: ASC, fields: id }
+    ) {
+      nodes {
+        id
+        frontmatter {
+          cover {
+            childImageSharp {
+              gatsbyImageData(
+                width: 200
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
             }
           }
+          title
+          id
         }
+        html
       }
-      totalCount
     }
   }
-`*/
+`

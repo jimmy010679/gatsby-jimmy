@@ -9,9 +9,6 @@ import * as styles from "./article.module.css"
 const Article = ({ pageContext, location }) => {
   const { title, content /*, cover*/ } = pageContext
 
-  //const remarkHTML = content.childMarkdownRemark.html
-  //const aaa = remarkHTML.replace(/img/g, "StaticImage")
-
   // ------------------------------------------------------------------------------------------------
   // return
   return (
@@ -22,7 +19,7 @@ const Article = ({ pageContext, location }) => {
           <div
             className={styles.content}
             dangerouslySetInnerHTML={{
-              __html: content.childMarkdownRemark.html,
+              __html: content,
             }}
           />
         </div>

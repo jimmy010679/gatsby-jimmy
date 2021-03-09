@@ -1,44 +1,41 @@
 const path = require(`path`)
 
-/*
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const queryArticle = await graphql(`
     query {
-      allContentfulBlog {
-        edges {
-          node {
-            category
-            aid
-            tags
+      allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+        sort: { order: ASC, fields: id }
+      ) {
+        nodes {
+          frontmatter {
+            id
             title
-            updatedAt
-            publishDate
-            content {
-              childMarkdownRemark {
-                excerpt(format: PLAIN)
-                html
+            cover {
+              childrenImageSharp {
+                gatsbyImageData
               }
             }
           }
+          html
         }
-        totalCount
       }
     }
   `)
-  for (const article of queryArticle.data.allContentfulBlog.edges) {
-    createPage({
-      path: `/article/${article.node.aid}/`,
-      component: path.resolve(`src/templates/article/index.js`),
-      context: {
-        aid: article.node.aid,
-        title: article.node.title,
-        content: article.node.content,
-        cover: article.node.cover,
-        //content: article.node.content.content,
-      },
-    })
-    console.log("article:" + article.node.aid)
+
+  if (queryArticle?.data?.allMarkdownRemark?.nodes) {
+    for (const article of queryArticle.data.allMarkdownRemark.nodes) {
+      createPage({
+        path: `/article/${article.frontmatter.id}/`,
+        component: path.resolve(`src/templates/article/index.js`),
+        context: {
+          id: article.frontmatter.id,
+          title: article.frontmatter.title,
+          cover: article.frontmatter.cover,
+          content: article.html,
+        },
+      })
+    }
   }
 }
-*/

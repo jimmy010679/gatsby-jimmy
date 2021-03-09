@@ -6,7 +6,7 @@ import Container from "@material-ui/core/Container"
 import * as styles from "./index.module.css"
 
 const Header = ({ path }) => {
-  console.log(path)
+  //console.log(path)
   return (
     <header className={`${styles.header} ${styles.home}`}>
       <Container maxWidth="lg">
