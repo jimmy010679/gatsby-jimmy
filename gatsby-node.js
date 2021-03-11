@@ -14,7 +14,11 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             cover {
               childrenImageSharp {
-                gatsbyImageData
+                gatsbyImageData(
+                  width: 1200
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }
