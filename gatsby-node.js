@@ -28,18 +28,16 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  if (queryArticle?.data?.allMarkdownRemark?.nodes) {
-    for (const article of queryArticle.data.allMarkdownRemark.nodes) {
-      createPage({
-        path: `/article/${article.frontmatter.id}/`,
-        component: path.resolve(`src/templates/article/index.js`),
-        context: {
-          id: article.frontmatter.id,
-          title: article.frontmatter.title,
-          cover: article.frontmatter.cover,
-          content: article.html,
-        },
-      })
-    }
+  for (const article of queryArticle.data.allMarkdownRemark.nodes) {
+    createPage({
+      path: `/article/${article.frontmatter.id}/`,
+      component: path.resolve(`src/templates/article/index.js`),
+      context: {
+        id: article.frontmatter.id,
+        title: article.frontmatter.title,
+        cover: article.frontmatter.cover,
+        content: article.html,
+      },
+    })
   }
 }
