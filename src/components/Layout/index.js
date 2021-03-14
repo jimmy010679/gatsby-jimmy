@@ -1,5 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import * as styles from "./index.module.css"
+
+import { VariablesContext } from "./VariablesProvider"
+
+import Header from "./Header"
+import Footer from "./Footer"
 
 import {
   createMuiTheme,
@@ -7,6 +12,8 @@ import {
   LinearProgress,
 } from "@material-ui/core"
 
+// -----------------------------------------------------------------------------------------------------------------------------
+// material-ui
 const theme = createMuiTheme({
   breakpoints: {
     values: {
@@ -19,12 +26,19 @@ const theme = createMuiTheme({
   },
 })
 
-const Layout = ({ children, type }) => {
+// -----------------------------------------------------------------------------------------------------------------------------
+
+const Layout = ({ children, path }) => {
+  const { templateState } = useContext(VariablesContext)
+
+  console.log(templateState)
+
   return (
     <MuiThemeProvider theme={theme}>
       <LinearProgress color="primary" className={styles.topProgress} />
-
+      <Header path={path} />
       {children}
+      <Footer />
     </MuiThemeProvider>
   )
 }

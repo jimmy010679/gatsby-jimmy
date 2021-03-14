@@ -1,3 +1,6 @@
+import React from "react"
+import VariablesProvider from "./src/components/Layout/VariablesProvider"
+
 import "./src/styles/global.css"
 import "./src/styles/highlight.css"
 
@@ -5,3 +8,7 @@ import "./src/styles/highlight.css"
 require("prismjs/themes/prism-tomorrow.css")
 require("prismjs/plugins/line-numbers/prism-line-numbers.css")
 require("prismjs/plugins/command-line/prism-command-line.css")
+
+export const wrapRootElement = ({ element }) => (
+  <VariablesProvider>{element}</VariablesProvider>
+)

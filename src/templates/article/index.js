@@ -7,19 +7,19 @@ import { Container } from "@material-ui/core"
 import * as styles from "./article.module.css"
 
 const Article = ({ pageContext, location }) => {
-  const { title, content } = pageContext
+  const { title, content /*, cover*/ } = pageContext
 
   // ------------------------------------------------------------------------------------------------
   // return
   return (
-    <Layout>
+    <Layout path={location.pathname}>
       <Container maxWidth="md">
         <div className={styles.main}>
           <h1>{title}</h1>
           <div
             className={styles.content}
             dangerouslySetInnerHTML={{
-              __html: content.childMarkdownRemark.html,
+              __html: content,
             }}
           />
         </div>

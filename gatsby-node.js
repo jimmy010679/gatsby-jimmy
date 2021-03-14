@@ -4,38 +4,40 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const queryArticle = await graphql(`
     query {
-      allContentfulBlog {
-        edges {
-          node {
-            category
-            aid
-            tags
+      allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+        sort: { order: ASC, fields: id }
+      ) {
+        nodes {
+          frontmatter {
+            id
             title
-            updatedAt
-            publishDate
-            content {
-              childMarkdownRemark {
-                excerpt(format: PLAIN)
-                html
+            cover {
+              childrenImageSharp {
+                gatsbyImageData(
+                  width: 1200
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
           }
+          html
         }
-        totalCount
       }
     }
   `)
-  for (const article of queryArticle.data.allContentfulBlog.edges) {
+
+  for (const article of queryArticle.data.allMarkdownRemark.nodes) {
     createPage({
-      path: `/article/${article.node.aid}/`,
+      path: `/article/${article.frontmatter.id}/`,
       component: path.resolve(`src/templates/article/index.js`),
       context: {
-        aid: article.node.aid,
-        title: article.node.title,
-        content: article.node.content,
-        //content: article.node.content.content,
+        id: article.frontmatter.id,
+        title: article.frontmatter.title,
+        cover: article.frontmatter.cover,
+        content: article.html,
       },
     })
-    console.log("article:" + article.node.aid)
   }
 }
