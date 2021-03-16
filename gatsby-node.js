@@ -5,7 +5,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const queryArticle = await graphql(`
     query {
       allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+        filter: {
+          fileAbsolutePath: { regex: "/content/blog/" }
+          frontmatter: { published: { eq: true } }
+        }
         sort: { order: ASC, fields: id }
       ) {
         nodes {
@@ -30,7 +33,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   for (const article of queryArticle.data.allMarkdownRemark.nodes) {
     createPage({
-      path: `/article/${article.frontmatter.id}/`,
+      path: `/blog/article/${article.frontmatter.id}/`,
       component: path.resolve(`src/templates/article/index.js`),
       context: {
         id: article.frontmatter.id,
