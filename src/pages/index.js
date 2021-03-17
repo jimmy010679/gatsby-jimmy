@@ -25,16 +25,16 @@ const Home = ({ location, data }) => {
                 <div>
                   {data?.allMarkdownRemark?.nodes[0] && (
                     <>
-                      <div>
-                        {data.allMarkdownRemark.nodes[0].frontmatter.id}
-                        {data.allMarkdownRemark.nodes[0].frontmatter.title}
-                      </div>
                       <GatsbyImage
                         image={getImage(
                           data.allMarkdownRemark.nodes[0].frontmatter.cover
                         )}
                         alt="aaa"
                       />
+                      <div>
+                        {data.allMarkdownRemark.nodes[0].frontmatter.id}
+                        {data.allMarkdownRemark.nodes[0].frontmatter.title}
+                      </div>
                     </>
                   )}
                 </div>
