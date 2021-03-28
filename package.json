@@ -42,7 +42,7 @@
     "react-helmet": "^6.1.0",
     "sass": "^1.32.8",
     "swiper": "^6.5.0",
-    "use-query-params": "^1.2.0"
+    "use-query-params": "^1.2.2"
   },
   "devDependencies": {
     "prettier": "^2.2.1"
