@@ -3,6 +3,7 @@ import React from "react"
 
 import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
+
 import * as styles from "./index.module.css"
 
 const Footer = () => {
@@ -24,8 +25,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.copyright}>
-          Copyright © 2019-{new Date().getFullYear()} 幻想吉米 - Powered by
-          JIMMY
+          Copyright © 2019-2021 幻想吉米 - Powered by JIMMY
         </div>
       </Container>
     </footer>
