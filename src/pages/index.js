@@ -25,15 +25,16 @@ const Home = ({ location, data }) => {
                 <div>
                   {data?.allMarkdownRemark?.nodes[0] && (
                     <>
-                      <div>
-                        {data.allMarkdownRemark.nodes[0].frontmatter.title}
-                      </div>
                       <GatsbyImage
                         image={getImage(
                           data.allMarkdownRemark.nodes[0].frontmatter.cover
                         )}
                         alt="aaa"
                       />
+                      <div>
+                        {data.allMarkdownRemark.nodes[0].frontmatter.id}
+                        {data.allMarkdownRemark.nodes[0].frontmatter.title}
+                      </div>
                     </>
                   )}
                 </div>
@@ -115,20 +116,22 @@ export default Home
 export const queryNewArticle = graphql`
   query {
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+      filter: {
+        fileAbsolutePath: { regex: "/content/blog/" }
+        frontmatter: { published: { eq: true } }
+      }
       limit: 5
-      sort: { order: ASC, fields: id }
+      sort: { order: DESC, fields: [frontmatter___id] }
     ) {
       nodes {
-        id
         frontmatter {
+          id
+          title
           cover {
             childImageSharp {
               gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
             }
           }
-          title
-          id
         }
         html
       }
