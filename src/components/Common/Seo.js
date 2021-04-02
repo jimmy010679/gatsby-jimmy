@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import { Helmet } from "react-helmet"
 
-const SEO = ({ title, description, image }) => {
+const Seo = ({ title, description, image }) => {
   const { pathname } = useLocation()
 
   const siteData = useStaticQuery(graphql`
@@ -43,4 +43,4 @@ const SEO = ({ title, description, image }) => {
   )
 }
 
-export default SEO
+export default Seo
