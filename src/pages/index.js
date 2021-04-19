@@ -129,7 +129,12 @@ export const queryNewArticle = graphql`
           title
           cover {
             childImageSharp {
-              gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+              gatsbyImageData(
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+                width: 800
+                aspectRatio: 1.77
+              )
             }
           }
         }
