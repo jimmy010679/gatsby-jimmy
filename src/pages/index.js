@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
-import SEO from "../components/Common/SEO"
+import Seo from "../components/Common/Seo"
 import Layout from "../components/Layout"
 
 import { Container, Grid, Button, Paper } from "@material-ui/core"
@@ -14,7 +14,7 @@ import "swiper/swiper.scss"
 const Home = ({ location, data }) => {
   return (
     <Layout path={location.pathname}>
-      <SEO />
+      <Seo />
 
       <div className="blogNews">
         <Container maxWidth="lg">
@@ -129,7 +129,12 @@ export const queryNewArticle = graphql`
           title
           cover {
             childImageSharp {
-              gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+              gatsbyImageData(
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+                width: 800
+                aspectRatio: 1.77
+              )
             }
           }
         }
