@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
-
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import Seo from "../components/Common/Seo"
@@ -19,6 +18,7 @@ const Home = ({ location, data }) => {
       <div className="blogNews">
         <Container maxWidth="lg">
           <h2>最新文章</h2>
+          <Link to="/blog/">看更多</Link>
           <Grid container spacing={3}>
             <Grid item xs={6} lg={6}>
               <div className="new">
@@ -128,7 +128,7 @@ export const queryNewArticle = graphql`
         frontmatter: { published: { eq: true } }
       }
       limit: 5
-      sort: { order: DESC, fields: [frontmatter___id] }
+      sort: { order: ASC, fields: [frontmatter___id] }
     ) {
       nodes {
         frontmatter {
@@ -138,7 +138,7 @@ export const queryNewArticle = graphql`
             childImageSharp {
               gatsbyImageData(
                 placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
+                formats: [AUTO, WEBP]
                 width: 800
                 aspectRatio: 1.77
               )
