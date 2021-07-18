@@ -7,14 +7,14 @@ import Header from "./Header"
 import Footer from "./Footer"
 
 import {
-  createMuiTheme,
+  createTheme,
   MuiThemeProvider,
   LinearProgress,
 } from "@material-ui/core"
 
 // -----------------------------------------------------------------------------------------------------------------------------
 // material-ui
-const theme = createMuiTheme({
+const theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,

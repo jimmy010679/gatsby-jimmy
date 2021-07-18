@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
@@ -25,15 +25,22 @@ const Home = ({ location, data }) => {
                 <div>
                   {data?.allMarkdownRemark?.nodes[0] && (
                     <>
-                      <GatsbyImage
-                        image={getImage(
-                          data.allMarkdownRemark.nodes[0].frontmatter.cover
-                        )}
-                        alt="aaa"
-                      />
+                      <Link
+                        to={`/blog/article/${data.allMarkdownRemark.nodes[0].frontmatter.id}/`}
+                      >
+                        <GatsbyImage
+                          image={getImage(
+                            data.allMarkdownRemark.nodes[0].frontmatter.cover
+                          )}
+                          alt="aaa"
+                        />
+                      </Link>
                       <div>
-                        {data.allMarkdownRemark.nodes[0].frontmatter.id}
-                        {data.allMarkdownRemark.nodes[0].frontmatter.title}
+                        <Link
+                          to={`/blog/article/${data.allMarkdownRemark.nodes[0].frontmatter.id}/`}
+                        >
+                          {data.allMarkdownRemark.nodes[0].frontmatter.title}
+                        </Link>
                       </div>
                     </>
                   )}

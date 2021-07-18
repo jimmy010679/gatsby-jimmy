@@ -2,7 +2,7 @@ import React from "react"
 
 import Layout from "../../components/Layout"
 
-import { Container } from "@material-ui/core"
+import Container from "@material-ui/core/Container"
 
 import * as styles from "./index.module.css"
 
