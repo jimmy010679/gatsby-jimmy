@@ -1,5 +1,5 @@
 import React from "react"
-
+import { Link } from "gatsby"
 import Layout from "../../../components/Layout"
 
 import Container from "@material-ui/core/Container"
@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container"
 import * as styles from "./index.module.css"
 
 const Article = ({ pageContext, location }) => {
-  const { title, content /*, cover*/ } = pageContext
+  const { title, content /*, cover*/, tags } = pageContext
 
   // ------------------------------------------------------------------------------------------------
   // return
@@ -22,6 +22,13 @@ const Article = ({ pageContext, location }) => {
               __html: content,
             }}
           />
+          <div>
+            {tags.map((tag, i) => (
+              <Link to={`/blog/tag/${tag}/`} key={i}>
+                {tag}
+              </Link>
+            ))}
+          </div>
         </div>
       </Container>
     </Layout>

@@ -3,6 +3,9 @@ const path = require(`path`)
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
+  const findDuplicates = arr =>
+    arr.filter((item, index) => arr.indexOf(item) === index)
+
   // query blog文章
   const queryArticle = await graphql(`
     query {
@@ -26,6 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 )
               }
             }
+            tags
           }
           html
         }
@@ -50,8 +54,10 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  // build blog文章
+  let tagsArray = []
+
   for (const article of articles) {
+    // build blog文章
     createPage({
       path: `/blog/article/${article.frontmatter.id}/`,
       component: path.resolve(`src/templates/blog/article/index.js`),
@@ -59,8 +65,25 @@ exports.createPages = async ({ graphql, actions }) => {
         id: article.frontmatter.id,
         title: article.frontmatter.title,
         cover: article.frontmatter.cover,
+        tags: article.frontmatter.tags,
         content: article.html,
       },
+    })
+
+    // get tags array
+    article.frontmatter.tags.forEach(function (tag) {
+      tagsArray.push(tag)
+    })
+
+    // build tags
+    tagsArray.forEach(function (name, i) {
+      createPage({
+        path: `/blog/tag/${name}/`,
+        component: path.resolve(`src/templates/blog/tag/BlogTagPagination.js`),
+        context: {
+          name: name,
+        },
+      })
     })
   }
 }

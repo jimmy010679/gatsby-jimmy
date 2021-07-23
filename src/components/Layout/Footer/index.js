@@ -62,3 +62,20 @@ const Footer = () => {
 }
 
 export default Footer
+/*
+const queryTags = graphql`
+  query tagsQuery {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/content/blog/" } }
+      limit: 10
+      sort: { order: ASC, fields: frontmatter___id }
+    ) {
+      nodes {
+        id
+        frontmatter {
+          tags
+        }
+      }
+    }
+  }
+`*/

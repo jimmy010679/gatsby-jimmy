@@ -2,25 +2,21 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
-import Layout from "../../components/Layout"
+import Layout from "../../../components/Layout"
 
 import Container from "@material-ui/core/Container"
 
-const BlogPagination = ({ pageContext, location, data }) => {
-  const { currentPage, numPages } = pageContext
+const BlogTagPagination = ({ pageContext, location, data }) => {
+  const { name } = pageContext
 
-  const isFirst = currentPage === 1
-  const isLast = currentPage === numPages
-  const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
-  const nextPage = (currentPage + 1).toString()
+  console.log(data?.allMarkdownRemark?.nodes)
 
   // ------------------------------------------------------------------------------------------------
   // return
   return (
     <Layout path={location.pathname}>
       <Container maxWidth="md">
-        <h1>{currentPage}</h1>
-
+        <h1>{name}</h1>
         <div>
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>
@@ -36,34 +32,20 @@ const BlogPagination = ({ pageContext, location, data }) => {
             </div>
           ))}
         </div>
-        <div>
-          {!isFirst && (
-            <Link to={prevPage} rel="prev">
-              ← Previous Page
-            </Link>
-          )}
-          {!isLast && (
-            <Link to={nextPage} rel="next">
-              Next Page →
-            </Link>
-          )}
-        </div>
       </Container>
     </Layout>
   )
 }
 
-export default BlogPagination
+export default BlogTagPagination
 
-export const queryArticles = graphql`
-  query blogListQuery($skip: Int!, $limit: Int!) {
+export const queryArticle = graphql`
+  query blogTagListQuery($name: String) {
     allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/blog/" }
-        frontmatter: { published: { eq: true } }
+        frontmatter: { tags: { in: [$name] }, published: { eq: true } }
       }
-      limit: $limit
-      skip: $skip
       sort: { order: ASC, fields: frontmatter___id }
     ) {
       nodes {
