@@ -1,5 +1,5 @@
 import React from "react"
-//import { Link } from "gatsby"
+import { Link } from "gatsby"
 
 import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
@@ -13,13 +13,42 @@ const Footer = () => {
         <div className={styles.main}>
           <Grid container spacing={0}>
             <Grid item xs={12} md>
-              <div>1</div>
+              <div>
+                <h5>關於網站</h5>
+                <ul>
+                  <li>
+                    <Link to="/">關於我</Link>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/jimmy010679"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Github
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.linkedin.com/in/kyj-tw/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      LinkedIn
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </Grid>
             <Grid item xs={12} md>
-              <div>2</div>
+              <div>
+                <h5>標籤分類</h5>
+              </div>
             </Grid>
             <Grid item xs={12} md>
-              <div>3</div>
+              <div>
+                <h5>網站資訊</h5>
+              </div>
             </Grid>
           </Grid>
         </div>
