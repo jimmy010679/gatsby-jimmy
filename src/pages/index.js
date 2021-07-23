@@ -128,7 +128,7 @@ export const queryNewArticle = graphql`
         frontmatter: { published: { eq: true } }
       }
       limit: 5
-      sort: { order: ASC, fields: [frontmatter___id] }
+      sort: { order: DESC, fields: [frontmatter___id] }
     ) {
       nodes {
         frontmatter {

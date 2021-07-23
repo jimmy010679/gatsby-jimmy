@@ -7,9 +7,13 @@ import Layout from "../../../components/Layout"
 import Container from "@material-ui/core/Container"
 
 const BlogTagPagination = ({ pageContext, location, data }) => {
-  const { name } = pageContext
+  const { name, currentPage, numPages } = pageContext
 
-  console.log(data?.allMarkdownRemark?.nodes)
+  const isFirst = currentPage === 1
+  const isLast = currentPage === numPages
+  const prevPage =
+    currentPage - 1 === 1 ? `/blog/tag/${name}` : (currentPage - 1).toString()
+  const nextPage = (currentPage + 1).toString()
 
   // ------------------------------------------------------------------------------------------------
   // return
@@ -32,6 +36,18 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
             </div>
           ))}
         </div>
+        <div>
+          {!isFirst && (
+            <Link to={prevPage} rel="prev">
+              ← Previous Page
+            </Link>
+          )}
+          {!isLast && (
+            <Link to={nextPage} rel="next">
+              Next Page →
+            </Link>
+          )}
+        </div>
       </Container>
     </Layout>
   )
@@ -40,13 +56,15 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
 export default BlogTagPagination
 
 export const queryArticle = graphql`
-  query blogTagListQuery($name: String) {
+  query blogTagListQuery($name: String, $skip: Int!, $limit: Int!) {
     allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/blog/" }
         frontmatter: { tags: { in: [$name] }, published: { eq: true } }
       }
-      sort: { order: ASC, fields: frontmatter___id }
+      limit: $limit
+      skip: $skip
+      sort: { order: DESC, fields: frontmatter___id }
     ) {
       nodes {
         frontmatter {
