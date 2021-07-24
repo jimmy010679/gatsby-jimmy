@@ -1,3 +1,4 @@
+const { constants } = require("buffer")
 const path = require(`path`)
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -27,6 +28,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 )
               }
             }
+            cid
             tags
           }
           html
@@ -41,8 +43,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // -----------------------------------------------------------------------------------------------------------------------
   // createPage
-  // build 分頁列表
-  // /blog/` || `/blog/2/
+  // blog Pagination
   const postsPerPage = 10
   const numPages = Math.ceil(articles.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
@@ -59,8 +60,82 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // -----------------------------------------------------------------------------------------------------------------------
+  // createPage
+  // blog category pages
+
+  // category 陣列
+  let category = [
+    {
+      cid: 1,
+      name_English: "acg",
+      name_Chinese: "ACG",
+      count: 0,
+    },
+    {
+      cid: 2,
+      name_English: "code",
+      name_Chinese: "程式開發",
+      count: 0,
+    },
+    {
+      cid: 3,
+      name_English: "tool",
+      name_Chinese: "工具軟體",
+      count: 0,
+    },
+    {
+      cid: 4,
+      name_English: "life",
+      name_Chinese: "生活記事",
+      count: 0,
+    },
+  ]
+
+  // 計算count文章筆數
+  for (const article of articles) {
+    category.find(x => x.cid === article.frontmatter.cid).count++
+  }
+
+  for (const item of category) {
+    let category_count = item.count
+    let category_postsPerPage = 5
+    let category_numPages = Math.ceil(category_count / category_postsPerPage)
+
+    Array.from({ length: category_numPages }).forEach((_, i) => {
+      createPage({
+        path:
+          i === 0
+            ? `/blog/category/${item.name_English}/`
+            : `/blog/category/${item.name_English}/${i + 1}/`,
+        component: path.resolve(
+          `src/templates/blog/category/BlogCategoryPagination.js`
+        ),
+        context: {
+          cid: item.cid,
+          name_English: item.name_English,
+          name_Chinese: item.name_Chinese,
+          limit: category_postsPerPage,
+          skip: i * category_postsPerPage,
+          numPages: category_numPages,
+          currentPage: i + 1,
+        },
+      })
+    })
+  }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // createPage
+  // blog tags pages
+
   // tags 陣列
   let tagsArray = []
+
+  // tags array push (該陣列可能有重覆)
+  for (const article of articles) {
+    article.frontmatter.tags.forEach(function (tag) {
+      tagsArray.push(tag)
+    })
+  }
 
   // tags 陣列轉成物件
   /*
@@ -72,31 +147,6 @@ exports.createPages = async ({ graphql, actions }) => {
   */
   let tagsObject = {}
 
-  for (const article of articles) {
-    // --------------------------------------------------------------------
-    // createPage
-    // build blog article pages
-    // /blog/article/${id}/
-    createPage({
-      path: `/blog/article/${article.frontmatter.id}/`,
-      component: path.resolve(`src/templates/blog/article/index.js`),
-      context: {
-        id: article.frontmatter.id,
-        title: article.frontmatter.title,
-        cover: article.frontmatter.cover,
-        tags: article.frontmatter.tags,
-        content: article.html,
-      },
-    })
-
-    // --------------------------------------------------------------------
-    // tags array push (該陣列可能有重覆)
-    article.frontmatter.tags.forEach(function (tag) {
-      tagsArray.push(tag)
-    })
-    // --------------------------------------------------------------------
-  }
-
   // 計算tags每個字串分別總數
   // 陣列轉成物件
   for (let i = 0, j = tagsArray.length; i < j; i++) {
@@ -107,9 +157,8 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
-  // createPage
-  // build tags pages
-  // /blog/tag/${name}/
+  // build 所有tag頁面
+  // 如有分頁也一併建立
   Object.keys(tagsObject).forEach(function (name, x) {
     let tag_articles = tagsObject[name]
     let tag_postsPerPage = 10
@@ -128,14 +177,30 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       })
     })
-    /*createPage({
-      path: `/blog/tag/${name}/`,
-      component: path.resolve(`src/templates/blog/tag/BlogTagPagination.js`),
-      context: {
-        name: name,
-      },
-    })*/
   })
+
+  // -----------------------------------------------------------------------------------------------------------------------
+
+  // createPage
+  // blog article pages
+  for (const article of articles) {
+    // 查找該文章的 category Name
+    let tempCategory = category.find(x => x.cid === article.frontmatter.cid)
+
+    createPage({
+      path: `/blog/article/${article.frontmatter.id}/`,
+      component: path.resolve(`src/templates/blog/article/index.js`),
+      context: {
+        id: article.frontmatter.id,
+        title: article.frontmatter.title,
+        cover: article.frontmatter.cover,
+        name_English: tempCategory.name_English,
+        name_Chinese: tempCategory.name_Chinese,
+        tags: article.frontmatter.tags,
+        content: article.html,
+      },
+    })
+  }
 
   // -----------------------------------------------------------------------------------------------------------------------
 }

@@ -6,13 +6,15 @@ import Layout from "../../../components/Layout"
 
 import Container from "@material-ui/core/Container"
 
-const BlogTagPagination = ({ pageContext, location, data }) => {
-  const { name, currentPage, numPages } = pageContext
+const BlogCategoryagination = ({ pageContext, location, data }) => {
+  const { name_English, name_Chinese, currentPage, numPages } = pageContext
 
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
   const prevPage =
-    currentPage - 1 === 1 ? `/blog/tag/${name}/` : (currentPage - 1).toString()
+    currentPage - 1 === 1
+      ? `/blog/category/${name_English}/`
+      : (currentPage - 1).toString()
   const nextPage = (currentPage + 1).toString()
 
   // ------------------------------------------------------------------------------------------------
@@ -20,7 +22,7 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
   return (
     <Layout path={location.pathname}>
       <Container maxWidth="md">
-        <h1>{name}</h1>
+        <h1>{name_Chinese}</h1>
         <div>
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>
@@ -53,14 +55,14 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
   )
 }
 
-export default BlogTagPagination
+export default BlogCategoryagination
 
 export const queryArticle = graphql`
-  query blogTagListQuery($name: String, $skip: Int!, $limit: Int!) {
+  query blogCategoryListQuery($cid: Int, $skip: Int!, $limit: Int!) {
     allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/blog/" }
-        frontmatter: { tags: { in: [$name] }, published: { eq: true } }
+        frontmatter: { cid: { in: [$cid] }, published: { eq: true } }
       }
       limit: $limit
       skip: $skip
