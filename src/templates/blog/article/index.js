@@ -7,8 +7,15 @@ import Container from "@material-ui/core/Container"
 import * as styles from "./index.module.css"
 
 const Article = ({ pageContext, location }) => {
-  const { title, content /*, cover*/, name_English, name_Chinese, tags } =
-    pageContext
+  const {
+    title,
+    content /*, cover*/,
+    name_English,
+    name_Chinese,
+    publishDate,
+    updateDate,
+    tags,
+  } = pageContext
 
   // ------------------------------------------------------------------------------------------------
   // return
@@ -20,6 +27,16 @@ const Article = ({ pageContext, location }) => {
           <div>
             分類:
             <Link to={`/blog/category/${name_English}/`}>{name_Chinese}</Link>
+          </div>
+          <div>
+            <div>
+              發布日期<span>{publishDate}</span>
+            </div>
+            {updateDate && (
+              <div>
+                更新日期 <span>{updateDate}</span>
+              </div>
+            )}
           </div>
           <div
             className={styles.content}

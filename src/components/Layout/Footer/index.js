@@ -14,6 +14,17 @@ const Footer = () => {
           <Grid container spacing={0}>
             <Grid item xs={12} md>
               <div>
+                <h5>網站資訊</h5>
+                <p>吉米的部落格！紀錄程式、模型、ACG及生活點點滴滴</p>
+              </div>
+            </Grid>
+            <Grid item xs={12} md>
+              <div>
+                <h5>標籤分類</h5>
+              </div>
+            </Grid>
+            <Grid item xs={12} md>
+              <div>
                 <h5>關於網站</h5>
                 <ul>
                   <li>
@@ -38,16 +49,6 @@ const Footer = () => {
                     </a>
                   </li>
                 </ul>
-              </div>
-            </Grid>
-            <Grid item xs={12} md>
-              <div>
-                <h5>標籤分類</h5>
-              </div>
-            </Grid>
-            <Grid item xs={12} md>
-              <div>
-                <h5>網站資訊</h5>
               </div>
             </Grid>
           </Grid>

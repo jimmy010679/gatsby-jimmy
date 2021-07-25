@@ -1,7 +1,7 @@
-import React, { useContext } from "react"
+import React /*, { useContext }*/ from "react"
 import * as styles from "./index.module.css"
 
-import { VariablesContext } from "./VariablesProvider"
+//import { VariablesContext } from "./VariablesProvider"
 
 import Header from "./Header"
 import Footer from "./Footer"
@@ -29,9 +29,7 @@ const theme = createTheme({
 // -----------------------------------------------------------------------------------------------------------------------------
 
 const Layout = ({ children, path }) => {
-  const { templateState } = useContext(VariablesContext)
-
-  console.log(templateState)
+  // const { templateState } = useContext(VariablesContext)
 
   return (
     <MuiThemeProvider theme={theme}>

@@ -33,7 +33,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
 
-    /* markdown  */
+    /* markdown */
     {
       resolve: "gatsby-transformer-remark",
       options: {
@@ -51,7 +51,10 @@ module.exports = {
       },
     },
 
-    /* 讀取本地file */
+    /* json */
+    `gatsby-transformer-json`,
+
+    /* 讀取本地file - markdown */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -60,6 +63,7 @@ module.exports = {
       },
     },
 
+    /* 讀取本地file - images */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -67,7 +71,15 @@ module.exports = {
       },
     },
 
-    // sass SCSS
+    /* 讀取本地file - json(setting) */
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/setting/`,
+      },
+    },
+
+    /* sass SCSS */
     `gatsby-plugin-sass`,
 
     /* query-string, use-query-params */

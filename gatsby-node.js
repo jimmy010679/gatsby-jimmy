@@ -29,6 +29,8 @@ exports.createPages = async ({ graphql, actions }) => {
               }
             }
             cid
+            publishDate
+            updateDate
             tags
           }
           html
@@ -36,6 +38,34 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+
+  // query category setting
+  const querySettingCategory = await graphql(`
+    query {
+      allSettingCategoryJson {
+        nodes {
+          cid
+          name_English
+          name_Chinese
+          count
+        }
+      }
+    }
+  `)
+
+  // query portfolio setting
+  /*const querySettingPortfolio = await graphql(`
+    query {
+      allSettingPortfolioJson {
+        nodes {
+          pid
+          name_English
+          name_Chinese
+          count
+        }
+      }
+    }
+  `)*/
 
   // -----------------------------------------------------------------------------------------------------------------------
   // ALL blog article
@@ -49,7 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
       path: i === 0 ? `/blog/` : `/blog/${i + 1}/`,
-      component: path.resolve(`src/templates/blog/blogPagination.js`),
+      component: path.resolve(`src/templates/blog/BlogPagination.js`),
       context: {
         limit: postsPerPage,
         skip: i * postsPerPage,
@@ -64,32 +94,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // blog category pages
 
   // category 陣列
-  let category = [
-    {
-      cid: 1,
-      name_English: "acg",
-      name_Chinese: "ACG",
-      count: 0,
-    },
-    {
-      cid: 2,
-      name_English: "code",
-      name_Chinese: "程式開發",
-      count: 0,
-    },
-    {
-      cid: 3,
-      name_English: "tool",
-      name_Chinese: "工具軟體",
-      count: 0,
-    },
-    {
-      cid: 4,
-      name_English: "life",
-      name_Chinese: "生活記事",
-      count: 0,
-    },
-  ]
+  let category = querySettingCategory.data.allSettingCategoryJson.nodes
 
   // 計算count文章筆數
   for (const article of articles) {
@@ -98,7 +103,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   for (const item of category) {
     let category_count = item.count
-    let category_postsPerPage = 5
+    let category_postsPerPage = 10
     let category_numPages = Math.ceil(category_count / category_postsPerPage)
 
     Array.from({ length: category_numPages }).forEach((_, i) => {
@@ -180,7 +185,6 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   // -----------------------------------------------------------------------------------------------------------------------
-
   // createPage
   // blog article pages
   for (const article of articles) {
@@ -196,11 +200,17 @@ exports.createPages = async ({ graphql, actions }) => {
         cover: article.frontmatter.cover,
         name_English: tempCategory.name_English,
         name_Chinese: tempCategory.name_Chinese,
+        publishDate: article.frontmatter.publishDate,
+        updateDate: article.frontmatter.updateDate,
         tags: article.frontmatter.tags,
         content: article.html,
       },
     })
   }
+
+  // -----------------------------------------------------------------------------------------------------------------------
+  // createPage
+  // portfolio pages
 
   // -----------------------------------------------------------------------------------------------------------------------
 }
