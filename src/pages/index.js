@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper.scss"
 
 const Home = ({ location, data }) => {
+  console.log(data.articles)
   return (
     <Layout path={location.pathname}>
       <Seo />
@@ -23,23 +24,23 @@ const Home = ({ location, data }) => {
             <Grid item xs={6} lg={6}>
               <div className="new">
                 <div>
-                  {data?.allMarkdownRemark?.nodes[0] && (
+                  {data?.articles.nodes[0] && (
                     <>
                       <Link
-                        to={`/blog/article/${data.allMarkdownRemark.nodes[0].frontmatter.id}/`}
+                        to={`/blog/article/${data.articles.nodes[0].frontmatter.id}/`}
                       >
                         <GatsbyImage
                           image={getImage(
-                            data.allMarkdownRemark.nodes[0].frontmatter.cover
+                            data.articles.nodes[0].frontmatter.cover
                           )}
                           alt="aaa"
                         />
                       </Link>
                       <div>
                         <Link
-                          to={`/blog/article/${data.allMarkdownRemark.nodes[0].frontmatter.id}/`}
+                          to={`/blog/article/${data.articles.nodes[0].frontmatter.id}/`}
                         >
-                          {data.allMarkdownRemark.nodes[0].frontmatter.title}
+                          {data.articles.nodes[0].frontmatter.title}
                         </Link>
                       </div>
                     </>
@@ -120,9 +121,9 @@ const Home = ({ location, data }) => {
 
 export default Home
 
-export const queryNewArticle = graphql`
+export const queryIndexData = graphql`
   query {
-    allMarkdownRemark(
+    articles: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/blog/" }
         frontmatter: { published: { eq: true } }

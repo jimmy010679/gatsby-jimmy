@@ -28,5 +28,11 @@
     "name_English": "3c",
     "name_Chinese": "3C家電",
     "count": 0
+  },
+  {
+    "cid": 6,
+    "name_English": "food",
+    "name_Chinese": "美食旅遊",
+    "count": 0
   }
 ]
