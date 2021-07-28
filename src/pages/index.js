@@ -11,7 +11,6 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper.scss"
 
 const Home = ({ location, data }) => {
-  console.log(data.articles)
   return (
     <Layout path={location.pathname}>
       <Seo />
@@ -33,7 +32,7 @@ const Home = ({ location, data }) => {
                           image={getImage(
                             data.articles.nodes[0].frontmatter.cover
                           )}
-                          alt="aaa"
+                          alt={data.articles.nodes[0].frontmatter.title}
                         />
                       </Link>
                       <div>
@@ -66,51 +65,21 @@ const Home = ({ location, data }) => {
             slidesPerView={3.3}
             onSlideChange={() => console.log("slide change")}
           >
-            <SwiperSlide>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Paper elevation={2}>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-                <p>1</p>
-              </Paper>
-            </SwiperSlide>
+            {data?.portfolio?.nodes.map((item, index) => (
+              <SwiperSlide key={item.frontmatter.id}>
+                <Link to={`/portfolio/${item.frontmatter.id}/`}>
+                  <Paper elevation={2}>
+                    <p>{item.frontmatter.title}</p>
+                    <div>
+                      <GatsbyImage
+                        image={getImage(item.frontmatter.cover)}
+                        alt={item.frontmatter.title}
+                      />
+                    </div>
+                  </Paper>
+                </Link>
+              </SwiperSlide>
+            ))}
           </Swiper>
           <Button color="primary">Hello World</Button>
         </Container>
@@ -146,7 +115,33 @@ export const queryIndexData = graphql`
             }
           }
         }
-        html
+      }
+    }
+
+    portfolio: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "/content/portfolio/" }
+        frontmatter: { published: { eq: true } }
+      }
+      limit: 5
+      sort: { order: DESC, fields: [frontmatter___id] }
+    ) {
+      nodes {
+        frontmatter {
+          id
+          title
+          pid
+          cover {
+            childImageSharp {
+              gatsbyImageData(
+                placeholder: BLURRED
+                formats: [AUTO, WEBP]
+                width: 800
+                aspectRatio: 1.77
+              )
+            }
+          }
+        }
       }
     }
   }

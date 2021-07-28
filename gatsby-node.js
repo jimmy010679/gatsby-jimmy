@@ -6,7 +6,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // -----------------------------------------------------------------------------------------------------------------------
   // query blog article pages
-  const queryArticle = await graphql(`
+  const queryArticles = await graphql(`
     query {
       allMarkdownRemark(
         filter: {
@@ -53,8 +53,42 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
+  // -----------------------------------------------------------------------------------------------------------------------
+  const queryPortfolios = await graphql(`
+    query {
+      allMarkdownRemark(
+        filter: {
+          fileAbsolutePath: { regex: "/content/portfolio/" }
+          frontmatter: { published: { eq: true } }
+        }
+        sort: { order: ASC, fields: frontmatter___id }
+      ) {
+        nodes {
+          frontmatter {
+            id
+            title
+            cover {
+              childrenImageSharp {
+                gatsbyImageData(
+                  width: 1200
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+            pid
+            publishDate
+            updateDate
+            description
+          }
+          html
+        }
+      }
+    }
+  `)
+
   // query portfolio setting
-  /*const querySettingPortfolio = await graphql(`
+  const querySettingPortfolio = await graphql(`
     query {
       allSettingPortfolioJson {
         nodes {
@@ -65,11 +99,21 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `)*/
+  `)
 
   // -----------------------------------------------------------------------------------------------------------------------
   // ALL blog article
-  const articles = queryArticle.data.allMarkdownRemark.nodes
+  const articles = queryArticles.data.allMarkdownRemark.nodes
+
+  // blog category分類 陣列
+  const blogCategory = querySettingCategory.data.allSettingCategoryJson.nodes
+
+  // ALL portfolio data
+  const portfolios = queryPortfolios.data.allMarkdownRemark.nodes
+
+  // portfolio category分類 陣列
+  const portfolioCategory =
+    querySettingPortfolio.data.allSettingPortfolioJson.nodes
 
   // -----------------------------------------------------------------------------------------------------------------------
   // createPage
@@ -93,15 +137,12 @@ exports.createPages = async ({ graphql, actions }) => {
   // createPage
   // blog category pages
 
-  // category 陣列
-  let category = querySettingCategory.data.allSettingCategoryJson.nodes
-
   // 計算count文章筆數
   for (const article of articles) {
-    category.find(x => x.cid === article.frontmatter.cid).count++
+    blogCategory.find(x => x.cid === article.frontmatter.cid).count++
   }
 
-  for (const item of category) {
+  for (const item of blogCategory) {
     let category_count = item.count
     let category_postsPerPage = 10
     let category_numPages = Math.ceil(category_count / category_postsPerPage)
@@ -187,9 +228,10 @@ exports.createPages = async ({ graphql, actions }) => {
   // -----------------------------------------------------------------------------------------------------------------------
   // createPage
   // blog article pages
+
   for (const article of articles) {
     // 查找該文章的 category Name
-    let tempCategory = category.find(x => x.cid === article.frontmatter.cid)
+    let tempCategory = blogCategory.find(x => x.cid === article.frontmatter.cid)
 
     createPage({
       path: `/blog/article/${article.frontmatter.id}/`,
@@ -211,6 +253,27 @@ exports.createPages = async ({ graphql, actions }) => {
   // -----------------------------------------------------------------------------------------------------------------------
   // createPage
   // portfolio pages
+
+  for (const portfolio of portfolios) {
+    // 查找該文章的 category Name
+    let tempCategory = portfolioCategory.find(
+      x => x.cid === portfolio.frontmatter.cid
+    )
+
+    createPage({
+      path: `/portfolio/${portfolio.frontmatter.id}/`,
+      component: path.resolve(`src/templates/portfolio/index.js`),
+      context: {
+        id: portfolio.frontmatter.id,
+        title: portfolio.frontmatter.title,
+        cover: portfolio.frontmatter.cover,
+        name_Chinese: tempCategory.name_Chinese,
+        publishDate: portfolio.frontmatter.publishDate,
+        updateDate: portfolio.frontmatter.updateDate,
+        content: portfolio.html,
+      },
+    })
+  }
 
   // -----------------------------------------------------------------------------------------------------------------------
 }
