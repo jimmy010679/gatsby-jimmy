@@ -267,6 +267,7 @@ exports.createPages = async ({ graphql, actions }) => {
         id: portfolio.frontmatter.id,
         title: portfolio.frontmatter.title,
         cover: portfolio.frontmatter.cover,
+        name_English: tempCategory.name_English,
         name_Chinese: tempCategory.name_Chinese,
         publishDate: portfolio.frontmatter.publishDate,
         updateDate: portfolio.frontmatter.updateDate,

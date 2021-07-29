@@ -1,12 +1,18 @@
 import React from "react"
-//import { Link } from "gatsby"
+import { Link } from "gatsby"
 import Layout from "../../components/Layout"
 
 import Container from "@material-ui/core/Container"
 
 const Portfolio = ({ pageContext, location }) => {
-  const { title, content /*, cover*/, name_Chinese, publishDate, updateDate } =
-    pageContext
+  const {
+    title,
+    content /*, cover*/,
+    name_English,
+    name_Chinese,
+    publishDate,
+    updateDate,
+  } = pageContext
 
   // ------------------------------------------------------------------------------------------------
   // return
@@ -17,7 +23,9 @@ const Portfolio = ({ pageContext, location }) => {
           <h1>{title}</h1>
           <div>
             分類:
-            {name_Chinese}
+            <Link to={`/portfolio/?category=${name_English}`}>
+              {name_Chinese}
+            </Link>
           </div>
           <div>
             <div>
