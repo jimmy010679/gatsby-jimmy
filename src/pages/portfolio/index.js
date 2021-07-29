@@ -30,6 +30,17 @@ const Portfolio = ({ location, data }) => {
       <div className="protfolio">
         <Container maxWidth="lg">
           <h2>作品集</h2>
+          <div>
+            <Link to={`/portfolio/`}>全部</Link>
+            {data.portfolioCategory.nodes.map((item, index) => (
+              <Link
+                to={`/portfolio/?category=${item.name_English}`}
+                key={index}
+              >
+                {item.name_Chinese}
+              </Link>
+            ))}
+          </div>
           <Grid container spacing={3}>
             {Array.isArray(portfolios) && (
               <>
