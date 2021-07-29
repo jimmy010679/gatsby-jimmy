@@ -5,7 +5,7 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import Seo from "../components/Common/Seo"
 import Layout from "../components/Layout"
 
-import { Container, Grid, Button, Paper } from "@material-ui/core"
+import { Container, Grid, Button } from "@material-ui/core"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
@@ -60,6 +60,7 @@ const Home = ({ location, data }) => {
       <div className="protfolio">
         <Container maxWidth="lg">
           <h2>作品集</h2>
+          <Link to="/portfolio/">看更多</Link>
           <Swiper
             spaceBetween={15}
             slidesPerView={3.3}
@@ -68,15 +69,13 @@ const Home = ({ location, data }) => {
             {data?.portfolio?.nodes.map((item, index) => (
               <SwiperSlide key={item.frontmatter.id}>
                 <Link to={`/portfolio/${item.frontmatter.id}/`}>
-                  <Paper elevation={2}>
-                    <p>{item.frontmatter.title}</p>
-                    <div>
-                      <GatsbyImage
-                        image={getImage(item.frontmatter.cover)}
-                        alt={item.frontmatter.title}
-                      />
-                    </div>
-                  </Paper>
+                  <p>{item.frontmatter.title}</p>
+                  <div>
+                    <GatsbyImage
+                      image={getImage(item.frontmatter.cover)}
+                      alt={item.frontmatter.title}
+                    />
+                  </div>
                 </Link>
               </SwiperSlide>
             ))}
