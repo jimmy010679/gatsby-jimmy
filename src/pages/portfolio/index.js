@@ -7,7 +7,8 @@ import { useQueryParams, StringParam } from "use-query-params"
 import Seo from "../../components/Common/Seo"
 import Layout from "../../components/Layout"
 
-import { Container, Grid } from "@material-ui/core"
+import Container from "@mui/material/Container"
+import Grid from "@mui/material/Grid"
 
 import "swiper/swiper.scss"
 

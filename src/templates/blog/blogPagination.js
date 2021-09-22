@@ -4,7 +4,7 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import Layout from "../../components/Layout"
 
-import Container from "@material-ui/core/Container"
+import Container from "@mui/material/Container"
 
 const BlogPagination = ({ pageContext, location, data }) => {
   const { currentPage, numPages } = pageContext

@@ -5,7 +5,9 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import Seo from "../components/Common/Seo"
 import Layout from "../components/Layout"
 
-import { Container, Grid, Button } from "@material-ui/core"
+import Container from "@mui/material/Container"
+import Grid from "@mui/material/Grid"
+
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
@@ -80,7 +82,6 @@ const Home = ({ location, data }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <Button color="primary">Hello World</Button>
         </Container>
       </div>
     </Layout>

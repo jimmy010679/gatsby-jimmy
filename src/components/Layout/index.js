@@ -6,11 +6,8 @@ import * as styles from "./index.module.css"
 import Header from "./Header"
 import Footer from "./Footer"
 
-import {
-  createTheme,
-  MuiThemeProvider,
-  LinearProgress,
-} from "@material-ui/core"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import LinearProgress from "@mui/material/LinearProgress"
 
 // -----------------------------------------------------------------------------------------------------------------------------
 // material-ui
@@ -32,12 +29,12 @@ const Layout = ({ children, path }) => {
   // const { templateState } = useContext(VariablesContext)
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <LinearProgress color="primary" className={styles.topProgress} />
       <Header path={path} />
       {children}
       <Footer />
-    </MuiThemeProvider>
+    </ThemeProvider>
   )
 }
 

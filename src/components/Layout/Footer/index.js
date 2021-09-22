@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import Container from "@material-ui/core/Container"
-import Grid from "@material-ui/core/Grid"
+import Container from "@mui/material/Container"
+import Grid from "@mui/material/Grid"
 
 import * as styles from "./index.module.css"
 

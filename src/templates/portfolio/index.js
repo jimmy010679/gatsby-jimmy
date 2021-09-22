@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import Layout from "../../components/Layout"
 
-import Container from "@material-ui/core/Container"
+import Container from "@mui/material/Container"
 
 const Portfolio = ({ pageContext, location }) => {
   const {
