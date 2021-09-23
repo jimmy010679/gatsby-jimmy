@@ -1,4 +1,10 @@
-const isBrowser = typeof window !== `undefined`
+/**
+ * 取得 Cooke Name
+ * @param  {String} name   要取得名稱
+ * @return {String}        結果
+ */
+
+//const isBrowser = typeof window !== `undefined`
 
 const GetCookie = ({ name }) => {
   if (!isBrowser) return false

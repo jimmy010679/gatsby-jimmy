@@ -1,5 +1,10 @@
 import React from "react"
 import { Link } from "gatsby"
+
+import Seo from "../../../components/Common/Seo"
+import RemoveHTML from "../../../components/Common/Function/RemoveHTML"
+import SubString from "../../../components/Common/Function/SubString"
+
 import Layout from "../../../components/Layout"
 
 import Container from "@mui/material/Container"
@@ -20,6 +25,15 @@ const Article = ({ pageContext, location }) => {
   // return
   return (
     <Layout path={location.pathname}>
+      <Seo
+        title={title}
+        description={SubString({
+          str: RemoveHTML({ html: content }),
+          n: 100,
+          hasDot: true,
+        })}
+        isShowSiteName={true}
+      />
       <Container maxWidth="md">
         <div className={styles.main}>
           <h1>{title}</h1>

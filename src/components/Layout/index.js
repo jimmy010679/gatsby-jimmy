@@ -1,5 +1,4 @@
 import React /*, { useContext }*/ from "react"
-import * as styles from "./index.module.css"
 
 //import { VariablesContext } from "./VariablesProvider"
 
@@ -7,7 +6,6 @@ import Header from "./Header"
 import Footer from "./Footer"
 
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import LinearProgress from "@mui/material/LinearProgress"
 
 // -----------------------------------------------------------------------------------------------------------------------------
 // material-ui
@@ -30,7 +28,6 @@ const Layout = ({ children, path }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LinearProgress color="primary" className={styles.topProgress} />
       <Header path={path} />
       {children}
       <Footer />

@@ -17,9 +17,7 @@ require("dotenv").config({
 module.exports = {
   /* Your site config here */
   siteMetadata: {
-    title: `幻想吉米`,
     siteName: `幻想吉米`,
-    titleTemplate: `%s - 幻想吉米`,
     description: ` 吉米的部落格！紀錄程式、模型、ACG及生活點點滴滴`,
     siteUrl: `https://kyjhome.com`,
     url: `https://kyjhome.com`,
@@ -93,6 +91,20 @@ module.exports = {
 
     /* material-ui */
     `gatsby-plugin-material-ui`,
+
+    /* gatsby-plugin-manifest */
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `幻想吉米`,
+        short_name: `幻想吉米`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#ebedf7`,
+        display: `standalone`,
+        icon: `src/images/icon.png`,
+      },
+    },
 
     /* SiteMap */
     {

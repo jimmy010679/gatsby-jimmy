@@ -15,7 +15,7 @@ import "swiper/swiper.scss"
 const Home = ({ location, data }) => {
   return (
     <Layout path={location.pathname}>
-      <Seo />
+      <Seo isShowSiteName={false} />
 
       <div className="blogNews">
         <Container maxWidth="lg">

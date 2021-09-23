@@ -6,20 +6,21 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import { Helmet } from "react-helmet"
 
-const Seo = ({ title, description, image }) => {
+const Seo = ({
+  title = "",
+  isShowSiteName = true,
+  description = "",
+  image = "",
+}) => {
   const { pathname } = useLocation()
 
   const { site } = useStaticQuery(query)
 
-  const {
-    defaultTitle,
-    defaultDescription,
-    defaultImage,
-    siteUrl,
-  } = site.siteMetadata
+  const { siteName, defaultDescription, defaultImage, siteUrl } =
+    site.siteMetadata
 
   const seo = {
-    title: title || defaultTitle,
+    title: isShowSiteName ? `${title} - ${siteName}` : siteName,
     description: description || defaultDescription,
     image: image || defaultImage,
     url: `${siteUrl}${pathname}`,
@@ -47,11 +48,9 @@ const query = graphql`
   query SEO {
     site {
       siteMetadata {
-        defaultTitle: title
+        siteName
         defaultDescription: description
         defaultImage: image
-        siteName
-        titleTemplate
         siteUrl
         url
         fb_app_id
