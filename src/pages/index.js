@@ -6,23 +6,26 @@ import Seo from "../components/Common/Seo"
 import Layout from "../components/Layout"
 
 import Container from "@mui/material/Container"
-import Grid from "@mui/material/Grid"
+//import Grid from "@mui/material/Grid"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/swiper.scss"
+import * as styles from "./index.module.css"
 
 const Home = ({ location, data }) => {
   return (
     <Layout path={location.pathname}>
       <Seo isShowSiteName={false} />
 
-      <div className="blogNews">
+      <div className={styles.blogNews}>
         <Container maxWidth="lg">
-          <h2>最新文章</h2>
-          <Link to="/blog/">看更多</Link>
-          <Grid container spacing={3}>
-            <Grid item xs={6} lg={6}>
+          <div className={styles.content}>
+            <div className={styles.head}>
+              <h2>最新文章</h2>
+              <Link to="/blog/">看更多</Link>
+            </div>
+            <div className={styles.head}>
               <div className="new">
                 <div>
                   {data?.articles.nodes[0] && (
@@ -48,15 +51,8 @@ const Home = ({ location, data }) => {
                   )}
                 </div>
               </div>
-            </Grid>
-            <Grid item xs={6} lg={6}>
-              <Grid container spacing={0} alignItems="stretch">
-                <Grid item xs={6} lg={6}>
-                  <div></div>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
         </Container>
       </div>
       <div className="protfolio">
