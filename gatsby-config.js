@@ -116,7 +116,9 @@ module.exports = {
   ],
 }
 
-if (process.env.NOW_STATUS !== "develop") {
+// gatsby develop 抓取local資料 (.gitignore已排除)
+// gatsby build 抓取抓取遠程git
+if (process.env.NOW_STATUS === "build") {
   /* clone remote git data */
   module.exports.plugins.unshift({
     resolve: `gatsby-source-git`,
