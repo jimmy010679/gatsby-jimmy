@@ -70,5 +70,6 @@ yarn-error.log
 
 # gatsby src
 src/content/*
-src/images/blog/*
-src/images/portfolio/*
+!src/content/.empty
+src/images/*
+!src/images/.empty
