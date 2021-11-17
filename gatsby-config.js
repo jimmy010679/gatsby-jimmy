@@ -26,16 +26,6 @@ module.exports = {
   },
 
   plugins: [
-    /* clone remote git data */
-    {
-      resolve: `gatsby-source-git`,
-      options: {
-        name: `gatsby-jimmy-data`,
-        remote: `https://github.com/jimmy010679/gatsby-jimmy-data.git`,
-        branch: `master`,
-      },
-    },
-
     /* image */
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
@@ -124,4 +114,16 @@ module.exports = {
       },
     },
   ],
+}
+
+if (process.env.NOW_STATUS !== "develop") {
+  /* clone remote git data */
+  module.exports.plugins.unshift({
+    resolve: `gatsby-source-git`,
+    options: {
+      name: `gatsby-jimmy-data`,
+      remote: `https://github.com/jimmy010679/gatsby-jimmy-data.git`,
+      branch: `master`,
+    },
+  })
 }
