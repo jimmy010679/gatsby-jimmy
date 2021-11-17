@@ -56,31 +56,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/src/images/`,
       },
     },
 
-    /* 讀取本地file - markdown */
+    /* 讀取本地file - markdown/setting */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `blog`,
-        path: `${__dirname}/src/content/blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `portfolio`,
-        path: `${__dirname}/src/content/portfolio`,
-      },
-    },
-
-    /* 讀取本地file - json(setting) */
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/content/setting`,
+        path: `${__dirname}/src/content/`,
       },
     },
 
