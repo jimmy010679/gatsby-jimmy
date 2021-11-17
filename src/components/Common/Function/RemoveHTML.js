@@ -3,8 +3,11 @@
  * @param   {String} html html字符串
  * @return  {String}      處理過後字串
  */
+const isBrowser = typeof window !== `undefined`
 
 const RemoveHTML = ({ html }) => {
+  if (!isBrowser) return false
+
   let tmp = document.createElement("DIV")
   tmp.innerHTML = html
 

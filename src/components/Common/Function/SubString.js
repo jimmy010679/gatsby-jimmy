@@ -6,7 +6,11 @@
  * @param  {Boolon} hasDot 是否顯示...
  * @return {String}        擷取結果
  */
+const isBrowser = typeof window !== `undefined`
+
 const SubString = ({ str, n, hasDot }) => {
+  if (!isBrowser) return false
+
   let r = /[^\0-\xff]/g // eslint-disable-line
   let m
 

@@ -4,7 +4,7 @@
  * @return {String}        結果
  */
 
-//const isBrowser = typeof window !== `undefined`
+const isBrowser = typeof window !== `undefined`
 
 const GetCookie = ({ name }) => {
   if (!isBrowser) return false
