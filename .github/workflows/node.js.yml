@@ -37,7 +37,7 @@ jobs:
       - name: Create env file
         run: |
           touch .env.production
-          echo NOW_STATUS=build >> .env.production
+          echo DATA_SOURCE_BRANCH=master >> .env.production
           cat .env.production
       
       - name: gatsby build

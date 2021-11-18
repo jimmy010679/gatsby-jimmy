@@ -26,6 +26,15 @@ module.exports = {
   },
 
   plugins: [
+    {
+      resolve: `gatsby-source-git`,
+      options: {
+        name: `gatsby-jimmy-data`,
+        remote: `https://github.com/jimmy010679/gatsby-jimmy-data.git`,
+        branch: process.env.DATA_SOURCE_BRANCH,
+      },
+    },
+
     /* image */
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
@@ -105,18 +114,4 @@ module.exports = {
       },
     },
   ],
-}
-
-// gatsby develop 抓取local資料 (.gitignore已排除)
-// gatsby build 抓取抓取遠程git
-if (process.env.NOW_STATUS === "build") {
-  /* clone remote git data */
-  module.exports.plugins.unshift({
-    resolve: `gatsby-source-git`,
-    options: {
-      name: `gatsby-jimmy-data`,
-      remote: `https://github.com/jimmy010679/gatsby-jimmy-data.git`,
-      branch: `master`,
-    },
-  })
 }
