@@ -66,7 +66,7 @@ jobs:
         run: |
           aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"
-          # aws s3 cp gatsby-jimmy.zip s3://gatsby-jimmy-preview/gatsby-jimmy.zip
+          # aws s3 cp gatsby-jimmy.zip s3://gatsby-jimmy-preview/gatsby-jimmy.zip --recursive
           # aws elasticbeanstalk create-application-version --application-name jimmy-site-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="gatsby-jimmy.zip"
           # aws elasticbeanstalk update-environment --application-name jimmy-site-preview --environment-name Jimmysitepreview-env --version-label ${{ env.SHA_VERSION }}
 
