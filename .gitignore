@@ -72,5 +72,4 @@ yarn-error.log
 src/content/*
 !src/content/.empty
 src/images/*
-!src/images/.empty
 !src/images/icon.png
