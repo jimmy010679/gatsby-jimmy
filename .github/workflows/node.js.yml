@@ -84,6 +84,6 @@ jobs:
       - name: Master - Delopy to S3 (ZIP) and elasticbeanstalk update
         if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
-          # aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
-          # aws elasticbeanstalk create-application-version --application-name jimmy-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="${{ env.SHA_VERSION }}.zip"
-          # aws elasticbeanstalk update-environment --application-name jimmy-preview --environment-name Jimmypreview-env --version-label ${{ env.SHA_VERSION }}
+          aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
+          aws elasticbeanstalk create-application-version --application-name jimmy-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="${{ env.SHA_VERSION }}.zip"
+          aws elasticbeanstalk update-environment --application-name jimmy-preview --environment-name Jimmypreview-env --version-label ${{ env.SHA_VERSION }}
