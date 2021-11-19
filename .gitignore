@@ -71,5 +71,3 @@ yarn-error.log
 # gatsby src
 src/content/*
 !src/content/.empty
-src/images/*
-!src/images/icon.png
