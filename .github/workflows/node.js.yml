@@ -3,7 +3,7 @@ name: delopy and push to S3
 on:
   workflow_dispatch:
   push:
-    branches: ["master", "develop", "jimmy/test"]
+    branches: ["master", "develop"]
 
 jobs:
   BuildAndDeploy:
@@ -42,7 +42,7 @@ jobs:
       
       - name: gatsby build
         run: |
-          # npm run build
+          npm run build
 
       - name: Set Variable
         run: |
@@ -61,29 +61,29 @@ jobs:
           echo "${{ env.REF_VERSION }}"
           echo "${{ env.SHA_VERSION }}"      
 
-      - name: delopy to S3 Master
-        if: ${{ env.REF_VERSION == 'master' }}
-        run: |
-          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"
-
-      - name: delopy to S3 Develop
+      - name: Develop - Delopy to S3
         if: ${{ env.REF_VERSION == 'develop' }}
         run: |
           aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
 
-      - name: action zip
+      - name: Master - Delopy to S3
+        if: ${{ env.REF_VERSION == 'master' }}
+        run: |
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"      
+
+      - name: Master - Action zip
         uses: papeloto/action-zip@v1
-        if: ${{ env.REF_VERSION == 'jimmy/test' }}
+        if: ${{ env.REF_VERSION == 'master' }}
         with:
           files: src/ static/ .ebextensions .npmrc .gatsby-browser.js gatsby-config.js gatsby-ssr.js package.json package-lock.json
           recursive: false
-          dest: output/${{ env.SHA_VERSION }}.zip      
+          dest: output/${{ env.SHA_VERSION }}.zip
 
-      - name: delopy to S3 (ZIP) and elasticbeanstalk update
-        if: ${{ env.REF_VERSION == 'jimmy/test' }}
+      - name: Master - Delopy to S3 (ZIP) and elasticbeanstalk update
+        if: ${{ env.REF_VERSION == 'master' }}
         run: |
-          aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
-          aws elasticbeanstalk create-application-version --application-name jimmy-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="${{ env.SHA_VERSION }}.zip"
-          aws elasticbeanstalk update-environment --application-name jimmy-preview --environment-name Jimmypreview-env --version-label ${{ env.SHA_VERSION }}
+          # aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
+          # aws elasticbeanstalk create-application-version --application-name jimmy-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="${{ env.SHA_VERSION }}.zip"
+          # aws elasticbeanstalk update-environment --application-name jimmy-preview --environment-name Jimmypreview-env --version-label ${{ env.SHA_VERSION }}
