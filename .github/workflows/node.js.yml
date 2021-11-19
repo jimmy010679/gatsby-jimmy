@@ -3,7 +3,7 @@ name: delopy and push to S3
 on:
   workflow_dispatch:
   push:
-    branches: ["master", "develop", "jimmy/test"]
+    branches: ["master", "develop"]
 
 jobs:
   BuildAndDeploy:
@@ -75,15 +75,15 @@ jobs:
 
       - name: Master - Action zip
         uses: papeloto/action-zip@v1
-        if: ${{ env.REF_VERSION == 'jimmy/test' }}
+        if: ${{ env.REF_VERSION == 'master' }}
         with:
           files: src/ static/ .ebextensions .npmrc .gatsby-browser.js gatsby-config.js gatsby-ssr.js package.json package-lock.json
           recursive: false
           dest: output/${{ env.SHA_VERSION }}.zip
 
       - name: Master - Delopy zip to S3 and elasticbeanstalk update
-        if: ${{ env.REF_VERSION == 'jimmy/test' }}
+        if: ${{ env.REF_VERSION == 'master' }}
         run: |
           aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
-          aws elasticbeanstalk create-application-version --application-name jimmy-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="${{ env.SHA_VERSION }}.zip"
+          aws elasticbeanstalk create-application-version --application-name jimmy-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET_PREVIEW }}",S3Key="${{ env.SHA_VERSION }}.zip"
           aws elasticbeanstalk update-environment --application-name jimmy-preview --environment-name Jimmypreview-env --version-label ${{ env.SHA_VERSION }}
