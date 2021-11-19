@@ -91,6 +91,6 @@ jobs:
       - name: delopy to S3 (ZIP)
         if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
-          aws s3 cp output/gatsby-jimmy.zip s3://gatsby-jimmy-preview --recursive
+          aws s3 cp output s3://gatsby-jimmy-preview --recursive
           # aws elasticbeanstalk create-application-version --application-name jimmy-site-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="gatsby-jimmy.zip"
           # aws elasticbeanstalk update-environment --application-name jimmy-site-preview --environment-name Jimmysitepreview-env --version-label ${{ env.SHA_VERSION }}
