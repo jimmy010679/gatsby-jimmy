@@ -19,6 +19,6 @@
 
 ### Server
 
-- Production Server (Master branch): 正式站點 -> https://kyjhome.com
-- Preview Server (Master branch): 預覽編輯文章用
-- Develop Server (Develop branch): 測試新功能用
+- Production Server (Master branch): 正式站點 Hosting on AWS CloudFront + S3 -> https://kyjhome.com
+- Preview Server (Master branch): 預覽編輯文章用 Hosting on AWS CloudFront + S3
+- Develop Server (Develop branch): 測試新功能用 Hosting on AWS Elastic Beanstalk
