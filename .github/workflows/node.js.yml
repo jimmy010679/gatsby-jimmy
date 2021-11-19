@@ -76,14 +76,17 @@ jobs:
           aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
 
-      - name: jimmy test
+      - name: action zip
       - uses: papeloto/action-zip@v1
         if: ${{ env.REF_VERSION == 'jimmy/test' }}
         with:
           files: src/ static/ .ebextensions .npmrc .gatsby-browser.js gatsby-config.js gatsby-ssr.js package.json package-lock.json
           recursive: false
-          dest: gatsby-jimmy.zip       
+          dest: gatsby-jimmy.zip  
+
+      - name: delopy to S3 (ZIP)
+        if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
-          aws s3 cp gatsby-jimmy.zip s3://gatsby-jimmy-preview/gatsby-jimmy.zip --recursive
+          aws s3 cp gatsby-jimmy.zip s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }}/gatsby-jimmy.zip --recursive
           # aws elasticbeanstalk create-application-version --application-name jimmy-site-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="gatsby-jimmy.zip"
           # aws elasticbeanstalk update-environment --application-name jimmy-site-preview --environment-name Jimmysitepreview-env --version-label ${{ env.SHA_VERSION }}
