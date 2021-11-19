@@ -41,7 +41,7 @@ jobs:
           cat .env.production
       
       - name: gatsby build
-        if: ${{ env.REF_VERSION != 'jimmy/test' }}
+        if: ${{ env.REF_VERSION }} == 'master' || ${{ env.REF_VERSION }} == 'develop'
         run: |
           npm run build
 
@@ -88,6 +88,6 @@ jobs:
       - name: delopy to S3 (ZIP)
         if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
-          aws s3 cp ${{ github.workspace }}/gatsby-jimmy.zip s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }}/gatsby-jimmy.zip --recursive
+          aws s3 cp gatsby-jimmy.zip s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
           # aws elasticbeanstalk create-application-version --application-name jimmy-site-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="gatsby-jimmy.zip"
           # aws elasticbeanstalk update-environment --application-name jimmy-site-preview --environment-name Jimmysitepreview-env --version-label ${{ env.SHA_VERSION }}
