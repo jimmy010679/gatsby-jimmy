@@ -81,7 +81,7 @@ jobs:
           recursive: false
           dest: output/${{ env.SHA_VERSION }}.zip
 
-      - name: Master - Delopy to S3 (ZIP) and elasticbeanstalk update
+      - name: Master - Delopy zip to S3 and elasticbeanstalk update
         if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
           aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
