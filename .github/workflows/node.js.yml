@@ -82,7 +82,10 @@ jobs:
         with:
           files: src/ static/ .ebextensions .npmrc .gatsby-browser.js gatsby-config.js gatsby-ssr.js package.json package-lock.json
           recursive: false
-          dest: output/gatsby-jimmy.zip
+          dest: output/gatsby-jimmy.zip      
+
+      - name: delopy to S3 (ZIP)
+        if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
           aws s3 cp output s3://gatsby-jimmy-preview --recursive
           # aws elasticbeanstalk create-application-version --application-name jimmy-site-preview --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="gatsby-jimmy-preview",S3Key="gatsby-jimmy.zip"
