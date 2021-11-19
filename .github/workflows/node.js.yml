@@ -84,7 +84,7 @@ jobs:
           recursive: false
           dest: output/gatsby-jimmy.zip      
 
-      - name: delopy to S3 (ZIP)
+      - name: delopy to S3 (zip) and elasticbeanstalk update
         if: ${{ env.REF_VERSION == 'jimmy/test' }}
         run: |
           aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
