@@ -1,3 +1,13 @@
+/**
+ * 儲存 Cooke Name
+ * @param  {String} name            要儲存名稱
+ * @param  {String} setValue        值
+ * @param  {String} expiresMinutes  有效時間
+ * @param  {String} sameSite
+ * @param  {String} secure
+ * @param  {String} priority
+ */
+
 const isBrowser = typeof window !== `undefined`
 
 const SetCookie = ({

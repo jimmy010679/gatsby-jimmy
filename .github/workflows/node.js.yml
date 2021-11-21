@@ -1,8 +1,9 @@
 name: delopy and push to S3
 
 on:
+  workflow_dispatch:
   push:
-    branches: [master, develop]
+    branches: ["master", "develop"]
 
 jobs:
   BuildAndDeploy:
@@ -12,10 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: '14.x'
+          cache: npm
       
       - name: Caching Gatsby
         id: gatsby-cache-build
@@ -35,12 +37,12 @@ jobs:
       - name: Create env file
         run: |
           touch .env.production
-          echo CONTENTFUL_ACCESS_TOKEN=${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env.production
+          echo DATA_SOURCE_BRANCH=master >> .env.production
           cat .env.production
       
       - name: gatsby build
         run: |
-          npm run deploy
+          # npm run build
 
       - name: Set Variable
         run: |
@@ -59,14 +61,29 @@ jobs:
           echo "${{ env.REF_VERSION }}"
           echo "${{ env.SHA_VERSION }}"      
 
-      - name: delopy to S3 Master
-        if: ${{ env.REF_VERSION == 'master' }}
-        run: |
-          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"
-
-      - name: delopy to S3 Develop
+      - name: Develop - Delopy to S3
         if: ${{ env.REF_VERSION == 'develop' }}
         run: |
           aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
+
+      - name: Master - Delopy to S3
+        if: ${{ env.REF_VERSION == 'master' }}
+        run: |
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_MASTER }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_MASTER }} --paths "/*"      
+
+      - name: Master - Action zip
+        uses: papeloto/action-zip@v1
+        if: ${{ env.REF_VERSION == 'master' }}
+        with:
+          files: src/ static/ .ebextensions .npmrc .gatsby-browser.js gatsby-config.js gatsby-ssr.js gatsby-node.js package.json package-lock.json
+          recursive: false
+          dest: output/${{ env.SHA_VERSION }}.zip
+
+      - name: Master - Delopy zip to S3 and elasticbeanstalk update
+        if: ${{ env.REF_VERSION == 'master' }}
+        run: |
+          aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
+          # aws elasticbeanstalk create-application-version --application-name ${{ secrets.AWS_ELASTICBEANSTALK_APPLICATION_NAME }} --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET_PREVIEW }}",S3Key="${{ env.SHA_VERSION }}.zip"
+          # aws elasticbeanstalk update-environment --application-name ${{ secrets.AWS_ELASTICBEANSTALK_APPLICATION_NAME }} --environment-name ${{ secrets.AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME }} --version-label ${{ env.SHA_VERSION }}
