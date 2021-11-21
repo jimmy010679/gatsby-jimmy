@@ -3,19 +3,12 @@
  * @param   {String} html html字符串
  * @return  {String}      處理過後字串
  */
-const isBrowser = typeof window !== `undefined`
-
 const RemoveHTML = ({ html }) => {
-  if (!isBrowser) return false
+  let tempText = html
+    .replace(/<[^>]*>?/gm, "") // 去除HTML
+    .replace(/(\r\n\t|\n|\r\t)/gm, "") // 去除換行
 
-  let tmp = document.createElement("DIV")
-  tmp.innerHTML = html
-
-  return (
-    tmp.textContent.replace(/(?:\r\n|\r|\n)/g, " ") ||
-    tmp.innerText.replace(/(?:\r\n|\r|\n)/g, " ") ||
-    ""
-  )
+  return tempText
 }
 
 export default RemoveHTML
