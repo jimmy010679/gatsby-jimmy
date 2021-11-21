@@ -16,6 +16,8 @@
 - AWS_S3_BUCKET_DEVELOP: Amazon S3 Bucket Name -Develop
 - AWS_S3_BUCKET_MASTER: Amazon S3 Bucket Name - Master
 - AWS_S3_BUCKET_PREVIEW: Amazon S3 Bucket Name - Preview
+- AWS_ELASTICBEANSTALK_APPLICATION_NAME: Amazon Elastic Beanstalk application-name (Preview)
+- AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME: Amazon Elastic Beanstalk environment-name (Preview)
 
 ### Server
 
