@@ -58,35 +58,60 @@ GitHub Action `.github/workflows/node.js.yml` 會使用到。
 
 #### AWS S3
 
-- `AWS_S3_BUCKET_MASTER`: Amazon S3 Master Bucket Name - master branch 有 commitc 會觸發 deploy
-- `AWS_S3_BUCKET_PREVIEW`: Amazon S3 Preview Bucket Name - master branch 有 commit 會觸發 deploy
-- `AWS_S3_BUCKET_DEVELOP`: Amazon S3 Develop Bucket Name - develop branch 有 commit 會觸發 deploy
+- `AWS_S3_BUCKET_MASTER`: Amazon S3 Master Bucket Name
+- `AWS_S3_BUCKET_PREVIEW`: Amazon S3 Preview Bucket Name
+- `AWS_S3_BUCKET_DEVELOP`: Amazon S3 Develop Bucket Name
 
 #### AWS CloudFront
 
-- `AWS_CLOUDFRONT_ID_DEVELOP`: Amazon CloudFront - develop branch
 - `AWS_CLOUDFRONT_ID_MASTER`: Amazon CloudFront - master branch
+- `AWS_CLOUDFRONT_ID_DEVELOP`: Amazon CloudFront - develop branch
 
 #### AWS Elastic Beanstalk
 
 - `AWS_ELASTICBEANSTALK_APPLICATION_NAME`: Amazon Elastic Beanstalk application-name (Preview Server)
 - `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME`: Amazon Elastic Beanstalk environment-name (Preview Server)
 
+## GitHub Action
+
+#### master branch
+
+1. 讀取上次 cache 目錄 (`public`, `.cache`)
+2. 執行 `$ npm install`
+3. 執行 `$ gatsby build`
+4. 將產生的 /public 資料夾上傳到 Amazon S3 (`AWS_S3_BUCKET_MASTER`)
+5. Amazon CloudFront 清除緩存 (`AWS_CLOUDFRONT_ID_MASTER`)
+6. 將必要的原始 code 檔案壓縮成 zip 檔
+7. 將 zip 檔上傳傳到 Amazon S3 (`AWS_S3_BUCKET_PREVIEW`)
+8. ElasticBeanstalk 新增一筆應用程式版本
+9. ElasticBeanstalk 將該環境切換到最新
+
+#### develop branch
+
+1. 讀取上次 cache 目錄 (`public`, `.cache`)
+2. 執行 `$ npm install`
+3. 執行 `$ gatsby build`
+4. 將產生的 /public 資料夾上傳到 Amazon S3 (`AWS_S3_BUCKET_DEVELOP`)
+5. Amazon CloudFront 清除緩存 (`AWS_CLOUDFRONT_ID_DEVELOP`)
+
 ## Server
 
-- Production Server
-  - branch: master
+- **Production Server**
   - directions: 正式站點
-  - hosting: AWS CloudFront + S3 (執行 gatsby build)
-  - domain: https://kyjhome.com
-- Preview Server
   - branch: master
+  - run: `gatsby build`
+  - hosting: Amazon CloudFront + S3
+  - domain: https://kyjhome.com
+- **Preview Server**
   - directions: 預覽編輯文章用
-  - hosting: AWS Elastic Beanstalk (執行 gatsby develop)
-- Develop Server
-  - branch: develop
+  - branch: master
+  - run: `ENABLE_GATSBY_REFRESH_ENDPOINT=true gatsby develop -p 8080`
+  - hosting: Amazon Elastic Beanstalk
+- **Develop Server**
   - directions: 測試新功能用
-  - hosting: AWS CloudFront + S3 (執行 gatsby build)
+  - branch: develop
+  - run: `gatsby build`
+  - hosting: Amazon CloudFront + S3
 
 ## Build and Develop tests
 
