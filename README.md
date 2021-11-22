@@ -94,6 +94,19 @@ GitHub Action `.github/workflows/node.js.yml` 會使用到。
 4. 將產生的 /public 資料夾上傳到 Amazon S3 (`AWS_S3_BUCKET_DEVELOP`)
 5. Amazon CloudFront 清除緩存 (`AWS_CLOUDFRONT_ID_DEVELOP`)
 
+#### workflow_dispatch 手動觸發
+
+master branch 只執行 1~5 點
+
+```sh
+curl
+  -X POST
+  -H "Authorization: token xxxxxxxx"
+  -H "Accept: application/vnd.github.v3+json"
+      https://api.github.com/repos/jimmy010679/gatsby-jimmy/actions/workflows/node.js.yml/dispatches
+  -d '{"ref":"master"}'`
+```
+
 ## Server
 
 - **Production Server**
