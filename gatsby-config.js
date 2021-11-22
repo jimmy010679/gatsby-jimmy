@@ -26,6 +26,7 @@ module.exports = {
   },
 
   plugins: [
+    /* 遠程 Git repositories 資料 */
     {
       resolve: `gatsby-source-git`,
       options: {
@@ -46,12 +47,26 @@ module.exports = {
       options: {
         plugins: [
           {
+            /* 輸出public保留目錄結構 */
             resolve: "gatsby-remark-copy-relative-linked-files",
+            options: {
+              // By default, `.md` is specified
+              // ignoreFileExtensions: ['.md']
+              //
+              // These files will not be copied
+              ignoreFileExtensions: [".md", ".pdf", ".d.ts"],
+
+              // Would generate file-1abcb33beeb811dca15f0ac3e47b88d9.pdf
+              filename: ({ hash, name, extension }) =>
+                `${name}-${hash}.${extension}`,
+            },
           },
           {
+            /* 程式高亮 */
             resolve: "gatsby-remark-prismjs",
           },
           {
+            /* 圖片優化 */
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 800,

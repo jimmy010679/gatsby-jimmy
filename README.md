@@ -2,36 +2,92 @@
 
 ## 重要記事
 
-- 2021/10/22 gatsby v4.0.0
-- 2021/03/03 gatsby v3.0.0
-- 2020/11/23 開始遷移作業 wordpress => gatsby ^2.26.1
+- 2021/10/22: 升級至 Gatsby.js v4.0.0
+- 2021/03/03: 升級至 Gatsby.js v3.0.0
+- 2020/11/23: 開始遷移作業 Wordpress => Gatsby.js ^2.26.1
 
-## Actions secrets 配置
+## Environment Variables
 
-#### 基本
+### 1. .env 檔案
 
-- AWS_ACCESS_KEY_ID: aws-access-key-id
-- AWS_SECRET_ACCESS_KEY: aws-secret-access-key
-- AWS_REGION: aws-region
+##### .env.development
 
-#### S3
+```
+DATA_SOURCE_BRANCH=empty
+```
 
-- AWS_S3_BUCKET_DEVELOP: Amazon S3 Bucket Name -Develop
-- AWS_S3_BUCKET_MASTER: Amazon S3 Bucket Name - Master
-- AWS_S3_BUCKET_PREVIEW: Amazon S3 Bucket Name - Preview
+##### .env.production
 
-#### CloudFront
+```
+DATA_SOURCE_BRANCH=master
+```
 
-- AWS_CLOUDFRONT_ID_DEVELOP: Amazon CloudFront - develop branch
-- AWS_CLOUDFRONT_ID_MASTER: Amazon CloudFront - master branch
+### 2. 遠程 Git repositories
 
-#### Elastic Beanstalk
+根目錄下的 `gatsby-config.js` 檔案進行配置。
 
-- AWS_ELASTICBEANSTALK_APPLICATION_NAME: Amazon Elastic Beanstalk application-name (Preview)
-- AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME: Amazon Elastic Beanstalk environment-name (Preview)
+```javascript
+module.exports = {
+  plugins: [
+    /* 遠程 Git repositories 資料 */
+    {
+      resolve: `gatsby-source-git`,
+      options: {
+        name: `gatsby-jimmy-data`,
+        remote: `https://github.com/jimmy010679/gatsby-jimmy-data.git`,
+        branch: process.env.DATA_SOURCE_BRANCH,
+      },
+    },
+  ],
+}
+```
+
+## GitHub Actions secrets 配置
+
+#### AWS 基本連線資訊
+
+- `AWS_ACCESS_KEY_ID`: aws-access-key-id
+- `AWS_SECRET_ACCESS_KEY`: aws-secret-access-key
+- `AWS_REGION`: aws-region
+
+#### AWS S3
+
+- `AWS_S3_BUCKET_MASTER`: Amazon S3 Master Bucket Name - master branch 有 commitc 會觸發 deploy
+- `AWS_S3_BUCKET_PREVIEW`: Amazon S3 Preview Bucket Name - master branch 有 commit 會觸發 deploy
+- `AWS_S3_BUCKET_DEVELOP`: Amazon S3 Develop Bucket Name - develop branch 有 commit 會觸發 deploy
+
+#### AWS CloudFront
+
+- `AWS_CLOUDFRONT_ID_DEVELOP`: Amazon CloudFront - develop branch
+- `AWS_CLOUDFRONT_ID_MASTER`: Amazon CloudFront - master branch
+
+#### AWS Elastic Beanstalk
+
+- `AWS_ELASTICBEANSTALK_APPLICATION_NAME`: Amazon Elastic Beanstalk application-name (Preview)
+- `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME`: Amazon Elastic Beanstalk environment-name (Preview)
 
 ## Server
 
-- Production Server (Master branch): 正式站點 Hosting on AWS CloudFront + S3 -> https://kyjhome.com
-- Preview Server (Master branch): 預覽編輯文章用 Hosting on AWS Elastic Beanstalk
-- Develop Server (Develop branch): 測試新功能用 Hosting on AWS CloudFront + S3
+- Production Server
+  - branch: master
+  - directions: 正式站點
+  - hosting: AWS CloudFront + S3
+  - domain: https://kyjhome.com
+- Preview Server
+  - branch: master
+  - directions: 預覽編輯文章用
+  - hosting: AWS Elastic Beanstalk
+- Develop Server
+  - branch: develop
+  - directions: 測試新功能用
+  - hosting: AWS CloudFront + S3
+
+## Build and Develop tests
+
+```sh
+$ git clone git@github.com:jimmy010679/gatsby-jimmy.git
+$ cd gatsby-jimmy
+$ npm install
+$ gatsby develop
+$ gatsby build
+```
