@@ -81,10 +81,10 @@ GitHub Action `.github/workflows/node.js.yml` 會使用到。
 3. 執行 `$ gatsby build`
 4. 將產生的 /public 資料夾上傳到 Amazon S3 (`AWS_S3_BUCKET_MASTER`)
 5. Amazon CloudFront 清除緩存 (`AWS_CLOUDFRONT_ID_MASTER`)
-6. 將必要的原始 code 檔案壓縮成 zip 檔
+6. 將必要的原始 code 檔案壓縮成 zip 檔，使用 `env.SHA_VERSION` 命名。
 7. 將 zip 檔上傳傳到 Amazon S3 (`AWS_S3_BUCKET_PREVIEW`)
-8. ElasticBeanstalk 新增一筆應用程式版本
-9. ElasticBeanstalk 將該環境切換到最新
+8. ElasticBeanstalk 新增應用程式版本 `AWS_ELASTICBEANSTALK_APPLICATION_NAME`，指定上述 zip 檔案。
+9. ElasticBeanstalk 將該環境 `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME` 切換到最新(上述)的應用程式版本。
 
 #### develop branch
 
