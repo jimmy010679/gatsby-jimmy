@@ -12,7 +12,9 @@
 
 ### 1. .env 檔案
 
-##### .env.development (如本地有檔案設置 empty)
+如本地有檔案請將 `DATA_SOURCE_BRANCH` 設成 `empty`
+
+##### .env.development
 
 ```
 DATA_SOURCE_BRANCH=empty
@@ -67,24 +69,24 @@ GitHub Action `.github/workflows/node.js.yml` 會使用到。
 
 #### AWS Elastic Beanstalk
 
-- `AWS_ELASTICBEANSTALK_APPLICATION_NAME`: Amazon Elastic Beanstalk application-name (Preview)
-- `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME`: Amazon Elastic Beanstalk environment-name (Preview)
+- `AWS_ELASTICBEANSTALK_APPLICATION_NAME`: Amazon Elastic Beanstalk application-name (Preview Server)
+- `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME`: Amazon Elastic Beanstalk environment-name (Preview Server)
 
 ## Server
 
 - Production Server
   - branch: master
   - directions: 正式站點
-  - hosting: AWS CloudFront + S3
+  - hosting: AWS CloudFront + S3 (執行 gatsby build)
   - domain: https://kyjhome.com
 - Preview Server
   - branch: master
   - directions: 預覽編輯文章用
-  - hosting: AWS Elastic Beanstalk
+  - hosting: AWS Elastic Beanstalk (執行 gatsby develop)
 - Develop Server
   - branch: develop
   - directions: 測試新功能用
-  - hosting: AWS CloudFront + S3
+  - hosting: AWS CloudFront + S3 (執行 gatsby build)
 
 ## Build and Develop tests
 
@@ -92,6 +94,5 @@ GitHub Action `.github/workflows/node.js.yml` 會使用到。
 $ git clone git@github.com:jimmy010679/gatsby-jimmy.git
 $ cd gatsby-jimmy
 $ npm install
-$ gatsby develop
-$ gatsby build
+$ gatsby develop 或 $ gatsby build
 ```
