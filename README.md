@@ -1,6 +1,6 @@
-# 幻想吉米
+<h1 align="center">幻想吉米</h1>
 
-基於 Gatsby.js 進行建置的網站，其網站文章資料、分類設定與圖片檔案，需與 [gatsby-jimmy-data](https://github.com/jimmy010679/gatsby-jimmy-data) 進行搭配。
+基於 Gatsby.js 進行建置的[個人部落格](https://kyjhome.com)，其網站文章資料、分類設定與圖片檔案，需與另一個 [repositories](https://github.com/jimmy010679/gatsby-jimmy-data) 進行搭配。
 
 ## 重要記事
 
