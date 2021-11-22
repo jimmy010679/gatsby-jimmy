@@ -1,5 +1,7 @@
 # 幻想吉米
 
+基於 Gatsby.js 進行建置的網站，其網站文章資料、分類設定與圖片檔案，需與 [gatsby-jimmy-data](https://github.com/jimmy010679/gatsby-jimmy-data) 進行搭配。
+
 ## 重要記事
 
 - 2021/10/22: 升級至 Gatsby.js v4.0.0
@@ -10,7 +12,7 @@
 
 ### 1. .env 檔案
 
-##### .env.development
+##### .env.development (如本地有檔案設置 empty)
 
 ```
 DATA_SOURCE_BRANCH=empty
@@ -24,7 +26,7 @@ DATA_SOURCE_BRANCH=master
 
 ### 2. 遠程 Git repositories
 
-根目錄下的 `gatsby-config.js` 檔案進行配置。
+根據.env `DATA_SOURCE_BRANCH` 的值，與根目錄下的 `gatsby-config.js` 進行配置。
 
 ```javascript
 module.exports = {
@@ -42,7 +44,9 @@ module.exports = {
 }
 ```
 
-## GitHub Actions secrets 配置
+## GitHub Settings Secrets 配置
+
+GitHub Action `.github/workflows/node.js.yml` 會使用到。
 
 #### AWS 基本連線資訊
 
