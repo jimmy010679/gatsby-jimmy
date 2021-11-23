@@ -2,8 +2,8 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
-import Seo from "../components/Common/Seo"
-import Layout from "../components/Layout"
+import Seo from "/src/components/common/seo"
+import Layout from "/src/components/layout"
 
 import Container from "@mui/material/Container"
 //import Grid from "@mui/material/Grid"
@@ -31,7 +31,7 @@ const Home = ({ location, data }) => {
                   {data?.articles.nodes[0] && (
                     <>
                       <Link
-                        to={`/blog/article/${data.articles.nodes[0].frontmatter.id}/`}
+                        to={`/blog/article/${data.articles.nodes[0].frontmatter.urlTitle}/`}
                       >
                         <GatsbyImage
                           image={getImage(
@@ -42,7 +42,7 @@ const Home = ({ location, data }) => {
                       </Link>
                       <div>
                         <Link
-                          to={`/blog/article/${data.articles.nodes[0].frontmatter.id}/`}
+                          to={`/blog/article/${data.articles.nodes[0].frontmatter.urlTitle}/`}
                         >
                           {data.articles.nodes[0].frontmatter.title}
                         </Link>
@@ -66,7 +66,7 @@ const Home = ({ location, data }) => {
           >
             {data?.portfolio?.nodes.map((item, index) => (
               <SwiperSlide key={item.frontmatter.id}>
-                <Link to={`/portfolio/${item.frontmatter.id}/`}>
+                <Link to={`/portfolio/${item.frontmatter.urlTitle}/`}>
                   <p>{item.frontmatter.title}</p>
                   <div>
                     <GatsbyImage
@@ -86,19 +86,27 @@ const Home = ({ location, data }) => {
 
 export default Home
 
-export const queryIndexData = graphql`
-  query {
+export const queryHomePageData = graphql`
+  query homePageQuery($nowDate: Date!) {
     articles: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/blog/" }
-        frontmatter: { published: { eq: true } }
+        frontmatter: { published: { eq: true }, publishDate: { lte: $nowDate } }
       }
       limit: 5
-      sort: { order: DESC, fields: [frontmatter___id] }
+      sort: {
+        order: [DESC, DESC, DESC]
+        fields: [
+          frontmatter___updateDate
+          frontmatter___publishDate
+          frontmatter___id
+        ]
+      }
     ) {
       nodes {
         frontmatter {
           id
+          urlTitle
           title
           cover {
             childImageSharp {
@@ -117,14 +125,22 @@ export const queryIndexData = graphql`
     portfolio: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/portfolio/" }
-        frontmatter: { published: { eq: true } }
+        frontmatter: { published: { eq: true }, publishDate: { lte: $nowDate } }
       }
       limit: 5
-      sort: { order: DESC, fields: [frontmatter___id] }
+      sort: {
+        order: [DESC, DESC, DESC]
+        fields: [
+          frontmatter___updateDate
+          frontmatter___publishDate
+          frontmatter___id
+        ]
+      }
     ) {
       nodes {
         frontmatter {
           id
+          urlTitle
           title
           pid
           cover {

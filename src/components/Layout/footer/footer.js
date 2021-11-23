@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 
-import * as styles from "./index.module.css"
+import * as styles from "./footer.module.css"
 
 const Footer = () => {
   return (

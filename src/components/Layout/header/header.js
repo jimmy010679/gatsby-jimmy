@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 import Container from "@mui/material/Container"
 
-import * as styles from "./index.module.css"
+import * as styles from "./header.module.css"
 
 const Header = ({ path }) => {
   //console.log(path)

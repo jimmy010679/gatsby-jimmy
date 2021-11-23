@@ -1,23 +1,52 @@
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// 套件
+
 //const { constants } = require("buffer")
 const path = require(`path`)
+
+const { GetDateTime } = require("./src/components/common/function/getDateTime")
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// 全局變數
+
+// 取得今日Taipei Date
+const nowDate = GetDateTime({
+  type: "today",
+  format: "YYYY-MM-DD 00:00:00",
+})
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // query blog article pages
+  /* -----------------------------------------------------------------------------------------------------
+   * query blog article
+   *
+   */
   const queryArticles = await graphql(`
     query {
       allMarkdownRemark(
         filter: {
           fileAbsolutePath: { regex: "/content/blog/" }
-          frontmatter: { published: { eq: true } }
+          frontmatter: {
+            published: { eq: true }
+            publishDate: { lte: "${nowDate}" }
+          }
         }
-        sort: { order: ASC, fields: frontmatter___id }
+        sort: { 
+          order: ASC,
+          fields: [
+            frontmatter___updateDate,
+            frontmatter___publishDate,
+            frontmatter___id
+          ] 
+        }
       ) {
         nodes {
           frontmatter {
             id
+            urlTitle
             title
             cover {
               childrenImageSharp {
@@ -39,33 +68,33 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  // query category setting
-  const querySettingCategory = await graphql(`
-    query {
-      allSettingCategoryJson {
-        nodes {
-          cid
-          name_English
-          name_Chinese
-          count
-        }
-      }
-    }
-  `)
-
-  // -----------------------------------------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------------------
+   * query portfolios
+   *
+   */
   const queryPortfolios = await graphql(`
     query {
       allMarkdownRemark(
         filter: {
           fileAbsolutePath: { regex: "/content/portfolio/" }
-          frontmatter: { published: { eq: true } }
+          frontmatter: {
+            published: { eq: true }
+            publishDate: { lte: "${nowDate}" }
+          }
         }
-        sort: { order: ASC, fields: frontmatter___id }
+        sort: {
+          order: DESC
+          fields: [
+            frontmatter___updateDate
+            frontmatter___publishDate
+            frontmatter___id
+          ]
+        }
       ) {
         nodes {
           frontmatter {
             id
+            urlTitle
             title
             cover {
               childrenImageSharp {
@@ -87,7 +116,25 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  // query portfolio setting
+  /* -----------------------------------------------------------------------------------------------------
+   * query category setting
+   */
+  const querySettingCategory = await graphql(`
+    query {
+      allSettingCategoryJson {
+        nodes {
+          cid
+          name_English
+          name_Chinese
+          count
+        }
+      }
+    }
+  `)
+
+  /* -----------------------------------------------------------------------------------------------------
+   * query portfolio setting
+   */
   const querySettingPortfolio = await graphql(`
     query {
       allSettingPortfolioJson {
@@ -101,41 +148,54 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // ALL blog article
+  /* -----------------------------------------------------------------------------------------------------
+   * all blog article
+   *
+   */
   const articles = queryArticles.data.allMarkdownRemark.nodes
 
   // blog category分類 陣列
   const blogCategory = querySettingCategory.data.allSettingCategoryJson.nodes
 
-  // ALL portfolio data
+  /* -----------------------------------------------------------------------------------------------------
+   * all portfolio data
+   *
+   */
   const portfolios = queryPortfolios.data.allMarkdownRemark.nodes
 
   // portfolio category分類 陣列
   const portfolioCategory =
     querySettingPortfolio.data.allSettingPortfolioJson.nodes
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // createPage
-  // blog Pagination
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /blog/:page?/
+   */
   const postsPerPage = 10
   const numPages = Math.ceil(articles.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
       path: i === 0 ? `/blog/` : `/blog/${i + 1}/`,
-      component: path.resolve(`src/templates/blog/BlogPagination.js`),
+      component: path.resolve(`src/templates/blog/blogPagination.js`),
       context: {
+        // ---------------------------------
+        nowDate: nowDate,
         limit: postsPerPage,
         skip: i * postsPerPage,
+        // ---------------------------------
         numPages: numPages,
         currentPage: i + 1,
+        // ---------------------------------
       },
     })
   })
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // createPage
-  // blog category pages
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /blog/tag/:name_English/:page?/
+   */
 
   // 計算count文章筆數
   for (const article of articles) {
@@ -154,24 +214,30 @@ exports.createPages = async ({ graphql, actions }) => {
             ? `/blog/category/${item.name_English}/`
             : `/blog/category/${item.name_English}/${i + 1}/`,
         component: path.resolve(
-          `src/templates/blog/category/BlogCategoryPagination.js`
+          `src/templates/blog/category/blogCategoryPagination.js`
         ),
         context: {
+          // ---------------------------------
+          nowDate: nowDate,
           cid: item.cid,
-          name_English: item.name_English,
-          name_Chinese: item.name_Chinese,
           limit: category_postsPerPage,
           skip: i * category_postsPerPage,
+          // ---------------------------------
+          name_English: item.name_English,
+          name_Chinese: item.name_Chinese,
           numPages: category_numPages,
           currentPage: i + 1,
+          // ---------------------------------
         },
       })
     })
   }
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // createPage
-  // blog tags pages
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /blog/tag/:name/:page?/
+   */
 
   // tags 陣列
   let tagsArray = []
@@ -213,29 +279,35 @@ exports.createPages = async ({ graphql, actions }) => {
     Array.from({ length: tag_numPages }).forEach((_, i) => {
       createPage({
         path: i === 0 ? `/blog/tag/${name}/` : `/blog/tag/${name}/${i + 1}/`,
-        component: path.resolve(`src/templates/blog/tag/BlogTagPagination.js`),
+        component: path.resolve(`src/templates/blog/tag/blogTagPagination.js`),
         context: {
+          // ---------------------------------
+          nowDate: nowDate,
           name: name,
           limit: tag_postsPerPage,
           skip: i * tag_postsPerPage,
+          // ---------------------------------
           numPages: tag_numPages,
           currentPage: i + 1,
+          // ---------------------------------
         },
       })
     })
   })
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // createPage
-  // blog article pages
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /blog/article/:urlTitle/
+   */
 
   for (const article of articles) {
     // 查找該文章的 category Name
     let tempCategory = blogCategory.find(x => x.cid === article.frontmatter.cid)
 
     createPage({
-      path: `/blog/article/${article.frontmatter.id}/`,
-      component: path.resolve(`src/templates/blog/article/index.js`),
+      path: `/blog/article/${article.frontmatter.urlTitle}/`,
+      component: path.resolve(`src/templates/blog/article/article.js`),
       context: {
         id: article.frontmatter.id,
         title: article.frontmatter.title,
@@ -250,9 +322,11 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   }
 
-  // -----------------------------------------------------------------------------------------------------------------------
-  // createPage
-  // portfolio pages
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /portfolio/:urlTitle/
+   */
 
   for (const portfolio of portfolios) {
     // 查找該文章的 category Name
@@ -261,10 +335,11 @@ exports.createPages = async ({ graphql, actions }) => {
     )
 
     createPage({
-      path: `/portfolio/${portfolio.frontmatter.id}/`,
-      component: path.resolve(`src/templates/portfolio/index.js`),
+      path: `/portfolio/${portfolio.frontmatter.urlTitle}/`,
+      component: path.resolve(`src/templates/portfolio/work/work.js`),
       context: {
         id: portfolio.frontmatter.id,
+        urlTitle: portfolio.frontmatter.urlTitle,
         title: portfolio.frontmatter.title,
         cover: portfolio.frontmatter.cover,
         name_English: tempCategory.name_English,
@@ -276,5 +351,35 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   }
 
-  // -----------------------------------------------------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /
+   * index 首頁
+   */
+
+  createPage({
+    path: `/`,
+    component: path.resolve(`src/templates/index.js`),
+    context: {
+      nowDate: nowDate,
+    },
+  })
+
+  /* -----------------------------------------------------------------------------------------------------
+   * createPage
+   *
+   * /portfolio/
+   * 作品頁
+   */
+
+  createPage({
+    path: `/portfolio/`,
+    component: path.resolve(`src/templates/portfolio/portfolio.js`),
+    context: {
+      nowDate: nowDate,
+    },
+  })
+
+  // -----------------------------------------------------------------------------------------------------
 }

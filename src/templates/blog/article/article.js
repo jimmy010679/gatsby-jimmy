@@ -1,14 +1,14 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import Seo from "../../../components/Common/Seo"
-import RemoveHTML from "../../../components/Common/Function/RemoveHTML"
-import SubString from "../../../components/Common/Function/SubString"
+import Seo from "/src/components/common/seo"
+import RemoveHTML from "/src/components/common/function/removeHTML"
+import SubString from "/src/components/common/function/subString"
 
-import Layout from "../../../components/Layout"
+import Layout from "/src/components/layout"
 
 import Container from "@mui/material/Container"
-import * as styles from "./index.module.css"
+import * as styles from "./article.module.css"
 
 const Article = ({ pageContext, location }) => {
   const {
@@ -19,6 +19,7 @@ const Article = ({ pageContext, location }) => {
     publishDate,
     updateDate,
     tags,
+    description,
   } = pageContext
 
   // ------------------------------------------------------------------------------------------------
@@ -27,11 +28,19 @@ const Article = ({ pageContext, location }) => {
     <Layout path={location.pathname}>
       <Seo
         title={title}
-        description={SubString({
-          str: RemoveHTML({ html: content }),
-          n: 100,
-          hasDot: true,
-        })}
+        description={
+          description
+            ? SubString({
+                str: description,
+                n: 100,
+                hasDot: true,
+              })
+            : SubString({
+                str: RemoveHTML({ html: content }),
+                n: 100,
+                hasDot: true,
+              })
+        }
         isShowSiteName={true}
       />
       <Container maxWidth="md">
@@ -45,7 +54,7 @@ const Article = ({ pageContext, location }) => {
             <div>
               發布日期<span>{publishDate}</span>
             </div>
-            {updateDate && (
+            {updateDate !== publishDate && (
               <div>
                 更新日期 <span>{updateDate}</span>
               </div>
