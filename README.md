@@ -128,9 +128,17 @@ curl
 
 ## Build and Develop tests
 
-```sh
+```bash
+
 $ git clone git@github.com:jimmy010679/gatsby-jimmy.git
+
 $ cd gatsby-jimmy
+
 $ npm install
-$ gatsby develop 或 $ gatsby build
+
+# develop
+$ gatsby develop
+
+# build
+$ gatsby build
 ```
