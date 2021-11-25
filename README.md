@@ -6,7 +6,7 @@
 
 - 2021/10/22: 升級至 Gatsby.js v4.0.0
 - 2021/03/03: 升級至 Gatsby.js v3.0.0
-- 2020/11/23: 開始遷移作業 Wordpress => Gatsby.js ^2.26.1
+- 2020/11/23: 開始遷移作業 Wordpress => Gatsby.js v2.26.1
 
 ## Environment Variables
 
