@@ -12,7 +12,7 @@
 
 ### 1. .env 檔案
 
-如本地有檔案請將 `DATA_SOURCE_BRANCH` 設成 `empty`
+開發測試時，可將 [repositories](https://github.com/jimmy010679/gatsby-jimmy-data) 裡的 `/src/content` 資料夾下載下來，並將 `DATA_SOURCE_BRANCH` 設成 `empty` 。
 
 ##### .env.development
 
@@ -28,7 +28,7 @@ DATA_SOURCE_BRANCH=master
 
 ### 2. 遠程 Git repositories
 
-根據.env `DATA_SOURCE_BRANCH` 的值，與根目錄下的 `gatsby-config.js` 進行配置。
+.env `DATA_SOURCE_BRANCH` 的值，需與 `gatsby-config.js` 進行配置。
 
 ```javascript
 module.exports = {
@@ -76,19 +76,19 @@ GitHub Action `.github/workflows/node.js.yml` 會使用到。
 
 #### master branch
 
-1. 讀取上次 cache 目錄 (`public`, `.cache`)
+1. 讀取上次 Gatsby cache 目錄 (`public`, `.cache`)
 2. 執行 `$ npm install`
 3. 執行 `$ gatsby build`
 4. 將產生的 /public 資料夾上傳到 Amazon S3 (`AWS_S3_BUCKET_MASTER`)
 5. Amazon CloudFront 清除緩存 (`AWS_CLOUDFRONT_ID_MASTER`)
-6. 將必要的原始 code 檔案壓縮成 zip 檔，使用 `env.SHA_VERSION` 命名。
-7. 將 zip 檔上傳傳到 Amazon S3 (`AWS_S3_BUCKET_PREVIEW`)
-8. ElasticBeanstalk 新增應用程式版本 `AWS_ELASTICBEANSTALK_APPLICATION_NAME`，指定上述 zip 檔案。
-9. ElasticBeanstalk 將該環境 `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME` 切換到最新(上述)的應用程式版本。
+6. 將必要的原始 code 檔案壓縮成 zip 檔，檔名使用 `env.SHA_VERSION` 命名。
+7. 將 zip 檔上傳到 Amazon S3 (`AWS_S3_BUCKET_PREVIEW`)
+8. Amazon ElasticBeanstalk 新增應用程式版本 `AWS_ELASTICBEANSTALK_APPLICATION_NAME`，指定上述 zip 檔案。
+9. Amazon ElasticBeanstalk 將該環境 `AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME` 切換到最新(上述)的應用程式版本。
 
 #### develop branch
 
-1. 讀取上次 cache 目錄 (`public`, `.cache`)
+1. 讀取上次 Gatsby cache 目錄 (`public`, `.cache`)
 2. 執行 `$ npm install`
 3. 執行 `$ gatsby build`
 4. 將產生的 /public 資料夾上傳到 Amazon S3 (`AWS_S3_BUCKET_DEVELOP`)
