@@ -4,15 +4,14 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import { useQueryParams, StringParam } from "use-query-params"
 
-import Seo from "../../components/Common/Seo"
-import Layout from "../../components/Layout"
+import Seo from "/src/components/common/seo"
+import Layout from "/src/components/layout"
 
 import Container from "@mui/material/Container"
-import Grid from "@mui/material/Grid"
 
 import "swiper/swiper.scss"
 
-const Portfolio = ({ location, data }) => {
+const PortfolioList = ({ location, data }) => {
   //---------------------------------------------------------
   const pageQuery = usePageQuery()
 
@@ -42,12 +41,12 @@ const Portfolio = ({ location, data }) => {
               </Link>
             ))}
           </div>
-          <Grid container spacing={3}>
+          <div>
             {Array.isArray(portfolios) && (
-              <>
+              <div>
                 {portfolios.map((item, index) => (
-                  <Grid item xs={6} lg={4} key={item.frontmatter.id}>
-                    <Link to={`/portfolio/${item.frontmatter.id}/`}>
+                  <div key={item.frontmatter.id}>
+                    <Link to={`/portfolio/${item.frontmatter.urlTitle}/`}>
                       <p>{item.frontmatter.title}</p>
                       <div>
                         <GatsbyImage
@@ -56,26 +55,27 @@ const Portfolio = ({ location, data }) => {
                         />
                       </div>
                     </Link>
-                  </Grid>
+                  </div>
                 ))}
-              </>
+              </div>
             )}
+
             {portfolios === null && <div>無資料</div>}
 
             {portfolios === "error" && <div>error</div>}
-          </Grid>
+          </div>
         </Container>
       </div>
     </Layout>
   )
 }
 
-export default Portfolio
+export default PortfolioList
 
 // -------------------------------------------------------------------------------------------------------------------------------
 
-export const queryIndexData = graphql`
-  query {
+export const queryPortfolioListData = graphql`
+  query portfolioListQuery($nowDate: Date!) {
     portfolioCategory: allSettingPortfolioJson {
       nodes {
         pid
@@ -88,13 +88,21 @@ export const queryIndexData = graphql`
     portfolio: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/portfolio/" }
-        frontmatter: { published: { eq: true } }
+        frontmatter: { published: { eq: true }, publishDate: { lte: $nowDate } }
       }
-      sort: { order: DESC, fields: [frontmatter___id] }
+      sort: {
+        order: [DESC, DESC, DESC]
+        fields: [
+          frontmatter___updateDate
+          frontmatter___publishDate
+          frontmatter___id
+        ]
+      }
     ) {
       nodes {
         frontmatter {
           id
+          urlTitle
           title
           pid
           cover {

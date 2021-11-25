@@ -26,6 +26,7 @@ module.exports = {
   },
 
   plugins: [
+    /* 遠程 Git repositories 資料 */
     {
       resolve: `gatsby-source-git`,
       options: {
@@ -46,12 +47,19 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: "gatsby-remark-copy-relative-linked-files",
+            /* 忽略檔案 其餘進行copy (gif) */
+            resolve: `gatsby-remark-copy-linked-files`,
+            options: {
+              destinationDir: "static",
+              ignoreFileExtensions: [`png`, `jpg`, `jpeg`, `bmp`, `tiff`],
+            },
           },
           {
+            /* 程式高亮 */
             resolve: "gatsby-remark-prismjs",
           },
           {
+            /* 圖片優化 */
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 800,

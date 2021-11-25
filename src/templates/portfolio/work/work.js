@@ -1,10 +1,15 @@
 import React from "react"
 import { Link } from "gatsby"
-import Layout from "../../components/Layout"
+
+import Seo from "/src/components/common/seo"
+import RemoveHTML from "/src/components/common/function/removeHTML"
+import SubString from "/src/components/common/function/subString"
+
+import Layout from "/src/components/layout"
 
 import Container from "@mui/material/Container"
 
-const Portfolio = ({ pageContext, location }) => {
+const Work = ({ pageContext, location }) => {
   const {
     title,
     content /*, cover*/,
@@ -12,12 +17,30 @@ const Portfolio = ({ pageContext, location }) => {
     name_Chinese,
     publishDate,
     updateDate,
+    description,
   } = pageContext
 
   // ------------------------------------------------------------------------------------------------
   // return
   return (
     <Layout path={location.pathname}>
+      <Seo
+        title={title}
+        description={
+          description
+            ? SubString({
+                str: description,
+                n: 100,
+                hasDot: true,
+              })
+            : SubString({
+                str: RemoveHTML({ html: content }),
+                n: 100,
+                hasDot: true,
+              })
+        }
+        isShowSiteName={true}
+      />
       <Container maxWidth="md">
         <div>
           <h1>{title}</h1>
@@ -31,7 +54,7 @@ const Portfolio = ({ pageContext, location }) => {
             <div>
               發布日期<span>{publishDate}</span>
             </div>
-            {updateDate && (
+            {updateDate !== publishDate && (
               <div>
                 更新日期 <span>{updateDate}</span>
               </div>
@@ -49,4 +72,4 @@ const Portfolio = ({ pageContext, location }) => {
   )
 }
 
-export default Portfolio
+export default Work

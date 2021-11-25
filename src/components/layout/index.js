@@ -2,8 +2,8 @@ import React /*, { useContext }*/ from "react"
 
 //import { VariablesContext } from "./VariablesProvider"
 
-import Header from "./Header"
-import Footer from "./Footer"
+import Header from "./header/header"
+import Footer from "./footer/footer"
 
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 
