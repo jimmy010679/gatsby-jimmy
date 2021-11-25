@@ -13,7 +13,8 @@ import * as styles from "./article.module.css"
 const Article = ({ pageContext, location }) => {
   const {
     title,
-    content /*, cover*/,
+    content,
+    cover,
     name_English,
     name_Chinese,
     publishDate,
@@ -28,6 +29,7 @@ const Article = ({ pageContext, location }) => {
     <Layout path={location.pathname}>
       <Seo
         title={title}
+        isShowSiteName={true}
         description={
           description
             ? SubString({
@@ -41,7 +43,10 @@ const Article = ({ pageContext, location }) => {
                 hasDot: true,
               })
         }
-        isShowSiteName={true}
+        cover={cover}
+        type="article"
+        publishedTime={publishDate}
+        modifiedTime={updateDate}
       />
       <Container maxWidth="md">
         <div className={styles.main}>
@@ -67,11 +72,13 @@ const Article = ({ pageContext, location }) => {
             }}
           />
           <div>
-            {tags.map((tag, i) => (
-              <Link to={`/blog/tag/${tag}/`} key={i}>
-                {tag}
-              </Link>
-            ))}
+            <ul>
+              {tags.map((tag, i) => (
+                <li property="article:tag" key={i}>
+                  <Link to={`/blog/tag/${tag}/`}>{tag}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </Container>

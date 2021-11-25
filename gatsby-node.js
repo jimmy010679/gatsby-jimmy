@@ -4,15 +4,15 @@
 //const { constants } = require("buffer")
 const path = require(`path`)
 
-const { GetDateTime } = require("./src/components/common/function/getDateTime")
+const { getDateTime } = require("./src/components/common/function/getDateTime")
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // 全局變數
 
 // 取得今日Taipei Date
-const nowDate = GetDateTime({
+const nowDate = getDateTime({
   type: "today",
-  format: "YYYY-MM-DD 00:00:00",
+  format: "yyyy-mm-dd 00:00:00",
 })
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
  * ES5 for gatsby-node.js
  * 取得 日期
  * @param  {String} type   今日或明日 (today, tomorrow)
- * @param  {String} format 格式 (original, YYYY-MM-DD hh:mm:ss, YYYY-MM-DD 00:00:00, YYYY-MM-DD)
+ * @param  {String} format 格式 (original, yyyy-mm-dd hh:mm:ss, yyyy-mm-dd 00:00:00, yyyy-mm-dd)
  * @return {String}        結果
  */
 
@@ -37,7 +37,7 @@ var GetDateTime = function ({ type, format }) {
   // format
 
   switch (format) {
-    case "YYYY-MM-DD hh:mm:ss":
+    case "yyyy-mm-dd hh:mm:ss":
       // "2020-12-03 00:00:00"
       newFormatDate = `${newDate.getFullYear()}-${String(
         newDate.getMonth() + 1
@@ -48,7 +48,7 @@ var GetDateTime = function ({ type, format }) {
 
       break
 
-    case "YYYY-MM-DD 00:00:00":
+    case "yyyy-mm-dd 00:00:00":
       // "2020-12-03 00:00:00"
       newFormatDate = `${newDate.getFullYear()}-${String(
         newDate.getMonth() + 1
@@ -59,7 +59,7 @@ var GetDateTime = function ({ type, format }) {
 
       break
 
-    case "YYYY-MM-DD":
+    case "yyyy-mm-dd":
       // "2020-12-03"
       newFormatDate = `${newDate.getFullYear()}-${String(
         newDate.getMonth() + 1
@@ -77,4 +77,4 @@ var GetDateTime = function ({ type, format }) {
   return newFormatDate
 }
 
-module.exports.GetDateTime = GetDateTime
+module.exports.getDateTime = GetDateTime

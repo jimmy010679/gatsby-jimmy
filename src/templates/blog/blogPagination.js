@@ -3,6 +3,7 @@ import { graphql, Link } from "gatsby"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import Layout from "/src/components/layout"
+import Seo from "/src/components/common/seo"
 
 import Container from "@mui/material/Container"
 
@@ -23,16 +24,16 @@ const BlogPagination = ({ pageContext, location, data }) => {
 
   return (
     <Layout path={location.pathname}>
+      <Seo title="部落格" isShowSiteName={true} description="部落格文章列表" />
       <Container maxWidth="md">
         <h1>{currentPage}</h1>
-
         <div>
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>
               <Link to={`/blog/article/${article.frontmatter.urlTitle}/`}>
                 <GatsbyImage
                   image={getImage(article.frontmatter.cover)}
-                  alt="aaa"
+                  alt={article.frontmatter.title}
                 />
               </Link>
               <Link to={`/blog/article/${article.frontmatter.urlTitle}/`}>
