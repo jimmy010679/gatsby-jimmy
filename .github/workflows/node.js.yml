@@ -42,7 +42,7 @@ jobs:
       
       - name: gatsby build
         run: |
-          gatsby clean
+          # gatsby clean
           npm run build
 
       - name: Set Variable
