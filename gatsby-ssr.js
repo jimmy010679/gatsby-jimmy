@@ -1,6 +1,6 @@
 import React from "react"
 
-import VariablesProvider from "./src/components/Layout/VariablesProvider"
+import VariablesProvider from "./src/components/layout/variablesProvider"
 export const wrapRootElement = ({ element }) => (
   <VariablesProvider>{element}</VariablesProvider>
 )
