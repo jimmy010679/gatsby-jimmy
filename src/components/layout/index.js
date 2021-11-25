@@ -1,6 +1,6 @@
 import React /*, { useContext }*/ from "react"
 
-//import { VariablesContext } from "./VariablesProvider"
+//import { VariablesContext } from "./variablesProvider"
 
 import Header from "./header/header"
 import Footer from "./footer/footer"
