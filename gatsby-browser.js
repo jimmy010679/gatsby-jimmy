@@ -1,5 +1,5 @@
 import React from "react"
-import VariablesProvider from "./src/components/Layout/VariablesProvider"
+import VariablesProvider from "./src/components/layout/variablesProvider"
 
 import "./src/styles/global.css"
 import "./src/styles/highlight.css"
