@@ -1,28 +1,112 @@
-.main {
-  padding: 0 15px;
-  margin: 0 -15px;
-  background-color: #fff;
-  border-radius: unset;
-}
-@media (min-width: 992px) {
-  .main {
-    padding: 25px;
-    border-radius: 25px;
-  }
-}
-@media (min-width: 1200px) {
-  .main {
-    padding: 50px;
-  }
-}
-
-.main > h1 {
-  margin: 0 0 15px 0;
-}
-
-.main > .content {
+#article {
   margin: 0;
+  padding: 50px 0 0 0;
 }
-.main > .content img {
+
+/* H1 大標 */
+#article > h1 {
+  margin: 0 0 30px 0;
+  font-size: 2.5em;
+  letter-spacing: 0.015em;
+  line-height: 1.5em;
+}
+
+#article > .header {
+  margin: 0 0 30px 0;
+  padding: 0 0 30px 0;
+  border-bottom: 1px solid #e3e3e3;
+}
+#article > .header > .type {
+  font-size: 1em;
+  line-height: 1.5em;
+  color: #5c5c5c;
+  margin: 0 0 3px 0;
+}
+#article > .header > .type > a {
+  color: #5c5c5c;
+}
+#article > .header > .type > a:hover {
+  color: #000;
+}
+#article > .header > .publishDate,
+#article > .header > .updateDate {
+  font-size: 1em;
+  line-height: 1.5em;
+  color: #5c5c5c;
+  margin: 0 0 3px 0;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+/* tags */
+#article > .tags {
+  padding: 50px 0 100px 0;
+}
+#article > .tags > ul {
+  list-style: none;
+}
+#article > .tags > ul > li {
+  display: inline-block;
+}
+#article > .tags > ul > li > a {
+  color: var(--theme-ui-colors-text);
+  padding: 5px 10px;
+  margin: 0 10px 10px 0;
+  line-height: 1.5em;
+  font-size: 1em;
+  background-color: #e3e3e3;
+  display: block;
+}
+#article > .tags > ul > li > a:hover {
+  background-color: #f0effa;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+/* 標題 */
+#article > .content > h2 {
+  margin: 40px 0 0 0;
+  font-size: 2.2em;
+  letter-spacing: 0.015em;
+}
+#article > .content > h3 {
+  margin: 30px 0 0 0;
+  font-size: 1.6em;
+  letter-spacing: 0.015em;
+}
+
+/* 段落 */
+#article > .content > h2:first-child {
+  margin-top: 0;
+}
+#article > .content > p {
+  margin: 8px 0 16px 0;
+  line-height: 1.7em;
+  font-size: 1.25em; /* 20px */
+  font-weight: 400;
+}
+#article > .content > h2 + * {
+  margin-top: 24px;
+}
+
+/* 圖片 */
+#article > .content img {
+  width: 100%;
   max-width: 100%;
+  height: auto;
+}
+
+/* 表格*/
+#article > .content > ul {
+  list-style: disc inside;
+  margin: 8px 0 16px 0;
+}
+#article > .content > ol {
+  list-style: decimal inside;
+  margin: 8px 0 16px 0;
+}
+#article > .content > ul > li,
+#article > .content > ol > li {
+  margin: 0;
+  line-height: 1.6em;
+  font-size: 1.25em; /* 20px */
+  font-weight: 400;
 }

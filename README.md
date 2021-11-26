@@ -1,6 +1,6 @@
 <h1 align="center">幻想吉米</h1>
 
-基於 Gatsby.js 進行建置的[個人部落格](https://kyjhome.com)，其網站文章資料、分類設定與圖片檔案，需與另一個 [repositories](https://github.com/jimmy010679/gatsby-jimmy-data) 進行搭配。
+基於 Gatsby.js 進行建置的[個人部落格](https://kyjhome.com)，其網站文章資料、分類設定與圖片檔案，需與 [gatsby-jimmy-data](https://github.com/jimmy010679/gatsby-jimmy-data) 進行搭配。
 
 ## 重要記事
 
@@ -12,7 +12,7 @@
 
 ### 1. .env 檔案
 
-開發測試時，可將 [repositories](https://github.com/jimmy010679/gatsby-jimmy-data) 裡的 `/src/content` 資料夾下載下來，並將 `DATA_SOURCE_BRANCH` 設成 `empty` 。
+開發測試時，可將 [gatsby-jimmy-data](https://github.com/jimmy010679/gatsby-jimmy-data) 裡的 `/src/content` 資料夾下載下來，並將 `DATA_SOURCE_BRANCH` 設成 `empty` 。
 
 ##### .env.development
 

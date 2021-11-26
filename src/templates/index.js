@@ -17,7 +17,6 @@ const Home = ({ location, data }) => {
   return (
     <Layout path={location.pathname}>
       <Seo isShowSiteName={false} />
-
       <div className={styles.blogNews}>
         <Container maxWidth="lg">
           <div className={styles.content}>

@@ -9,7 +9,7 @@ import Container from "@mui/material/Container"
 const BlogTagPagination = ({ pageContext, location, data }) => {
   // ------------------------------------------------------------------------------------------------
   // 接收
-  const { name, currentPage, numPages } = pageContext
+  const { name, count, currentPage, numPages } = pageContext
 
   // ------------------------------------------------------------------------------------------------
 
@@ -24,7 +24,10 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
   return (
     <Layout path={location.pathname}>
       <Container maxWidth="md">
-        <h1>{name}</h1>
+        <h1>
+          {name}
+          <span>{count}</span>
+        </h1>
         <div>
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>

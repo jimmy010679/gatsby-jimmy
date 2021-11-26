@@ -13,13 +13,11 @@ b {
   font-weight: 700;
 }
 body {
-  color: rgba(0, 0, 0, 0.87);
   margin: 0;
   font-size: 1rem;
   font-family: Roboto, Arial, Noto Sans TC, Noto Sans JP, sans-serif;
   font-weight: 400;
   line-height: 1.43;
-  background-color: #fff; /*  f7f7f7 */
 }
 @media print {
   body {
@@ -66,3 +64,30 @@ body.overflowHidden {
 }
 
 /* ------------------------------------------------------------------------------------------------ */
+
+html {
+  --theme-ui-colors-text: #333333;
+  --theme-ui-colors-background: #fff;
+  --theme-ui-colors-primary: #333;
+  --theme-ui-colors-secondary: #666;
+  --theme-ui-colors-tertiary: #999;
+  --theme-ui-colors-quaternary: #c7d7ef;
+  --theme-ui-colors-error: #e65442;
+  --theme-ui-colors-gray-0: #ffffff;
+  --theme-ui-colors-gray-1: #f7fafc;
+  --theme-ui-colors-gray-2: #edf2f7;
+  --theme-ui-colors-gray-3: #e2e8f0;
+  --theme-ui-colors-gray-4: #cbd5e0;
+  --theme-ui-colors-gray-5: #a0aec0;
+  --theme-ui-colors-gray-6: #718096;
+  --theme-ui-colors-gray-7: #4a5568;
+  --theme-ui-colors-gray-8: #2d3748;
+  --theme-ui-colors-gray-9: #1a202c;
+  color: var(--theme-ui-colors-text);
+  background-color: var(--theme-ui-colors-background);
+}
+html[data-theme="dark"] {
+  --theme-ui-colors-text: #e2e2e2;
+  --theme-ui-colors-background: #121212;
+  background-color: var(--theme-ui-colors-background);
+}

@@ -181,6 +181,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         // ---------------------------------
         nowDate: nowDate,
+        count: articles.length,
         limit: postsPerPage,
         skip: i * postsPerPage,
         // ---------------------------------
@@ -194,7 +195,7 @@ exports.createPages = async ({ graphql, actions }) => {
   /* -----------------------------------------------------------------------------------------------------
    * createPage
    *
-   * /blog/tag/:name_English/:page?/
+   * /blog/category/:name_English/:page?/
    */
 
   // 計算count文章筆數
@@ -219,6 +220,7 @@ exports.createPages = async ({ graphql, actions }) => {
         context: {
           // ---------------------------------
           nowDate: nowDate,
+          count: category_count,
           cid: item.cid,
           limit: category_postsPerPage,
           skip: i * category_postsPerPage,
@@ -283,6 +285,7 @@ exports.createPages = async ({ graphql, actions }) => {
         context: {
           // ---------------------------------
           nowDate: nowDate,
+          count: tag_articles,
           name: name,
           limit: tag_postsPerPage,
           skip: i * tag_postsPerPage,

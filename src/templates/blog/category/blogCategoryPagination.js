@@ -9,7 +9,8 @@ import Container from "@mui/material/Container"
 const BlogCategoryPagination = ({ pageContext, location, data }) => {
   // ------------------------------------------------------------------------------------------------
   // 接收
-  const { name_English, name_Chinese, currentPage, numPages } = pageContext
+  const { count, name_English, name_Chinese, currentPage, numPages } =
+    pageContext
 
   // ------------------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ const BlogCategoryPagination = ({ pageContext, location, data }) => {
     <Layout path={location.pathname}>
       <Container maxWidth="md">
         <h1>{name_Chinese}</h1>
+        <div>文章總數: {count}</div>
         <div>
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>

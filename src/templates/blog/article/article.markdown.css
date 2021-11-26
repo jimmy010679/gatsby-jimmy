@@ -1,0 +1,49 @@
+/* 標題 */
+h2 {
+  margin: 40px 0 0 0;
+  font-size: 2.2em;
+  letter-spacing: 0.015em;
+}
+h3 {
+  margin: 25px 0 0 0;
+  font-size: 1.6em;
+  letter-spacing: 0.015em;
+}
+
+/* 段落 */
+h2:first-child {
+  margin-top: 0;
+}
+p {
+  margin: 8px 0 16px 0;
+  line-height: 1.6em;
+  font-size: 1.25em; /* 20px */
+  font-weight: 400;
+}
+h2 + * {
+  margin-top: 24px;
+}
+
+/* 圖片 */
+#article > .content img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 表格*/
+ul {
+  list-style: disc inside;
+  margin: 8px 0 16px 0;
+}
+ol {
+  list-style: decimal inside;
+  margin: 8px 0 16px 0;
+}
+ul > li,
+ol > li {
+  margin: 0;
+  line-height: 1.6em;
+  font-size: 1.25em; /* 20px */
+  font-weight: 400;
+}

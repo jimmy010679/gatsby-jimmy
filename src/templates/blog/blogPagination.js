@@ -10,7 +10,7 @@ import Container from "@mui/material/Container"
 const BlogPagination = ({ pageContext, location, data }) => {
   // ------------------------------------------------------------------------------------------------
   // 接收
-  const { currentPage, numPages } = pageContext
+  const { count, currentPage, numPages } = pageContext
 
   // ------------------------------------------------------------------------------------------------
 
@@ -27,6 +27,7 @@ const BlogPagination = ({ pageContext, location, data }) => {
       <Seo title="部落格" isShowSiteName={true} description="部落格文章列表" />
       <Container maxWidth="md">
         <h1>{currentPage}</h1>
+        <div>文章總數: {count}</div>
         <div>
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>

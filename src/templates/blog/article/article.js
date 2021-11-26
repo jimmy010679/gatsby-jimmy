@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link } from "gatsby"
 
 import Seo from "/src/components/common/seo"
@@ -11,6 +11,8 @@ import Container from "@mui/material/Container"
 import * as styles from "./article.module.css"
 
 const Article = ({ pageContext, location }) => {
+  // ------------------------------------------------------------------------------------------------
+
   const {
     title,
     content,
@@ -23,6 +25,13 @@ const Article = ({ pageContext, location }) => {
     description,
   } = pageContext
 
+  // ------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    let doc = new DOMParser().parseFromString(content, "text/html")
+
+    console.log(doc.querySelectorAll("h2"))
+  }, [content])
   // ------------------------------------------------------------------------------------------------
   // return
   return (
@@ -49,19 +58,19 @@ const Article = ({ pageContext, location }) => {
         modifiedTime={updateDate}
       />
       <Container maxWidth="md">
-        <div className={styles.main}>
+        <article id={styles.article}>
           <h1>{title}</h1>
-          <div>
-            分類:
-            <Link to={`/blog/category/${name_English}/`}>{name_Chinese}</Link>
-          </div>
-          <div>
-            <div>
-              發布日期<span>{publishDate}</span>
+          <div className={styles.header}>
+            <div className={styles.type}>
+              文章分類：
+              <Link to={`/blog/category/${name_English}/`}>{name_Chinese}</Link>
+            </div>
+            <div className={styles.publishDate}>
+              發布日期：<span>{publishDate}</span>
             </div>
             {updateDate !== publishDate && (
-              <div>
-                更新日期 <span>{updateDate}</span>
+              <div className={styles.updateDate}>
+                更新日期：<span>{updateDate}</span>
               </div>
             )}
           </div>
@@ -70,8 +79,8 @@ const Article = ({ pageContext, location }) => {
             dangerouslySetInnerHTML={{
               __html: content,
             }}
-          />
-          <div>
+          ></div>
+          <div className={styles.tags}>
             <ul>
               {tags.map((tag, i) => (
                 <li property="article:tag" key={i}>
@@ -80,7 +89,7 @@ const Article = ({ pageContext, location }) => {
               ))}
             </ul>
           </div>
-        </div>
+        </article>
       </Container>
     </Layout>
   )

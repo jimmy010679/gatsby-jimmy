@@ -15,7 +15,7 @@ const Footer = () => {
             <Grid item xs={12} md>
               <div>
                 <h5>網站資訊</h5>
-                <p>吉米的部落格！紀錄程式、模型、ACG及生活點點滴滴</p>
+                <p>吉米的部落格！紀錄生活的點點滴滴~</p>
               </div>
             </Grid>
             <Grid item xs={12} md>
@@ -25,10 +25,10 @@ const Footer = () => {
             </Grid>
             <Grid item xs={12} md>
               <div>
-                <h5>關於網站</h5>
+                <h5>關於幻想吉米</h5>
                 <ul>
                   <li>
-                    <Link to="/">關於我</Link>
+                    <Link to="/">關於網站</Link>
                   </li>
                   <li>
                     <a
@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.copyright}>
-          Copyright © 2019-2021 幻想吉米 - Powered by JIMMY
+          Copyright © 2019-2021 幻想吉米 - Powered by 幻想吉米
         </div>
       </Container>
     </footer>
