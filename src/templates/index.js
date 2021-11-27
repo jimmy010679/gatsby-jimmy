@@ -32,12 +32,16 @@ const Home = ({ location, data }) => {
                       <Link
                         to={`/blog/article/${data.articles.nodes[0].frontmatter.urlTitle}/`}
                       >
-                        <GatsbyImage
-                          image={getImage(
-                            data.articles.nodes[0].frontmatter.cover
-                          )}
-                          alt={data.articles.nodes[0].frontmatter.title}
-                        />
+                        {data.articles.nodes[0].frontmatter.cover ? (
+                          <GatsbyImage
+                            image={getImage(
+                              data.articles.nodes[0].frontmatter.cover
+                            )}
+                            alt={data.articles.nodes[0].frontmatter.title}
+                          />
+                        ) : (
+                          <>無圖片</>
+                        )}
                       </Link>
                       <div>
                         <Link

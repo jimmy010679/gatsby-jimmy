@@ -32,10 +32,14 @@ const BlogCategoryPagination = ({ pageContext, location, data }) => {
           {data?.allMarkdownRemark?.nodes.map((article, index) => (
             <div key={article.frontmatter.id}>
               <Link to={`/blog/article/${article.frontmatter.urlTitle}/`}>
-                <GatsbyImage
-                  image={getImage(article.frontmatter.cover)}
-                  alt="aaa"
-                />
+                {article.frontmatter.cover ? (
+                  <GatsbyImage
+                    image={getImage(article.frontmatter.cover)}
+                    alt="aaa"
+                  />
+                ) : (
+                  <>無圖片</>
+                )}
               </Link>
               <Link to={`/blog/article/${article.frontmatter.urlTitle}/`}>
                 {article.frontmatter.title}
