@@ -1,0 +1,110 @@
+.blogContainer {
+  padding: 15px 0 0 0;
+}
+@media (min-width: 992px) {
+  .blogContainer {
+    padding: 30px 0 0 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* 標題 */
+.blogContainer > .h1 {
+  font-size: 3em;
+  margin: 25px 0 20px 0;
+  padding: 0;
+}
+.blogContainer > .h1 > span {
+  font-size: 0.5em;
+  padding: 0 0 0 15px;
+}
+
+/* 列表 */
+.blogContainer > .posts {
+  display: block;
+}
+.blogContainer > .posts > .box {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 0 50px 0;
+  justify-content: center;
+  align-items: stretch;
+}
+.blogContainer > .posts > .box > .cover {
+  flex: 0 0 40%;
+}
+.blogContainer > .posts > .box > .cover > a {
+  display: block;
+}
+
+.blogContainer > .posts > .box > .text {
+  flex: 1 1 auto;
+  padding: 0 0 0 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+.blogContainer > .posts > .box > .text > .category {
+  width: 100%;
+  margin: 0 0 10px 0;
+}
+.blogContainer > .posts > .box > .text > .category > a {
+  font-size: 0.85em;
+  color: #999;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background-color: #ececec;
+}
+.blogContainer > .posts > .box > .text > .category > a:hover {
+  background-color: rgb(74, 97, 160);
+  color: #fff;
+}
+.blogContainer > .posts > .box > .text > .title {
+  width: 100%;
+  margin: 0 0 15px 0;
+}
+.blogContainer > .posts > .box > .text > .title > a {
+  font-size: 1.25em;
+  color: #333;
+  -webkit-box-orient: vertical;
+  -o-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  -moz-line-clamp: 2;
+  -o-line-clamp: 2;
+  -ms-line-clamp: 2;
+  color: var(--theme-ui-colors-text);
+  color: #333;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-box;
+  display: -ms-box;
+  line-height: 1.5;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+
+.blogContainer > .posts > .box > .text > .description {
+  width: 100%;
+  font-size: 1em;
+  color: #333;
+  -webkit-box-orient: vertical;
+  -o-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  -moz-line-clamp: 3;
+  -o-line-clamp: 3;
+  -ms-line-clamp: 3;
+  color: #999;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-box;
+  display: -ms-box;
+  line-height: 1.5;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}

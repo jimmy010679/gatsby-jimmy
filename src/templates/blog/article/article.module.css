@@ -1,11 +1,16 @@
 #article {
   margin: 0;
-  padding: 50px 0 0 0;
+  padding: 15px 0 0 0;
+}
+@media (min-width: 992px) {
+  #article {
+    padding: 30px 0 0 0;
+  }
 }
 
 /* H1 大標 */
 #article > h1 {
-  margin: 0 0 30px 0;
+  margin: 25px 0 30px 0;
   font-size: 2.5em;
   letter-spacing: 0.015em;
   line-height: 1.5em;

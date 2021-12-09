@@ -1,11 +1,12 @@
 import React, { useEffect } from "react"
 import { Link } from "gatsby"
 
+import Layout from "/src/components/layout"
 import Seo from "/src/components/common/seo"
+import Breadcrumb from "/src/components/common/bread/breadcrumb.js"
+
 import RemoveHTML from "/src/components/common/function/removeHTML"
 import SubString from "/src/components/common/function/subString"
-
-import Layout from "/src/components/layout"
 
 import Container from "@mui/material/Container"
 import * as styles from "./article.module.css"
@@ -14,6 +15,8 @@ const Article = ({ pageContext, location }) => {
   // ------------------------------------------------------------------------------------------------
 
   const {
+    //id,
+    urlTitle,
     title,
     content,
     cover,
@@ -59,6 +62,18 @@ const Article = ({ pageContext, location }) => {
       />
       <Container maxWidth="md">
         <article id={styles.article}>
+          <Breadcrumb
+            data={[
+              {
+                title: "部落格",
+                link: "/blog/",
+              },
+              {
+                title: title,
+                link: `/blog/article/${urlTitle}/`,
+              },
+            ]}
+          />
           <h1>{title}</h1>
           <div className={styles.header}>
             <div className={styles.type}>
@@ -84,7 +99,9 @@ const Article = ({ pageContext, location }) => {
             <ul>
               {tags.map((tag, i) => (
                 <li property="article:tag" key={i}>
-                  <Link to={`/blog/tag/${tag}/`}>{tag}</Link>
+                  <Link to={`/blog/tag/${tag}/`} title={tag}>
+                    {tag}
+                  </Link>
                 </li>
               ))}
             </ul>

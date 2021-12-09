@@ -61,6 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
             publishDate
             updateDate
             tags
+            description
           }
           html
         }
@@ -313,6 +314,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`src/templates/blog/article/article.js`),
       context: {
         id: article.frontmatter.id,
+        urlTitle: article.frontmatter.urlTitle,
         title: article.frontmatter.title,
         cover: article.frontmatter.cover,
         name_English: tempCategory.name_English,
@@ -349,6 +351,7 @@ exports.createPages = async ({ graphql, actions }) => {
         name_Chinese: tempCategory.name_Chinese,
         publishDate: portfolio.frontmatter.publishDate,
         updateDate: portfolio.frontmatter.updateDate,
+        description: portfolio.frontmatter.description,
         content: portfolio.html,
       },
     })
