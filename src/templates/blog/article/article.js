@@ -40,7 +40,7 @@ const Article = ({ pageContext, location }) => {
   return (
     <Layout path={location.pathname}>
       <Seo
-        title={title}
+        title={`${title} / 部落格`}
         isShowSiteName={true}
         description={
           description

@@ -11,7 +11,7 @@ import SubString from "/src/components/common/function/subString"
 
 import Container from "@mui/material/Container"
 
-import * as styles from "./blogPagination.module.css"
+import * as styles from "/src/templates/blog/blogPagination.module.css"
 
 const BlogPagination = ({ pageContext, location, data }) => {
   // ------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ const BlogPagination = ({ pageContext, location, data }) => {
   const isLast = currentPage === numPages
   const prevPage =
     currentPage - 1 === 1 ? "/blog/" : (currentPage - 1).toString()
-  const nextPage = (currentPage + 1).toString()
+  const nextPage = `/blog/${(currentPage + 1).toString()}/`
 
   // ------------------------------------------------------------------------------------------------
   // 文章分類
@@ -46,7 +46,7 @@ const BlogPagination = ({ pageContext, location, data }) => {
             ]}
           />
           <h1 className={styles.h1}>
-            部落格<span>({count})</span>
+            部落格<span className={styles.count}>({count})</span>
           </h1>
           <div className={styles.posts}>
             {data?.articles?.nodes.map((article, index) => (
@@ -101,17 +101,37 @@ const BlogPagination = ({ pageContext, location, data }) => {
               </div>
             ))}
           </div>
-          <div>
-            {!isFirst && (
-              <Link to={prevPage} rel="prev">
-                ← Previous Page
-              </Link>
-            )}
-            {!isLast && (
-              <Link to={nextPage} rel="next">
-                Next Page →
-              </Link>
-            )}
+          <div className={styles.pagination}>
+            <div className={styles.prev}>
+              {!isFirst ? (
+                <Link to={prevPage} rel="prev">
+                  ← Previous Page
+                </Link>
+              ) : (
+                <Link
+                  to={location.pathname}
+                  className={styles.noDrop}
+                  rel="prev"
+                >
+                  ← Previous Page
+                </Link>
+              )}
+            </div>
+            <div className={styles.next}>
+              {!isLast ? (
+                <Link to={nextPage} rel="next">
+                  Next Page →
+                </Link>
+              ) : (
+                <Link
+                  to={location.pathname}
+                  className={styles.noDrop}
+                  rel="next"
+                >
+                  Next Page →
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </Container>
