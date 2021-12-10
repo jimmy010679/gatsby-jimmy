@@ -60,7 +60,7 @@ const SEO = ({
     siteName: siteName,
 
     // 標題
-    title: isShowSiteName ? `${title} | ${siteName}` : siteName,
+    title: isShowSiteName ? `${title}｜${siteName}` : siteName,
 
     // 說明
     description: description || defaultDescription,

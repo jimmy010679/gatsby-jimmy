@@ -20,7 +20,7 @@
 }
 #header .content > .logo > a {
   font-size: 1.5em;
-  padding: 8px 20px;
+  padding: 8px 20px 8px 0;
   color: var(--theme-ui-colors-text);
   font-weight: 600;
 }
@@ -46,8 +46,7 @@
   padding: 0 15px;
 }
 #header .content > nav > ul > li > a.active {
-  color: #000;
-  font-weight: 600;
+  color: #2990b8;
 }
 #header .content > nav > ul > li > a:hover {
   color: rgb(74, 97, 160);

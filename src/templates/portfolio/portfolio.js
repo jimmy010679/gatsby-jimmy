@@ -4,68 +4,109 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import { useQueryParams, StringParam } from "use-query-params"
 
-import Seo from "/src/components/common/seo"
 import Layout from "/src/components/layout"
+import Seo from "/src/components/common/seo"
+import Breadcrumb from "/src/components/common/bread/breadcrumb"
 
 import Container from "@mui/material/Container"
+import * as styles from "./portfolio.module.css"
 
 import "swiper/swiper.scss"
 
 const PortfolioList = ({ location, data }) => {
-  //---------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------
   const pageQuery = usePageQuery()
 
-  //---------------------------------------------------------
+  // 網址分類參數
+  const queryCategory = pageQuery.parameter.queryCategory
+
+  // ------------------------------------------------------------------------------------------------
+  // 作品分類
+  const portfolioCategory = data.settingCategory.nodes
+
+  // ------------------------------------------------------------------------------------------------
   const [portfolios /*, setPortfolios*/] = usePortfolios({
     data: data.portfolio.nodes,
-    portfolioCategory: data.portfolioCategory.nodes,
-    queryCategory: pageQuery.parameter.queryCategory,
+    portfolioCategory: portfolioCategory,
+    queryCategory: queryCategory,
   })
 
-  //---------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------
 
   return (
     <Layout path={location.pathname}>
-      <Seo />
-      <div className="protfolio">
-        <Container maxWidth="lg">
-          <h2>作品集</h2>
-          <div>
-            <Link to={`/portfolio/`}>全部</Link>
-            {data.portfolioCategory.nodes.map((item, index) => (
-              <Link
-                to={`/portfolio/?category=${item.name_English}`}
-                key={index}
-              >
-                {item.name_Chinese}
-              </Link>
-            ))}
+      <Seo title="作品集" isShowSiteName={true} description="作品集列表" />
+      <Container maxWidth="lg">
+        <div className={styles.portfolioContainer}>
+          <Breadcrumb
+            data={[
+              {
+                title: "作品集",
+                link: "/portfolio/",
+              },
+            ]}
+          />
+          <h1>作品集</h1>
+          <div className={styles.category}>
+            <ul>
+              <li>
+                <Link
+                  to="/portfolio/"
+                  className={
+                    typeof queryCategory === "undefined" ? styles.active : ""
+                  }
+                  title="全部"
+                >
+                  全部
+                </Link>
+              </li>
+              {portfolioCategory.map((item, index) => (
+                <li key={index}>
+                  <Link
+                    to={`/portfolio/?category=${item.name_English}`}
+                    className={
+                      queryCategory === item.name_English ? styles.active : ""
+                    }
+                    title={item.name_Chinese}
+                  >
+                    {item.name_Chinese}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div>
-            {Array.isArray(portfolios) && (
-              <div>
-                {portfolios.map((item, index) => (
-                  <div key={item.frontmatter.id}>
-                    <Link to={`/portfolio/${item.frontmatter.urlTitle}/`}>
-                      <p>{item.frontmatter.title}</p>
-                      <div>
-                        <GatsbyImage
-                          image={getImage(item.frontmatter.cover)}
-                          alt={item.frontmatter.title}
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            )}
+          <div className={styles.works}>
+            {Array.isArray(portfolios) &&
+              portfolios.map((item, index) => (
+                <div className={styles.box} key={item.frontmatter.id}>
+                  <Link
+                    to={`/portfolio/${item.frontmatter.urlTitle}/`}
+                    title={item.frontmatter.title}
+                  >
+                    <div className={styles.cover}>
+                      <GatsbyImage
+                        image={getImage(item.frontmatter.cover)}
+                        alt={item.frontmatter.title}
+                      />
+                    </div>
+                    <div className={styles.title}>{item.frontmatter.title}</div>
+                    <div className={styles.category}>
+                      {
+                        portfolioCategory.find(
+                          x => x.cid === item.frontmatter.cid
+                        ).name_Chinese
+                      }
+                    </div>
+                  </Link>
+                </div>
+              ))}
 
             {portfolios === null && <div>無資料</div>}
 
             {portfolios === "error" && <div>error</div>}
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </Layout>
   )
 }
@@ -76,7 +117,7 @@ export default PortfolioList
 
 export const queryPortfolioListData = graphql`
   query portfolioListQuery($nowDate: Date!) {
-    portfolioCategory: allSettingPortfolioJson {
+    settingCategory: allSettingPortfolioJson {
       nodes {
         pid
         name_English
@@ -110,7 +151,7 @@ export const queryPortfolioListData = graphql`
               gatsbyImageData(
                 placeholder: BLURRED
                 formats: [AUTO, WEBP]
-                width: 800
+                width: 500
                 aspectRatio: 1.77
               )
             }

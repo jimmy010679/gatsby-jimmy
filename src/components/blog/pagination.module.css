@@ -1,0 +1,23 @@
+/* 分頁 */
+.pagination {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 50px 0 80px 0;
+}
+.pagination > .prev {
+  text-align: left;
+  width: 50%;
+}
+.pagination > .next {
+  text-align: right;
+  width: 50%;
+}
+.pagination a {
+  color: var(--theme-ui-colors-text);
+  font-size: 1.5em;
+}
+.pagination a.noDrop {
+  cursor: no-drop;
+  color: #d5d5d5;
+}

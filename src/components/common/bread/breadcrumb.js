@@ -8,11 +8,15 @@ const Breadcrumb = ({ data }) => {
     <div className={styles.breadcrumb}>
       <ul>
         <li>
-          <Link to="/">首頁</Link>
+          <Link to="/" title="首頁">
+            首頁
+          </Link>
         </li>
         {data.map((item, i) => (
           <li key={i}>
-            <Link to={item.link}>{item.title}</Link>
+            <Link to={item.link} title={item.title}>
+              {item.title}
+            </Link>
           </li>
         ))}
       </ul>

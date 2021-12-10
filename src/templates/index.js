@@ -6,7 +6,6 @@ import Seo from "/src/components/common/seo"
 import Layout from "/src/components/layout"
 
 import Container from "@mui/material/Container"
-//import Grid from "@mui/material/Grid"
 
 import { Swiper, SwiperSlide } from "swiper/react"
 
@@ -24,35 +23,33 @@ const Home = ({ location, data }) => {
               <h2>最新文章</h2>
               <Link to="/blog/">看更多</Link>
             </div>
-            <div className={styles.head}>
-              <div className="new">
-                <div>
-                  {data?.articles.nodes[0] && (
-                    <>
+            <div className="new">
+              <div>
+                {data?.articles.nodes[0] && (
+                  <>
+                    <Link
+                      to={`/blog/article/${data.articles.nodes[0].frontmatter.urlTitle}/`}
+                    >
+                      {data.articles.nodes[0].frontmatter.cover ? (
+                        <GatsbyImage
+                          image={getImage(
+                            data.articles.nodes[0].frontmatter.cover
+                          )}
+                          alt={data.articles.nodes[0].frontmatter.title}
+                        />
+                      ) : (
+                        <>無圖片</>
+                      )}
+                    </Link>
+                    <div>
                       <Link
                         to={`/blog/article/${data.articles.nodes[0].frontmatter.urlTitle}/`}
                       >
-                        {data.articles.nodes[0].frontmatter.cover ? (
-                          <GatsbyImage
-                            image={getImage(
-                              data.articles.nodes[0].frontmatter.cover
-                            )}
-                            alt={data.articles.nodes[0].frontmatter.title}
-                          />
-                        ) : (
-                          <>無圖片</>
-                        )}
+                        {data.articles.nodes[0].frontmatter.title}
                       </Link>
-                      <div>
-                        <Link
-                          to={`/blog/article/${data.articles.nodes[0].frontmatter.urlTitle}/`}
-                        >
-                          {data.articles.nodes[0].frontmatter.title}
-                        </Link>
-                      </div>
-                    </>
-                  )}
-                </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

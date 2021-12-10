@@ -8,18 +8,31 @@
   }
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
 /* H1 大標 */
 #article > h1 {
-  margin: 25px 0 30px 0;
+  margin: 15px 0;
   font-size: 2.5em;
   letter-spacing: 0.015em;
   line-height: 1.5em;
 }
+@media (min-width: 992px) {
+  #article > h1 {
+    margin: 25px 0 30px 0;
+  }
+}
 
 #article > .header {
-  margin: 0 0 30px 0;
-  padding: 0 0 30px 0;
+  margin: 0 0 15px 0;
+  padding: 0 0 15px 0;
   border-bottom: 1px solid #e3e3e3;
+}
+@media (min-width: 992px) {
+  #article > .header {
+    margin: 0 0 30px 0;
+    padding: 0 0 30px 0;
+  }
 }
 #article > .header > .type {
   font-size: 1em;
@@ -29,6 +42,7 @@
 }
 #article > .header > .type > a {
   color: #5c5c5c;
+  padding: 0 0 0 5px;
 }
 #article > .header > .type > a:hover {
   color: #000;
@@ -39,6 +53,11 @@
   line-height: 1.5em;
   color: #5c5c5c;
   margin: 0 0 3px 0;
+}
+
+#article > .header > .publishDate > span,
+#article > .header > .updateDate > span {
+  padding: 0 0 0 5px;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------- */
@@ -79,6 +98,10 @@
 }
 
 /* 段落 */
+#article > .content a {
+  color: rgb(74, 97, 160);
+  word-break: break-all;
+}
 #article > .content > h2:first-child {
   margin-top: 0;
 }
@@ -87,6 +110,7 @@
   line-height: 1.7em;
   font-size: 1.25em; /* 20px */
   font-weight: 400;
+  word-break: break-all;
 }
 #article > .content > h2 + * {
   margin-top: 24px;

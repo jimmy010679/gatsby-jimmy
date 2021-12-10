@@ -8,7 +8,7 @@
   list-style: none;
 }
 .breadcrumb > ul > li {
-  display: inline-block;
+  display: inline;
   margin: 0 25px 0 0;
   position: relative;
 }
@@ -24,6 +24,7 @@
 }
 .breadcrumb > ul > li > a {
   color: #333333;
+  line-height: 1.5;
 }
 .breadcrumb > ul > li > a:hover {
   color: rgb(74, 97, 160);

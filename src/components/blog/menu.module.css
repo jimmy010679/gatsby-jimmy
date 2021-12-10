@@ -1,0 +1,39 @@
+/* 分類 */
+.category {
+  display: block;
+}
+.category > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.category > ul > li {
+  margin: 0 0 15px 0;
+  padding: 0 0 0 20px;
+  display: block;
+}
+.category > ul > li:first-child {
+  padding: 0;
+}
+.category > ul > li > a {
+  display: block;
+  font-size: 1.25em;
+  color: var(--theme-ui-colors-text);
+}
+.category > ul > li > a > span {
+  font-size: 0.75em;
+  color: #666;
+  padding: 0 0 0 5px;
+}
+
+.category > ul > li > a.active {
+  font-weight: 600;
+  color: #2990b8;
+}
+.category > ul > li > a.active > span {
+  font-weight: 600;
+  color: #2990b8;
+}
+.category > ul > li > a:hover {
+  color: rgb(74, 97, 160);
+}

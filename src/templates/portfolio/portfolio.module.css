@@ -1,0 +1,119 @@
+.portfolioContainer {
+  padding: 15px 0 0 0;
+}
+@media (min-width: 992px) {
+  .portfolioContainer {
+    padding: 30px 0 0 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* 標題 */
+.portfolioContainer > h1 {
+  font-size: 3em;
+  margin: 25px 0 20px 0;
+  padding: 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* 分類 */
+.portfolioContainer > .category {
+  display: block;
+  margin: 0 0 30px 0;
+}
+@media (min-width: 992px) {
+  .portfolioContainer > .category {
+    display: block;
+    margin: 0 0 50px 0;
+  }
+}
+.portfolioContainer > .category > ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+.portfolioContainer > .category > ul > li {
+  display: inline-block;
+  margin: 0 15px 0 0;
+}
+.portfolioContainer > .category > ul > li:last-child {
+  margin: 0;
+}
+.portfolioContainer > .category > ul > li > a {
+  display: block;
+  font-size: 1em;
+  color: var(--theme-ui-colors-text);
+  padding: 8px 17px;
+  border-radius: 10px;
+  background-color: #ececec;
+  letter-spacing: 0.05em;
+}
+.portfolioContainer > .category > ul > li > a:hover {
+  background-color: rgb(74, 97, 160);
+  color: #fff;
+}
+.portfolioContainer > .category > ul > li > a.active {
+  background-color: rgb(74, 97, 160);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* 分類 */
+.portfolioContainer > .works {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0 0 40px 0;
+}
+@media (min-width: 992px) {
+  .portfolioContainer > .works {
+    margin: 0 0 80px 0;
+  }
+}
+.portfolioContainer > .works > .box {
+  flex: 0 0 100%;
+  margin: 0 0 40px 0;
+}
+@media (min-width: 500px) {
+  .portfolioContainer > .works > .box {
+    flex: 0 0 48%;
+  }
+}
+@media (min-width: 992px) {
+  .portfolioContainer > .works > .box {
+    flex: 0 0 31%;
+  }
+}
+
+.portfolioContainer > .works > .box > a {
+  color: var(--theme-ui-colors-text);
+  display: block;
+}
+.portfolioContainer > .works > .box > a:hover {
+  opacity: 0.7;
+}
+.portfolioContainer > .works > .box > a > .cover {
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 0 20px 0;
+}
+.portfolioContainer > .works > .box > a > .cover > img {
+  width: 100%;
+  height: auto;
+}
+.portfolioContainer > .works > .box > a > .title {
+  padding: 0 15px;
+  margin: 0 0 5px 0;
+  font-size: 1.15em;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--theme-ui-colors-text);
+}
+.portfolioContainer > .works > .box > a > .category {
+  padding: 0 15px;
+  font-size: 0.85em;
+  color: #999;
+}
