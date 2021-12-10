@@ -13,6 +13,7 @@ import "swiper/swiper.scss"
 import * as styles from "./index.module.css"
 
 const Home = ({ location, data }) => {
+  console.log(data.articles.nodes[0].frontmatter.cover)
   return (
     <Layout path={location.pathname}>
       <Seo isShowSiteName={false} />
