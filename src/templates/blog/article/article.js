@@ -4,7 +4,7 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 import Layout from "/src/components/layout"
 import Seo from "/src/components/common/seo"
-import Breadcrumb from "/src/components/common/bread/breadcrumb.js"
+//import Breadcrumb from "/src/components/common/bread/breadcrumb.js"
 
 import RemoveHTML from "/src/components/common/function/removeHTML"
 import SubString from "/src/components/common/function/subString"
@@ -17,7 +17,7 @@ const Article = ({ pageContext, location }) => {
 
   const {
     //id,
-    urlTitle,
+    //urlTitle,
     title,
     content,
     cover,
@@ -60,21 +60,10 @@ const Article = ({ pageContext, location }) => {
         publishedTime={publishDate}
         modifiedTime={updateDate}
       />
+
       <article id={styles.article}>
         <div className={styles.header}>
-          <Container maxWidth="lg">
-            <Breadcrumb
-              data={[
-                {
-                  title: "部落格",
-                  link: "/blog/",
-                },
-                {
-                  title: title,
-                  link: `/blog/article/${urlTitle}/`,
-                },
-              ]}
-            />
+          <Container maxWidth="md">
             <div className={styles.containerFlex}>
               <div className={styles.info}>
                 <h1>{title}</h1>

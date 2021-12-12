@@ -22,6 +22,7 @@ const Header = ({ path }) => {
                 <Link
                   to="/blog/"
                   activeClassName={styles.active}
+                  partiallyActive={true}
                   title="部落格"
                 >
                   部落格
@@ -31,6 +32,7 @@ const Header = ({ path }) => {
                 <Link
                   to="/portfolio/"
                   activeClassName={styles.active}
+                  partiallyActive={true}
                   title="作品集"
                 >
                   作品集
