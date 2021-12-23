@@ -61,6 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
             publishDate
             updateDate
             tags
+            description
           }
           html
         }
@@ -172,7 +173,16 @@ exports.createPages = async ({ graphql, actions }) => {
    *
    * /blog/:page?/
    */
+
+  // 計算count文章筆數
+  for (const article of articles) {
+    blogCategory.find(x => x.cid === article.frontmatter.cid).count++
+  }
+
+  // 每頁筆數
   const postsPerPage = 10
+
+  // 總頁數
   const numPages = Math.ceil(articles.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
@@ -181,11 +191,14 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         // ---------------------------------
         nowDate: nowDate,
+        count: articles.length,
         limit: postsPerPage,
         skip: i * postsPerPage,
         // ---------------------------------
         numPages: numPages,
         currentPage: i + 1,
+        // ---------------------------------
+        blogCategory: blogCategory,
         // ---------------------------------
       },
     })
@@ -194,17 +207,17 @@ exports.createPages = async ({ graphql, actions }) => {
   /* -----------------------------------------------------------------------------------------------------
    * createPage
    *
-   * /blog/tag/:name_English/:page?/
+   * /blog/category/:name_English/:page?/
    */
 
-  // 計算count文章筆數
-  for (const article of articles) {
-    blogCategory.find(x => x.cid === article.frontmatter.cid).count++
-  }
-
   for (const item of blogCategory) {
+    // 此分類筆數
     let category_count = item.count
+
+    // 每頁筆數
     let category_postsPerPage = 10
+
+    // 總頁數
     let category_numPages = Math.ceil(category_count / category_postsPerPage)
 
     Array.from({ length: category_numPages }).forEach((_, i) => {
@@ -219,6 +232,7 @@ exports.createPages = async ({ graphql, actions }) => {
         context: {
           // ---------------------------------
           nowDate: nowDate,
+          count: category_count,
           cid: item.cid,
           limit: category_postsPerPage,
           skip: i * category_postsPerPage,
@@ -227,6 +241,8 @@ exports.createPages = async ({ graphql, actions }) => {
           name_Chinese: item.name_Chinese,
           numPages: category_numPages,
           currentPage: i + 1,
+          // ---------------------------------
+          blogCategory: blogCategory,
           // ---------------------------------
         },
       })
@@ -273,7 +289,11 @@ exports.createPages = async ({ graphql, actions }) => {
   // 如有分頁也一併建立
   Object.keys(tagsObject).forEach(function (name, x) {
     let tag_articles = tagsObject[name]
+
+    // 每頁筆數
     let tag_postsPerPage = 10
+
+    // 總頁數
     let tag_numPages = Math.ceil(tag_articles / tag_postsPerPage)
 
     Array.from({ length: tag_numPages }).forEach((_, i) => {
@@ -283,12 +303,15 @@ exports.createPages = async ({ graphql, actions }) => {
         context: {
           // ---------------------------------
           nowDate: nowDate,
+          count: tag_articles,
           name: name,
           limit: tag_postsPerPage,
           skip: i * tag_postsPerPage,
           // ---------------------------------
           numPages: tag_numPages,
           currentPage: i + 1,
+          // ---------------------------------
+          blogCategory: blogCategory,
           // ---------------------------------
         },
       })
@@ -310,6 +333,7 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`src/templates/blog/article/article.js`),
       context: {
         id: article.frontmatter.id,
+        urlTitle: article.frontmatter.urlTitle,
         title: article.frontmatter.title,
         cover: article.frontmatter.cover,
         name_English: tempCategory.name_English,
@@ -346,6 +370,7 @@ exports.createPages = async ({ graphql, actions }) => {
         name_Chinese: tempCategory.name_Chinese,
         publishDate: portfolio.frontmatter.publishDate,
         updateDate: portfolio.frontmatter.updateDate,
+        description: portfolio.frontmatter.description,
         content: portfolio.html,
       },
     })
@@ -363,6 +388,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve(`src/templates/index.js`),
     context: {
       nowDate: nowDate,
+      blogCategory: blogCategory,
     },
   })
 
@@ -378,6 +404,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve(`src/templates/portfolio/portfolio.js`),
     context: {
       nowDate: nowDate,
+      portfolioCategory: portfolioCategory,
     },
   })
 

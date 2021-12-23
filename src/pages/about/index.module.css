@@ -1,0 +1,23 @@
+.about {
+  padding: 15px 0 0 0;
+}
+@media (min-width: 992px) {
+  .about {
+    padding: 30px 0 0 0;
+  }
+}
+
+.about .content {
+  display: block;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+
+/* 標題 */
+.about .content > h1 {
+  font-size: 3em;
+  letter-spacing: 0.05em;
+  margin: 25px 0 20px 0;
+  padding: 0;
+  text-align: center;
+}

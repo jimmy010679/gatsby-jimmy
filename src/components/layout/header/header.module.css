@@ -1,8 +1,55 @@
-.header {
-  display: block;
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background-color: #fff;
+  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
+  z-index: 900;
 }
 
-.header.home {
-  min-height: 300px;
-  background-color: #f9f8fd;
+#header .content {
+  display: flex;
+  flex-wrap: nowrap;
+}
+#header .content > .logo {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+#header .content > .logo > a {
+  font-size: 1.5em;
+  letter-spacing: 0.05em;
+  padding: 8px 20px 8px 0;
+  color: var(--theme-ui-colors-text);
+  font-weight: 600;
+}
+#header .content > nav {
+  width: 60%;
+}
+#header .content > nav > ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+}
+#header .content > nav > ul > li {
+  display: inline-block;
+  height: 100%;
+}
+#header .content > nav > ul > li > a {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  height: 100%;
+  color: var(--theme-ui-colors-text);
+  padding: 0 15px;
+}
+#header .content > nav > ul > li > a.active {
+  color: #2990b8;
+}
+#header .content > nav > ul > li > a:hover {
+  color: rgb(74, 97, 160);
 }

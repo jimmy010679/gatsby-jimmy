@@ -1,0 +1,191 @@
+.blogContainer {
+  padding: 15px 0 0 0;
+}
+@media (min-width: 992px) {
+  .blogContainer {
+    padding: 30px 0 0 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* 標題 */
+.blogContainer > h1 {
+  font-size: 3em;
+  letter-spacing: 0.05em;
+  margin: 15px 0 25px 0;
+  padding: 0;
+  text-align: center;
+  color: var(--theme-ui-colors-text);
+}
+@media (min-width: 992px) {
+  .blogContainer > h1 {
+    font-size: 3em;
+    margin: 20px 0 40px 0;
+    padding: 0;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+}
+
+.blogContainer > h1.small {
+  font-size: 1.6em;
+  color: #999;
+}
+.blogContainer > h1 > span.category {
+  font-size: 1.5em;
+  display: block;
+  width: 100%;
+  color: var(--theme-ui-colors-text);
+}
+.blogContainer > h1 > span.tag {
+  font-size: 1.5em;
+  display: block;
+  width: 100%;
+  color: var(--theme-ui-colors-text);
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* 內文框 */
+.blogContainer > .content {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* 菜單*/
+.blogContainer > .content > .menu {
+  display: none;
+  flex: 1 1 220px;
+}
+@media (min-width: 992px) {
+  .blogContainer > .content > .menu {
+    display: flex;
+  }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------- */
+/* 列表 */
+.blogContainer > .content > .posts {
+  flex: 0 1 982px;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+.blogContainer > .content > .posts > .box {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 0 50px 0;
+  justify-content: center;
+  align-items: stretch;
+}
+.blogContainer > .content > .posts > .box > .cover {
+  flex: 0 0 40%;
+  display: flex;
+  align-items: flex-start;
+}
+@media (min-width: 992px) {
+  .blogContainer > .content > .posts > .box > .cover {
+    align-items: center;
+  }
+}
+
+.blogContainer > .content > .posts > .box > .cover > a {
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.blogContainer > .content > .posts > .box > .cover > a:hover {
+  opacity: 0.7;
+}
+
+.blogContainer > .content > .posts > .box > .text {
+  flex: 1 1 auto;
+  padding: 0 0 0 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+@media (min-width: 992px) {
+  .blogContainer > .content > .posts > .box > .text {
+    padding: 0 0 0 30px;
+  }
+}
+.blogContainer > .content > .posts > .box > .text > .category {
+  width: 100%;
+  margin: 0 0 10px 0;
+}
+.blogContainer > .content > .posts > .box > .text > .category > a {
+  font-size: 0.85em;
+  color: #999;
+  padding: 4px 15px 4px 10px;
+  border-bottom-right-radius: 15px;
+  background-color: #ececec;
+  letter-spacing: 0.05em;
+}
+.blogContainer > .content > .posts > .box > .text > .category > a:hover {
+  background-color: rgb(74, 97, 160);
+  color: #fff;
+}
+
+.blogContainer > .content > .posts > .box > .text > .title {
+  width: 100%;
+  margin: 0 0 10px 0;
+}
+.blogContainer > .content > .posts > .box > .text > .title > a {
+  display: block;
+}
+.blogContainer > .content > .posts > .box > .text > .title > a > h5 {
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  -webkit-box-orient: vertical;
+  -o-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  -moz-line-clamp: 2;
+  -o-line-clamp: 2;
+  -ms-line-clamp: 2;
+  color: var(--theme-ui-colors-text);
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-box;
+  display: -ms-box;
+  line-height: 1.5;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+
+.blogContainer > .content > .posts > .box > .text > .description {
+  width: 100%;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  -webkit-box-orient: vertical;
+  -o-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  -moz-line-clamp: 3;
+  -o-line-clamp: 3;
+  -ms-line-clamp: 3;
+  color: #999;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -o-box;
+  display: -ms-box;
+  line-height: 1.5;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  margin: 0 0 10px 0;
+}
+
+.blogContainer > .content > .posts > .box > .text > .date {
+  font-size: 0.85em;
+  color: #999;
+}
