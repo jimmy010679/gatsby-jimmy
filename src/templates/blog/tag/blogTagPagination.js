@@ -115,6 +115,7 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
                 </div>
               ))}
               <Pagination
+                urlPath={`/blog/tag/${name}/`}
                 currentPage={currentPage}
                 numPages={numPages}
                 pathname={location.pathname}

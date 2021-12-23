@@ -3,15 +3,19 @@ import { Link } from "gatsby"
 
 import * as styles from "./pagination.module.css"
 
-const Pagination = ({ currentPage, numPages, pathname }) => {
+const Pagination = ({ urlPath, currentPage, numPages, pathname }) => {
   // ------------------------------------------------------------------------------------------------------------------------------
+
+  console.log(urlPath)
 
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
 
   const prevPage =
-    currentPage - 1 === 1 ? "/blog/" : (currentPage - 1).toString()
-  const nextPage = `/blog/${(currentPage + 1).toString()}/`
+    currentPage - 1 === 1
+      ? urlPath
+      : `${urlPath}${(currentPage - 1).toString()}`
+  const nextPage = `${urlPath}${(currentPage + 1).toString()}/`
 
   // ------------------------------------------------------------------------------------------------------------------------------
   return (
