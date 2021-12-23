@@ -388,6 +388,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve(`src/templates/index.js`),
     context: {
       nowDate: nowDate,
+      blogCategory: blogCategory,
     },
   })
 
@@ -403,6 +404,7 @@ exports.createPages = async ({ graphql, actions }) => {
     component: path.resolve(`src/templates/portfolio/portfolio.js`),
     context: {
       nowDate: nowDate,
+      portfolioCategory: portfolioCategory,
     },
   })
 

@@ -12,8 +12,10 @@
 /* 標題 */
 .portfolioContainer > h1 {
   font-size: 3em;
+  letter-spacing: 0.05em;
   margin: 25px 0 20px 0;
   padding: 0;
+  text-align: center;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -105,15 +107,20 @@
   height: auto;
 }
 .portfolioContainer > .works > .box > a > .title {
+  display: block;
+}
+.portfolioContainer > .works > .box > a > .title > h5 {
   padding: 0 15px;
   margin: 0 0 5px 0;
   font-size: 1.15em;
-  font-weight: 600;
+  font-weight: 300;
   line-height: 1.5;
   color: var(--theme-ui-colors-text);
+  letter-spacing: 0.05em;
 }
 .portfolioContainer > .works > .box > a > .category {
   padding: 0 15px;
   font-size: 0.85em;
+  letter-spacing: 0.05em;
   color: #999;
 }

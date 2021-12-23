@@ -13,7 +13,8 @@ import * as styles from "./portfolio.module.css"
 
 import "swiper/swiper.scss"
 
-const PortfolioList = ({ location, data }) => {
+const PortfolioList = ({ pageContext, location, data }) => {
+  const { portfolioCategory } = pageContext
   // ------------------------------------------------------------------------------------------------
   const pageQuery = usePageQuery()
 
@@ -22,7 +23,7 @@ const PortfolioList = ({ location, data }) => {
 
   // ------------------------------------------------------------------------------------------------
   // 作品分類
-  const portfolioCategory = data.settingCategory.nodes
+  //const portfolioCategory = data.settingCategory.nodes
 
   // ------------------------------------------------------------------------------------------------
   const [portfolios /*, setPortfolios*/] = usePortfolios({
@@ -89,7 +90,9 @@ const PortfolioList = ({ location, data }) => {
                         alt={item.frontmatter.title}
                       />
                     </div>
-                    <div className={styles.title}>{item.frontmatter.title}</div>
+                    <div className={styles.title}>
+                      <h5>{item.frontmatter.title}</h5>
+                    </div>
                     <div className={styles.category}>
                       {
                         portfolioCategory.find(
@@ -117,15 +120,6 @@ export default PortfolioList
 
 export const queryPortfolioListData = graphql`
   query portfolioListQuery($nowDate: Date!) {
-    settingCategory: allSettingPortfolioJson {
-      nodes {
-        pid
-        name_English
-        name_Chinese
-        count
-      }
-    }
-
     portfolio: allMarkdownRemark(
       filter: {
         fileAbsolutePath: { regex: "/content/portfolio/" }

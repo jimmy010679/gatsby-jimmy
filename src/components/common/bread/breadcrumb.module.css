@@ -25,6 +25,7 @@
 .breadcrumb > ul > li > a {
   color: #333333;
   line-height: 1.5;
+  letter-spacing: 0.05em;
 }
 .breadcrumb > ul > li > a:hover {
   color: rgb(74, 97, 160);

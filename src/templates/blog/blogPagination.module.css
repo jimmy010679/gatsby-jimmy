@@ -11,6 +11,7 @@
 /* 標題 */
 .blogContainer > h1 {
   font-size: 3em;
+  letter-spacing: 0.05em;
   margin: 15px 0 25px 0;
   padding: 0;
   text-align: center;
@@ -121,9 +122,10 @@
 .blogContainer > .content > .posts > .box > .text > .category > a {
   font-size: 0.85em;
   color: #999;
-  padding: 4px 10px;
-  border-radius: 10px;
+  padding: 4px 15px 4px 10px;
+  border-bottom-right-radius: 15px;
   background-color: #ececec;
+  letter-spacing: 0.05em;
 }
 .blogContainer > .content > .posts > .box > .text > .category > a:hover {
   background-color: rgb(74, 97, 160);
@@ -135,7 +137,13 @@
   margin: 0 0 10px 0;
 }
 .blogContainer > .content > .posts > .box > .text > .title > a {
+  display: block;
+}
+.blogContainer > .content > .posts > .box > .text > .title > a > h5 {
+  margin: 0;
   font-size: 1.25em;
+  font-weight: 300;
+  letter-spacing: 0.05em;
   -webkit-box-orient: vertical;
   -o-box-orient: vertical;
   -ms-box-orient: vertical;
@@ -157,6 +165,7 @@
 .blogContainer > .content > .posts > .box > .text > .description {
   width: 100%;
   font-size: 1em;
+  letter-spacing: 0.05em;
   -webkit-box-orient: vertical;
   -o-box-orient: vertical;
   -ms-box-orient: vertical;

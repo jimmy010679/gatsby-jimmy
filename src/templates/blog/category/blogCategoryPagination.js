@@ -90,7 +90,7 @@ const BlogCategoryPagination = ({ pageContext, location, data }) => {
                         to={`/blog/article/${article.frontmatter.urlTitle}/`}
                         title={article.frontmatter.title}
                       >
-                        {article.frontmatter.title}
+                        <h5>{article.frontmatter.title}</h5>
                       </Link>
                     </div>
                     <div className={styles.description}>

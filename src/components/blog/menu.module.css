@@ -19,6 +19,7 @@
   display: block;
   font-size: 1.25em;
   color: var(--theme-ui-colors-text);
+  letter-spacing: 0.05em;
 }
 .category > ul > li > a > span {
   font-size: 0.75em;

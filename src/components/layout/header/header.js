@@ -39,7 +39,11 @@ const Header = ({ path }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/" activeClassName={styles.active} title="關於我">
+                <Link
+                  to="/about/"
+                  activeClassName={styles.active}
+                  title="關於我"
+                >
                   關於我
                 </Link>
               </li>

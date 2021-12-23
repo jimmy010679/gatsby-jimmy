@@ -1,15 +1,121 @@
-.footer {
+#footer {
   background-color: #f5f5f5;
 }
-.main {
-  display: block;
+#footer .main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px 0 25px 0;
 }
 
-.copyright {
+#footer .main > .info,
+#footer .main > .tag,
+#footer .main > .about {
+  display: block;
+  padding: 0 15px;
+  margin: 0 0 30px 0;
+  box-sizing: border-box;
+}
+#footer .main > .info {
+  flex: 0 0 100%;
+}
+#footer .main > .tag {
+  flex: 0 0 100%;
+}
+#footer .main > .about {
+  flex: 0 0 100%;
+}
+
+@media (min-width: 992px) {
+  #footer .main > .info,
+  #footer .main > .tag,
+  #footer .main > .about {
+    margin: 0;
+  }
+  #footer .main > .info {
+    flex: 0 0 30%;
+  }
+  #footer .main > .tag {
+    flex: 0 0 30%;
+  }
+  #footer .main > .about {
+    flex: 0 0 40%;
+  }
+}
+
+#footer .main h5 {
+  color: #667278;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  letter-spacing: 0.05em;
+}
+
+/* info */
+#footer .main > .info > p {
+  color: #848e95;
+  font-size: 0.85em;
+  letter-spacing: 0.05em;
+}
+
+/* tag */
+#footer .main > .tag > ul {
+  margin: 0;
+  padding: 0;
+}
+#footer .main > .tag > ul > li {
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+#footer .main > .tag > ul > li > a {
+  display: block;
+  padding: 4px 12px;
+  font-size: 0.85em;
+  color: #fff;
+  background-color: #b0b0b0;
+  letter-spacing: 0.05em;
+  border-radius: 6px;
+}
+#footer .main > .tag > ul > li > a:hover {
+  background-color: #525252;
+}
+
+/* about */
+#footer .main > .about > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+#footer .main > .about > ul > li {
+  flex: 0 0 auto;
+  margin: 0 10px 0 0;
+  box-sizing: border-box;
+}
+#footer .main > .about > ul > li > a {
+  display: block;
+}
+#footer .main > .about > ul > li > a > svg {
+  fill: #848e95;
+}
+#footer .main > .about > ul > li > a:hover > svg {
+  fill: #666;
+}
+
+#footer .main > .about > ul > li > a.e04 > img {
+  max-width: 100px;
+}
+
+/* copyright */
+#footer .copyright {
+  width: 100%;
+  padding: 25px 0 50px 0;
   display: block;
   text-align: center;
-  padding: 20px 0 30px 0;
   color: #666666;
   font-size: 0.85em;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.05em;
+  border-top: 1px solid #e7e7e7;
 }
