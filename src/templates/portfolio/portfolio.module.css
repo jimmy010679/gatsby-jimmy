@@ -13,7 +13,7 @@
 .portfolioContainer > h1 {
   font-size: 3em;
   letter-spacing: 0.05em;
-  margin: 25px 0 20px 0;
+  margin: 25px 0 35px 0;
   padding: 0;
   text-align: center;
 }
@@ -101,6 +101,7 @@
   border-radius: 10px;
   overflow: hidden;
   margin: 0 0 20px 0;
+  box-shadow: rgb(50 50 50 / 10%) 0px 16px 32px, rgb(0 0 0 / 7%) 0px 6px 16px;
 }
 .portfolioContainer > .works > .box > a > .cover > img {
   width: 100%;

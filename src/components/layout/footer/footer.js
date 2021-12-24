@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.about}>
-            <h5>關於網站</h5>
+            <h5>相關連結</h5>
             <ul>
               <li>
                 <a

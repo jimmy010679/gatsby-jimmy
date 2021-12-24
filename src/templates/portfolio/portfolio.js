@@ -22,10 +22,6 @@ const PortfolioList = ({ pageContext, location, data }) => {
   const queryCategory = pageQuery.parameter.queryCategory
 
   // ------------------------------------------------------------------------------------------------
-  // 作品分類
-  //const portfolioCategory = data.settingCategory.nodes
-
-  // ------------------------------------------------------------------------------------------------
   const [portfolios /*, setPortfolios*/] = usePortfolios({
     data: data.portfolio.nodes,
     portfolioCategory: portfolioCategory,
@@ -96,7 +92,7 @@ const PortfolioList = ({ pageContext, location, data }) => {
                     <div className={styles.category}>
                       {
                         portfolioCategory.find(
-                          x => x.cid === item.frontmatter.cid
+                          x => x.pid === item.frontmatter.pid
                         ).name_Chinese
                       }
                     </div>

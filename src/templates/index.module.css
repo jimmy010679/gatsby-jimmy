@@ -172,6 +172,7 @@
   margin: 0 0 10px 0;
 }
 .blogNews .content > .news > .lists > .box > .text > .category > a {
+  display: inline-block;
   font-size: 0.85em;
   letter-spacing: 0.05em;
   color: #999;
@@ -290,6 +291,7 @@
 
 .protfolio .content > .lists > .work > a {
   display: block;
+  height: 100%;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgb(0 0 0 / 10%) 0px 6px 8px 0px;
@@ -302,28 +304,20 @@
 .protfolio .content > .lists > .work > a > .cover {
   display: block;
 }
+
 .protfolio .content > .lists > .work > a > .detail {
   padding: 20px 20px;
+}
+.protfolio .content > .lists > .work > a > .detail > .category {
+  font-size: 0.85em;
+  letter-spacing: 0.05em;
+  color: #999;
+  margin: 0 0 10px 0;
 }
 .protfolio .content > .lists > .work > a > .detail > h5 {
   margin: 0;
   font-size: 1.15em;
   font-weight: 300;
   letter-spacing: 0.05em;
-  -webkit-box-orient: vertical;
-  -o-box-orient: vertical;
-  -ms-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  -moz-line-clamp: 1;
-  -o-line-clamp: 1;
-  -ms-line-clamp: 1;
   color: var(--theme-ui-colors-text);
-  display: -webkit-box;
-  display: -moz-box;
-  display: -o-box;
-  display: -ms-box;
-  line-height: 1.5;
-  overflow: hidden;
-  text-decoration: none;
-  text-overflow: ellipsis;
 }

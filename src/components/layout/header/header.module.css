@@ -14,19 +14,19 @@
   flex-wrap: nowrap;
 }
 #header .content > .logo {
-  width: 40%;
+  width: 30%;
   display: flex;
   align-items: center;
 }
 #header .content > .logo > a {
   font-size: 1.5em;
   letter-spacing: 0.05em;
-  padding: 8px 20px 8px 0;
+  padding: 8px 8px 8px 0;
   color: var(--theme-ui-colors-text);
   font-weight: 600;
 }
 #header .content > nav {
-  width: 60%;
+  width: 70%;
 }
 #header .content > nav > ul {
   list-style: none;

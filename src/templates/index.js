@@ -15,7 +15,7 @@ import SubString from "/src/components/common/function/subString"
 import * as styles from "./index.module.css"
 
 const Home = ({ pageContext, location, data }) => {
-  const { blogCategory } = pageContext
+  const { blogCategory, portfolioCategory } = pageContext
 
   return (
     <Layout path={location.pathname}>
@@ -177,6 +177,13 @@ const Home = ({ pageContext, location, data }) => {
                       />
                     </div>
                     <div className={styles.detail}>
+                      <div className={styles.category}>
+                        {
+                          portfolioCategory.find(
+                            x => x.pid === item.frontmatter.pid
+                          ).name_Chinese
+                        }
+                      </div>
                       <h5>{item.frontmatter.title}</h5>
                     </div>
                   </Link>

@@ -88,7 +88,7 @@ const Article = ({ pageContext, location }) => {
                 {cover ? (
                   <GatsbyImage
                     image={getImage(cover.childrenImageSharp[0])}
-                    alt="132112132"
+                    alt="封面圖片"
                   />
                 ) : (
                   <>無圖片</>
