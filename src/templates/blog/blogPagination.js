@@ -108,6 +108,7 @@ const BlogPagination = ({ pageContext, location, data }) => {
                 </div>
               ))}
               <Pagination
+                urlPath="/blog/"
                 currentPage={currentPage}
                 numPages={numPages}
                 pathname={location.pathname}

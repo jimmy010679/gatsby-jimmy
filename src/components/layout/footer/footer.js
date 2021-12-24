@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.about}>
-            <h5>關於網站</h5>
+            <h5>相關連結</h5>
             <ul>
               <li>
                 <a
@@ -77,7 +77,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.copyright}>
-          Copyright © 2019-2021 幻想吉米 - Powered by 幻想吉米
+          Copyright © 2018-2021 幻想吉米 - Powered by 幻想吉米
         </div>
       </Container>
     </footer>

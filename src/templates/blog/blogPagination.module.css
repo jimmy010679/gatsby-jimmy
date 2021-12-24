@@ -120,6 +120,7 @@
   margin: 0 0 10px 0;
 }
 .blogContainer > .content > .posts > .box > .text > .category > a {
+  display: inline-block;
   font-size: 0.85em;
   color: #999;
   padding: 4px 15px 4px 10px;
