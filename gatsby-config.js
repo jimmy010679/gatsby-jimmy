@@ -26,6 +26,25 @@ module.exports = {
   },
 
   plugins: [
+    /* GTM */
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-5FJWMKB",
+
+        // Include GTM in development.
+        //
+        // Defaults to false meaning GTM will only be loaded in production.
+        includeInDevelopment: false,
+
+        // datalayer to be set before GTM is loaded
+        // should be an object or a function that is executed in the browser
+        //
+        // Defaults to null
+        defaultDataLayer: { platform: "gatsby" },
+      },
+    },
+
     /* 遠程 Git repositories 資料 */
     {
       resolve: `gatsby-source-git`,
