@@ -3,7 +3,8 @@
  * @param   {String} html html字符串
  * @return  {String}      處理過後字串
  */
-const RemoveHTML = ({ html }) => {
+
+var RemoveHTML = function ({ html }) {
   let tempText = html
     .replace(/<[^>]*>?/gm, "") // 去除HTML
     .replace(/(\r\n\t|\n|\r\t)/gm, "") // 去除換行
@@ -11,4 +12,4 @@ const RemoveHTML = ({ html }) => {
   return tempText
 }
 
-export default RemoveHTML
+module.exports = RemoveHTML

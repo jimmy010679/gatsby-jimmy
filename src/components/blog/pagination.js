@@ -6,8 +6,6 @@ import * as styles from "./pagination.module.css"
 const Pagination = ({ urlPath, currentPage, numPages, pathname }) => {
   // ------------------------------------------------------------------------------------------------------------------------------
 
-  console.log(urlPath)
-
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
 

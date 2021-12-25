@@ -3,8 +3,7 @@ name: delopy and push to S3
 on:
   workflow_dispatch:
   push:
-    branches: ["master"]
-    # branches: ["master", "develop"]
+    branches: ["master", "develop"]
 
 jobs:
   BuildAndDeploy:
@@ -66,8 +65,8 @@ jobs:
       - name: Develop - Delopy to S3
         if: env.REF_VERSION == 'develop'
         run: |
-          # aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
-          # aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
 
       - name: Master - Delopy to S3
         if: env.REF_VERSION == 'master'
@@ -86,6 +85,6 @@ jobs:
       - name: Master - Delopy zip to S3 and elasticbeanstalk update
         if: github.event_name != 'workflow_dispatch' && env.REF_VERSION == 'master'
         run: |
-          aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
+          # aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
           # aws elasticbeanstalk create-application-version --application-name ${{ secrets.AWS_ELASTICBEANSTALK_APPLICATION_NAME }} --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET_PREVIEW }}",S3Key="${{ env.SHA_VERSION }}.zip"
           # aws elasticbeanstalk update-environment --application-name ${{ secrets.AWS_ELASTICBEANSTALK_APPLICATION_NAME }} --environment-name ${{ secrets.AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME }} --version-label ${{ env.SHA_VERSION }}

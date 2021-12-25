@@ -77,4 +77,54 @@ var GetDateTime = function ({ type, format }) {
   return newFormatDate
 }
 
-module.exports.getDateTime = GetDateTime
+var ConversionDateTime = function ({ date, oldType, newType }) {
+  // ----------------------------------------------------------------
+  let dateTime = undefined
+  let newDate = undefined
+
+  // ----------------------------------------------------------------
+  // return new
+  let newFormatDate = undefined
+
+  // ----------------------------------------------------------------
+  // oldType
+  switch (oldType) {
+    case "yyyy-mm-dd hh:mm:ss":
+      // "2020-12-03 00:00:00"
+      dateTime = new Date(
+        date.substr(0, 4),
+        date.substr(5, 2),
+        date.substr(8, 2),
+        date.substr(11, 2),
+        date.substr(14, 2),
+        date.substr(17, 2)
+      ).toLocaleString("zh-TW", {
+        timeZone: "Asia/Taipei",
+        hour12: false,
+      })
+
+      newDate = new Date(dateTime)
+
+      break
+    default:
+      break
+  }
+
+  // ----------------------------------------------------------------
+  // newType
+  switch (newType) {
+    case "GMT":
+      newFormatDate = newDate.toUTCString()
+
+      break
+    default:
+      break
+  }
+
+  return newFormatDate
+}
+
+module.exports = {
+  GetDateTime: GetDateTime,
+  ConversionDateTime: ConversionDateTime,
+}

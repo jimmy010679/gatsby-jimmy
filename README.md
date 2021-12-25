@@ -10,8 +10,6 @@
 
 ## Environment Variables
 
-### 1. .env 檔案
-
 開發測試時，可將 [gatsby-jimmy-data](https://github.com/jimmy010679/gatsby-jimmy-data) 裡的 `/src/content` 資料夾下載下來，並將 `DATA_SOURCE_BRANCH` 設成 `empty` 。
 
 ##### .env.development
@@ -26,20 +24,91 @@ DATA_SOURCE_BRANCH=empty
 DATA_SOURCE_BRANCH=master
 ```
 
-### 2. 遠程 Git repositories
+## 設定檔 gatsby-config.js
+
+### 1. 遠程 Git repositories
 
 .env `DATA_SOURCE_BRANCH` 的值，需與 `gatsby-config.js` 進行配置。
 
 ```javascript
 module.exports = {
   plugins: [
-    /* 遠程 Git repositories 資料 */
     {
       resolve: `gatsby-source-git`,
       options: {
         name: `gatsby-jimmy-data`,
         remote: `https://github.com/jimmy010679/gatsby-jimmy-data.git`,
         branch: process.env.DATA_SOURCE_BRANCH,
+      },
+    },
+  ],
+}
+```
+
+### 2. Web App Manifest
+
+```javascript
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `幻想吉米`,
+        short_name: `幻想吉米`,
+        start_url: `/`,
+        background_color: `#fff`,
+        theme_color: `#ebedf7`,
+        display: `standalone`,
+        icon: `src/images/icon.png`,
+      },
+    },
+  ],
+}
+```
+
+### 3. Sitemap
+
+```javascript
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap.xml`,
+      },
+    },
+  ],
+}
+```
+
+### 4. RSS
+
+```javascript
+module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        ...
+      },
+    },
+  ],
+}
+```
+
+### 5. Google Tag Manager / Google Analytics
+
+網站使用 GTM 進行管理，並在 GTM 後台新增 GA。
+
+```javascript
+module.exports = {
+  plugins: [
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-5FJWMKB",
+        includeInDevelopment: false,
+        defaultDataLayer: { platform: "gatsby" },
       },
     },
   ],
