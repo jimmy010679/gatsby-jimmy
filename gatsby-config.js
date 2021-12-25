@@ -226,7 +226,7 @@ module.exports = {
             }
           }
         },
-        output: `/sitemap.xml`,
+        output: `/sitemap`,
       },
     },
 
