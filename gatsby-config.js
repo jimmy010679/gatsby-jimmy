@@ -131,25 +131,6 @@ module.exports = {
       },
     },
 
-    /* GTM */
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-5FJWMKB",
-
-        // Include GTM in development.
-        //
-        // Defaults to false meaning GTM will only be loaded in production.
-        includeInDevelopment: false,
-
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        //
-        // Defaults to null
-        defaultDataLayer: { platform: "gatsby" },
-      },
-    },
-
     /* SiteMap */
     {
       resolve: `gatsby-plugin-sitemap`,
@@ -177,7 +158,6 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
-              console.log(allMarkdownRemark.nodes.length)
               return allMarkdownRemark.nodes.map(edge => {
                 let tempDescription = edge.frontmatter.description
                   ? SubString({
@@ -245,6 +225,25 @@ module.exports = {
             title: "幻想吉米 RSS",
           },
         ],
+      },
+    },
+
+    /* GTM */
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-5FJWMKB",
+
+        // Include GTM in development.
+        //
+        // Defaults to false meaning GTM will only be loaded in production.
+        includeInDevelopment: false,
+
+        // datalayer to be set before GTM is loaded
+        // should be an object or a function that is executed in the browser
+        //
+        // Defaults to null
+        defaultDataLayer: { platform: "gatsby" },
       },
     },
   ],
