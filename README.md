@@ -72,8 +72,9 @@ module.exports = {
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-plugin-sitemap`,
+      resolve: "gatsby-plugin-sitemap",
       options: {
+        ...
         output: `/sitemap.xml`,
       },
     },
