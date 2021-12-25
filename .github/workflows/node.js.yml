@@ -50,17 +50,18 @@ jobs:
           echo "TIME_VERSION=$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV        
           echo "REF_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV  
           echo "SHA_VERSION=${GITHUB_SHA}" >> $GITHUB_ENV
+
+      - name: ECHO Variable
+        run: |
+          echo "${{ env.REF_VERSION }}"
+          echo "${{ env.SHA_VERSION }}" 
+
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: ECHO Variable
-        run: |
-          echo "${{ env.REF_VERSION }}"
-          echo "${{ env.SHA_VERSION }}"      
+          aws-region: ${{ secrets.AWS_REGION }}           
 
       - name: Develop - Delopy to S3
         if: env.REF_VERSION == 'develop'
