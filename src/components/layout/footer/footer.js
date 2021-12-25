@@ -5,6 +5,7 @@ import Container from "@mui/material/Container"
 
 import GitHubIcon from "@mui/icons-material/GitHub"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
+import RssFeedIcon from "@mui/icons-material/RssFeed"
 
 import * as styles from "./footer.module.css"
 
@@ -70,6 +71,16 @@ const Footer = () => {
                   title="LinkedIn"
                 >
                   <LinkedInIcon />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/rss.xml"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="RSS 訂閱"
+                >
+                  <RssFeedIcon />
                 </a>
               </li>
             </ul>

@@ -9,7 +9,7 @@ const SubString = require("./src/components/common/function/subString")
 const {
   GetDateTime,
   ConversionDateTime,
-} = require("./src/components/common/function/getDateTime")
+} = require("./src/components/common/function/handleDateTime")
 
 /** 
   自定義環境變量
@@ -133,9 +133,99 @@ module.exports = {
 
     /* SiteMap */
     {
-      resolve: `gatsby-plugin-sitemap`,
+      resolve: "gatsby-plugin-sitemap",
       options: {
-        output: `/sitemap.xml`,
+        createLinkInHead: true,
+        query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allArticle: allMarkdownRemark(
+            filter: {
+              fileAbsolutePath: { regex: "/content/blog/" }
+              frontmatter: {
+                published: { eq: true }
+                publishDate: { lte: "${nowDate}" }
+              }
+            }
+            sort: { 
+              order: ASC,
+              fields: [
+                frontmatter___updateDate,
+                frontmatter___publishDate,
+                frontmatter___id
+              ] 
+            }
+          ) {
+            nodes {
+              frontmatter {
+                urlTitle
+                updateDate
+              }
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: ({ site }) => {
+          return site.siteMetadata.siteUrl
+        },
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allArticle: { nodes: allArticleNodes },
+        }) => {
+          // 所有 blog 文章
+          const articleNodeMap = allArticleNodes.map(node => {
+            return {
+              path: `/blog/article/${node.frontmatter.urlTitle}/`,
+              lastmod: ConversionDateTime({
+                date: node.frontmatter.updateDate,
+                oldType: "yyyy-mm-dd hh:mm:ss",
+                newType: "GMT",
+              }),
+            }
+          })
+
+          // 最終頁數合併
+          const finalAllPages = allPages.map(page => {
+            // temp
+            let newPage = page
+
+            // blog 文章
+            if (page.path.slice(0, 14) === "/blog/article/") {
+              // 尋找 blog 文章
+              let tempObject = articleNodeMap.find(x => x.path === page.path)
+
+              // 如果找到，添加 lastmod
+              if (typeof tempObject !== "undefined") {
+                newPage.lastmod = tempObject.lastmod
+              }
+            }
+
+            return { ...newPage }
+          })
+
+          return finalAllPages
+        },
+        serialize: ({ path, lastmod }) => {
+          if (lastmod) {
+            return {
+              url: path,
+              lastmod: lastmod,
+            }
+          } else {
+            return {
+              url: path,
+            }
+          }
+        },
       },
     },
 
@@ -157,8 +247,8 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(edge => {
+            serialize: ({ query: { site, allArticle } }) => {
+              return allArticle.nodes.map(edge => {
                 let tempDescription = edge.frontmatter.description
                   ? SubString({
                       str: edge.frontmatter.description,
@@ -190,7 +280,7 @@ module.exports = {
             },
             query: `
               {
-                allMarkdownRemark(
+                allArticle: allMarkdownRemark(
                   filter: {
                     fileAbsolutePath: { regex: "/content/blog/" }
                     frontmatter: {
@@ -209,9 +299,8 @@ module.exports = {
                 ) {
                   nodes {
                     frontmatter {
-                      id
-                      urlTitle
                       title
+                      urlTitle
                       publishDate
                       updateDate
                       description
@@ -222,7 +311,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "幻想吉米 RSS",
+            title: "幻想吉米",
           },
         ],
       },

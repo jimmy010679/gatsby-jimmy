@@ -6,6 +6,8 @@
  * @return {String}        結果
  */
 
+var { DateTime } = require("luxon")
+
 var GetDateTime = function ({ type, format }) {
   // ----------------------------------------------------------------
   // 取得現在日期
@@ -79,7 +81,7 @@ var GetDateTime = function ({ type, format }) {
 
 var ConversionDateTime = function ({ date, oldType, newType }) {
   // ----------------------------------------------------------------
-  let dateTime = undefined
+  let tempDateTime = undefined
   let newDate = undefined
 
   // ----------------------------------------------------------------
@@ -91,7 +93,7 @@ var ConversionDateTime = function ({ date, oldType, newType }) {
   switch (oldType) {
     case "yyyy-mm-dd hh:mm:ss":
       // "2020-12-03 00:00:00"
-      dateTime = new Date(
+      tempDateTime = new Date(
         date.substr(0, 4),
         date.substr(5, 2),
         date.substr(8, 2),
@@ -103,7 +105,7 @@ var ConversionDateTime = function ({ date, oldType, newType }) {
         hour12: false,
       })
 
-      newDate = new Date(dateTime)
+      newDate = new Date(tempDateTime)
 
       break
     default:
@@ -115,8 +117,14 @@ var ConversionDateTime = function ({ date, oldType, newType }) {
   switch (newType) {
     case "GMT":
       newFormatDate = newDate.toUTCString()
-
       break
+
+    case "TimeZone":
+      newFormatDate = DateTime.fromFormat(newDate, oldType, {
+        zone: "Asia/Taipei",
+      }).toString()
+      break
+
     default:
       break
   }

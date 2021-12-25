@@ -4,7 +4,9 @@
 //const { constants } = require("buffer")
 const path = require(`path`)
 
-const { GetDateTime } = require("./src/components/common/function/getDateTime")
+const {
+  GetDateTime,
+} = require("./src/components/common/function/handleDateTime")
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // 全局變數
