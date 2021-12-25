@@ -7,7 +7,7 @@
  * @return {String}        擷取結果
  */
 
-const SubString = ({ str, n, hasDot }) => {
+var SubString = function ({ str, n, hasDot }) {
   let r = /[^\0-\xff]/g // eslint-disable-line
   let m
 
@@ -23,4 +23,4 @@ const SubString = ({ str, n, hasDot }) => {
   return str
 }
 
-export default SubString
+module.exports = SubString

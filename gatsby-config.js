@@ -4,6 +4,13 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+const RemoveHTML = require("./src/components/common/function/removeHTML")
+const SubString = require("./src/components/common/function/subString")
+const {
+  GetDateTime,
+  ConversionDateTime,
+} = require("./src/components/common/function/GetDateTime")
+
 /** 
   自定義環境變量
   開發 .env.development
@@ -12,6 +19,12 @@
  */
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
+})
+
+// 取得今日Taipei Date
+const nowDate = GetDateTime({
+  type: "today",
+  format: "yyyy-mm-dd 00:00:00",
 })
 
 module.exports = {
@@ -26,25 +39,6 @@ module.exports = {
   },
 
   plugins: [
-    /* GTM */
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: "GTM-5FJWMKB",
-
-        // Include GTM in development.
-        //
-        // Defaults to false meaning GTM will only be loaded in production.
-        includeInDevelopment: false,
-
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        //
-        // Defaults to null
-        defaultDataLayer: { platform: "gatsby" },
-      },
-    },
-
     /* 遠程 Git repositories 資料 */
     {
       resolve: `gatsby-source-git`,
@@ -137,11 +131,120 @@ module.exports = {
       },
     },
 
+    /* GTM */
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-5FJWMKB",
+
+        // Include GTM in development.
+        //
+        // Defaults to false meaning GTM will only be loaded in production.
+        includeInDevelopment: false,
+
+        // datalayer to be set before GTM is loaded
+        // should be an object or a function that is executed in the browser
+        //
+        // Defaults to null
+        defaultDataLayer: { platform: "gatsby" },
+      },
+    },
+
     /* SiteMap */
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         output: `/sitemap.xml`,
+      },
+    },
+
+    /* RSS */
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteName
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              console.log(allMarkdownRemark.nodes.length)
+              return allMarkdownRemark.nodes.map(edge => {
+                let tempDescription = edge.frontmatter.description
+                  ? SubString({
+                      str: edge.frontmatter.description,
+                      n: 200,
+                      hasDot: true,
+                    })
+                  : SubString({
+                      str: RemoveHTML({ html: edge.html }),
+                      n: 200,
+                      hasDot: true,
+                    })
+
+                return Object.assign({}, edge.frontmatter, {
+                  description: tempDescription,
+                  date: edge.frontmatter.publishDate,
+                  custom_elements: [
+                    {
+                      updated: ConversionDateTime({
+                        date: edge.frontmatter.updateDate,
+                        oldType: "yyyy-mm-dd hh:mm:ss",
+                        newType: "GMT",
+                      }),
+                    },
+                  ],
+                  url: `${site.siteMetadata.siteUrl}/blog/article/${edge.frontmatter.urlTitle}/`,
+                  guid: `${site.siteMetadata.siteUrl}/blog/article/${edge.frontmatter.urlTitle}/`,
+                })
+              })
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  filter: {
+                    fileAbsolutePath: { regex: "/content/blog/" }
+                    frontmatter: {
+                      published: { eq: true }
+                      publishDate: { lte: "${nowDate}" }
+                    }
+                  }
+                  sort: { 
+                    order: ASC,
+                    fields: [
+                      frontmatter___updateDate,
+                      frontmatter___publishDate,
+                      frontmatter___id
+                    ] 
+                  }
+                ) {
+                  nodes {
+                    frontmatter {
+                      id
+                      urlTitle
+                      title
+                      publishDate
+                      updateDate
+                      description
+                    }
+                    html
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "幻想吉米 RSS",
+          },
+        ],
       },
     },
   ],
