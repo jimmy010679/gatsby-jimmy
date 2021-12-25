@@ -9,7 +9,7 @@ const SubString = require("./src/components/common/function/subString")
 const {
   GetDateTime,
   ConversionDateTime,
-} = require("./src/components/common/function/GetDateTime")
+} = require("./src/components/common/function/getDateTime")
 
 /** 
   自定義環境變量
