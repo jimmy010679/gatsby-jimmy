@@ -86,6 +86,6 @@ jobs:
       - name: Master - Delopy zip to S3 and elasticbeanstalk update
         if: github.event_name != 'workflow_dispatch' && env.REF_VERSION == 'master'
         run: |
-          aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
+          # aws s3 cp output s3://${{ secrets.AWS_S3_BUCKET_PREVIEW }} --recursive
           # aws elasticbeanstalk create-application-version --application-name ${{ secrets.AWS_ELASTICBEANSTALK_APPLICATION_NAME }} --version-label ${{ env.SHA_VERSION }} --source-bundle S3Bucket="${{ secrets.AWS_S3_BUCKET_PREVIEW }}",S3Key="${{ env.SHA_VERSION }}.zip"
           # aws elasticbeanstalk update-environment --application-name ${{ secrets.AWS_ELASTICBEANSTALK_APPLICATION_NAME }} --environment-name ${{ secrets.AWS_ELASTICBEANSTALK_ENVIRONMENT_NAME }} --version-label ${{ env.SHA_VERSION }}
