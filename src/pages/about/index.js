@@ -13,7 +13,17 @@ const About = ({ location }) => {
 
   return (
     <Layout path={location.pathname}>
-      <Seo title="關於我" isShowSiteName={true} description="關於幻想吉米" />
+      <Seo
+        title="關於我"
+        isShowSiteName={true}
+        description="關於幻想吉米"
+        BreadcrumbList={[
+          {
+            link: `/about/`,
+            name: "關於我",
+          },
+        ]}
+      />
       <div className={styles.about}>
         <Container maxWidth="lg">
           <div className={styles.content}>

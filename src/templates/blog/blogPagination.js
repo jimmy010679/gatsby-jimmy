@@ -25,7 +25,17 @@ const BlogPagination = ({ pageContext, location, data }) => {
 
   return (
     <Layout path={location.pathname}>
-      <Seo title="部落格" isShowSiteName={true} description="部落格文章列表" />
+      <Seo
+        title="部落格"
+        isShowSiteName={true}
+        description="部落格文章列表"
+        BreadcrumbList={[
+          {
+            link: `/blog/`,
+            name: "部落格",
+          },
+        ]}
+      />
       <Container maxWidth="lg">
         <div className={styles.blogContainer}>
           <Breadcrumb

@@ -32,7 +32,17 @@ const PortfolioList = ({ pageContext, location, data }) => {
 
   return (
     <Layout path={location.pathname}>
-      <Seo title="作品集" isShowSiteName={true} description="作品集列表" />
+      <Seo
+        title="作品集"
+        isShowSiteName={true}
+        description="作品集列表"
+        BreadcrumbList={[
+          {
+            link: `/portfolio/`,
+            name: "作品集",
+          },
+        ]}
+      />
       <Container maxWidth="lg">
         <div className={styles.portfolioContainer}>
           <Breadcrumb

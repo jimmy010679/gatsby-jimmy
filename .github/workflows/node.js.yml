@@ -53,6 +53,7 @@ jobs:
 
       - name: ECHO Variable
         run: |
+          echo "${{ env.TIME_VERSION }}"
           echo "${{ env.REF_VERSION }}"
           echo "${{ env.SHA_VERSION }}" 
 
@@ -67,7 +68,19 @@ jobs:
         if: env.REF_VERSION == 'develop'
         run: |
           aws s3 rm s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
-          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive
+          aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }} --recursive         
+         
+          # aws s3 cp public s3://${{ secrets.AWS_S3_BUCKET_DEVELOP }}/${{ env.TIME_VERSION }} --recursive
+          # 設定值
+          # RAW_ETAG=$(aws cloudfront get-distribution-config --id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} | jq '.ETag')
+          # ETAG=$(echo ${RAW_ETAG} | sed "s/\"//g")
+          # 設定值 轉成 文件形式
+          # aws cloudfront get-distribution-config --id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} | jq '.["DistributionConfig"]' > old_dist.conf
+          # 修改設定檔
+          # cat old_dist.conf | jq '.["Origins"]["Items"][0]["OriginPath"] = "'/${{ env.TIME_VERSION }}'"' > new_dist.conf
+          # 更新
+          # aws cloudfront update-distribution --id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --distribution-config file://new_dist.conf --if-match ${ETAG}
+
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_ID_DEVELOP }} --paths "/*"
 
       - name: Master - Delopy to S3

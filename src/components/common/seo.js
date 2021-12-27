@@ -39,7 +39,11 @@ const SEO = ({
 
   // 更新日期
   modifiedTime = "",
-  // -------------------------------------------------------------------------------------
+
+  /* -------------------------------------------------------------------------------------
+   * BreadcrumbList
+   */
+  BreadcrumbList = [],
 }) => {
   // ------------------------------------------------------------------------------------------------------------------------------
   // 讀取路徑
@@ -54,7 +58,7 @@ const SEO = ({
 
   // ------------------------------------------------------------------------------------------------------------------------------
   // 組成新資料
-  const seo = {
+  let seo = {
     // -------------------------------------------------------------------------------------
     // 網站名稱
     siteName: siteName,
@@ -86,6 +90,35 @@ const SEO = ({
       ? formatTimeZone(modifiedTime, "Asia/Taipei", "yyyy-MM-dd HH:mm:ss")
       : "",
     // -------------------------------------------------------------------------------------
+  }
+  // ------------------------------------------------------------------------------------------------------------------------------
+
+  let breadcrumbListldJson = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          item: siteUrl,
+          name: siteName,
+        },
+      },
+    ],
+  }
+
+  if (BreadcrumbList.length > 0) {
+    BreadcrumbList.forEach((item, index) => {
+      breadcrumbListldJson.itemListElement.push({
+        "@type": "ListItem",
+        position: index + 2,
+        item: {
+          item: `${siteUrl}${item.link}`,
+          name: item.name,
+        },
+      })
+    })
   }
 
   // ------------------------------------------------------------------------------------------------------------------------------
@@ -134,6 +167,9 @@ const SEO = ({
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;600&display=swap"
         rel="stylesheet"
       ></link>
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbListldJson)}
+      </script>
     </Helmet>
   )
   // ------------------------------------------------------------------------------------------------------------------------------

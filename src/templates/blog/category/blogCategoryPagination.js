@@ -32,9 +32,19 @@ const BlogCategoryPagination = ({ pageContext, location, data }) => {
   return (
     <Layout path={location.pathname}>
       <Seo
-        title={`${name_Chinese} / 標籤 / 部落格`}
+        title={`${name_Chinese} / 分類 / 部落格`}
         isShowSiteName={true}
         description="部落格文章列表"
+        BreadcrumbList={[
+          {
+            link: `/blog/`,
+            name: "部落格",
+          },
+          {
+            link: `/blog/category/${name_English}/`,
+            name: `${name_Chinese}`,
+          },
+        ]}
       />
       <Container maxWidth="lg">
         <div className={styles.blogContainer}>

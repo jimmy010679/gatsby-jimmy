@@ -28,6 +28,16 @@ const BlogTagPagination = ({ pageContext, location, data }) => {
         title={`${name} / 標籤 / 部落格`}
         isShowSiteName={true}
         description="部落格文章列表"
+        BreadcrumbList={[
+          {
+            link: `/blog/`,
+            name: "部落格",
+          },
+          {
+            link: `/blog/tag/${name}/`,
+            name: `${name}`,
+          },
+        ]}
       />
       <Container maxWidth="lg">
         <div className={styles.blogContainer}>
