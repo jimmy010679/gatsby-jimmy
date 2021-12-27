@@ -17,7 +17,7 @@ const Article = ({ pageContext, location }) => {
 
   const {
     //id,
-    //urlTitle,
+    urlTitle,
     title,
     content,
     cover,
@@ -54,11 +54,25 @@ const Article = ({ pageContext, location }) => {
       <Seo
         title={`${title} / 部落格`}
         isShowSiteName={true}
+        type="article"
         description={echoDescription}
         cover={cover}
-        type="article"
         publishedTime={publishDate}
         modifiedTime={updateDate}
+        BreadcrumbList={[
+          {
+            link: `/blog/`,
+            name: "部落格",
+          },
+          {
+            link: `/blog/category/${name_English}/`,
+            name: name_Chinese,
+          },
+          {
+            link: `/blog/article/${urlTitle}/`,
+            name: title,
+          },
+        ]}
       />
 
       <article id={styles.article}>

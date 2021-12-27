@@ -44,6 +44,16 @@ const Work = ({ pageContext, location }) => {
               })
         }
         isShowSiteName={true}
+        BreadcrumbList={[
+          {
+            link: `/portfolio/`,
+            name: "作品集",
+          },
+          {
+            link: `/portfolio/${urlTitle}/`,
+            name: title,
+          },
+        ]}
       />
       <Container maxWidth="md">
         <div className={styles.workContainer}>
