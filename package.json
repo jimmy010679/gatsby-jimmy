@@ -20,7 +20,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.5",
+    "@mui/material": "^5.2.6",
     "axios": "^0.21.4",
     "gatsby": "^4.4.0",
     "gatsby-legacy-polyfills": "^1.14.0",
