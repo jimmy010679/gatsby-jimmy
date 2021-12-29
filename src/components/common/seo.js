@@ -101,7 +101,7 @@ const SEO = ({
         "@type": "ListItem",
         position: 1,
         item: {
-          item: siteUrl,
+          "@id": siteUrl,
           name: siteName,
         },
       },
@@ -114,7 +114,7 @@ const SEO = ({
         "@type": "ListItem",
         position: index + 2,
         item: {
-          item: `${siteUrl}${item.link}`,
+          "@id": `${siteUrl}${item.link}`,
           name: item.name,
         },
       })
