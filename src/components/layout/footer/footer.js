@@ -44,7 +44,7 @@ const Footer = () => {
             <ul>
               <li>
                 <a
-                  href="https://www.104.com.tw/profile/UVHvZop4L"
+                  href="https://profile.104.com.tw/UVHvZop4L/about/"
                   target="_blank"
                   rel="noreferrer"
                   title="104個人品牌"
